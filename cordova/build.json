@@ -1,0 +1,20 @@
+{
+    "android": {
+        "debug": {
+            "keystore": "./my-release-key.keystore",
+            "storePassword": "stolica",
+            "alias": "alias_name",
+            "password" : "stolica",
+            "keystoreType": "jks",
+            "packageType": "apk"
+        },
+        "release": {
+            "keystore": "./my-release-key.keystore",
+            "storePassword": "stolica",
+            "alias": "alias_name",
+            "password" : "stolica",
+            "keystoreType": "jks",
+            "packageType": "bundle"
+        }
+    }
+}

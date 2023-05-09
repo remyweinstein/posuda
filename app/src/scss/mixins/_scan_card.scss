@@ -1,0 +1,25 @@
+@mixin scanBorder($b1, $b2) {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 
+    {
+        #{$b1}: 2px solid #D3D3D3;
+        #{$b2}: 2px solid #D3D3D3;
+    }
+    #{$b1}: 1%;
+    #{$b2}: 5%;
+}
+
+@mixin focusItem($b1, $b2) {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 
+    {
+        #{$b1}: 2px solid #D3D3D3;
+        #{$b2}: 2px solid #D3D3D3;
+    }
+    #{$b1}: 0;
+    #{$b2}: 0;
+}

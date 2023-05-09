@@ -1,0 +1,68 @@
+.mainMenu {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 4;
+    overflow: auto;
+    padding-top: calc($height_header + $iphone_notch);
+    background: url(../../assets/backs/bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: rgba(0,0,0,.8);
+    
+    .mainMenu__head {
+        top: 0;
+        position: fixed;
+        z-index: 1;
+        height: $height_header;
+        border-bottom: 1px #efefef ridge;
+        display: grid;
+        grid-template-columns: 1fr 4fr 1fr;
+        align-items: center;
+        justify-items: center;
+        background-color: white;
+        width: inherit;
+        font-weight: 600;
+        padding-top: $iphone_notch;
+
+        .mainMenu__head_right {
+            font-size: 24px;
+        }
+    }
+}
+
+.mainMenu__content {
+    text-align: center;
+    color: #4062b7;
+    font-size: 2rem;
+    
+    .mainMenu__content_nav {
+        
+        & > li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #fff;
+            list-style: none;
+            margin-bottom: 0;
+        }
+    }
+    
+    .mainMenu__content_bottom {
+        margin-top: 4rem;
+
+        & > li {
+            list-style: none;
+            margin-bottom: 0;
+
+            i {
+                color: #bbb;
+                font-size: 3rem;
+            }
+            
+            &:nth-child(2) {
+                padding-bottom: 3rem;
+            }
+        }
+    }
+}
+

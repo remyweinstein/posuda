@@ -1,0 +1,71 @@
+/* Reset */
+/* @import "vendors/normalize"; */
+
+/* Fontello Icons */
+/* @import "vendors/fontello"; */
+
+/* Animate */
+/* @import "vendors/animate"; */
+
+/* Google Sans Font */
+/* @import "vendors/google-open-sans"; */
+
+/* Google Sans Font */
+/* @import "vendors/google-open-sans"; */
+
+/* Skeleton Boilerplate */
+/* @import "vendors/skeleton_new"; */
+
+
+/* Site settings */
+@import "site-settings";
+
+/* Mixins */
+@import "mixins/animations";
+@import "mixins/scan_card";
+
+/* Base */
+@import "base";
+
+/* Layouts */
+@import "layouts/content";
+@import "layouts/footer";
+@import "layouts/header";
+
+/* Sections */
+@import "sections/news";
+@import "sections/notifications";
+@import "sections/stores";
+@import "sections/setting_notify";
+@import "sections/set_plastic";
+@import "sections/personal";
+@import "sections/personal_update";
+@import "sections/wallet";
+@import "sections/feedback";
+@import "sections/authorization";
+@import "sections/alerts";
+@import "sections/terms";
+@import "sections/refer";
+@import "sections/registration";
+
+/* Blocks */
+@import "blocks/bottomnav";
+@import "blocks/faq";
+@import "blocks/loaders";
+@import "blocks/mainmenu";
+@import "blocks/topnav";
+@import "blocks/tabs";
+@import "blocks/mask";
+@import "blocks/popup";
+@import "blocks/tips";
+@import "blocks/toast";
+@import "blocks/alert_updater";
+@import "blocks/animate";
+
+/* Elements */
+@import "elements/input_radio";
+@import "elements/switch";
+@import "elements/switcher";
+@import "elements/th";
+@import "elements/button";
+@import "elements/pass_eye";

@@ -1,0 +1,82 @@
+.storesList {
+    margin-top: -5rem;
+
+    .storesList__block {
+        width: 100%;
+        text-align: left;
+        border-bottom: 1px solid #E1E1E1;
+        padding: 16px 0px 16px 15px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .storesList__block_shedule {
+        color: #999;
+        font-size: 13px;
+    }
+
+}
+
+.storeMap {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    z-index: 5;
+}
+.storeMap__block {
+    background: #fff;
+    border-radius: 8px;
+    z-index: 999;
+    width: 98%;
+    justify-self: center;
+    align-self: center;
+
+    .storeMap__block_city {
+        background: #f1f1f1;
+        text-align: center;
+        font-size: 18px;
+        text-transform: uppercase;
+        padding: 10px 0px;
+        border-radius: 8px 8px 0px 0px;
+
+        i {
+            position: absolute;
+            right: 1rem;
+        }
+    }
+
+    .storeMap__block_info {
+        padding: 18px 26px;
+
+        & > div {
+            padding: 3px 0px;
+
+            & > span:nth-child(1) {
+                font-weight: 600;
+                padding-right: 10px;
+            }
+        }
+    }
+}
+.storeMap__bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(13, 14, 13, 0.7);
+    z-index: 998;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+}
+
+@media(max-width: 320px){
+    #map {
+        height: 190px;
+    }
+}

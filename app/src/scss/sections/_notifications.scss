@@ -1,0 +1,31 @@
+ul.notifications {
+    padding: 1em;
+    list-style: none;
+
+    li {
+        border-bottom: 1px solid #f5f4f4;
+        text-align: left;
+        min-height: 2.75em;
+        margin: 0;
+        padding: 0.5em 0;
+
+        &.unread {
+            font-weight: 600;
+        }
+    }
+}
+
+.icon-bell.topNav__msg.unread {
+    position: relative;
+
+    &:after {
+        content: "";
+        height: 10px;
+        width: 10px;
+        background-color: #ff0202;
+        border-radius: 50%;
+        position: absolute;
+        top: 6px;
+        left: 14px;
+    }
+}

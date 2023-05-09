@@ -1,0 +1,90 @@
+.farAway {
+    position:absolute;
+    left:-10000px;
+}
+
+.personal__head {
+    background: #fff;
+    padding-bottom: 3rem;
+
+    h5 {
+	padding-top: 1em;
+        padding-bottom: 0.5em;
+    }
+
+    .alerts__block_item > span {
+        padding-left: 0;
+    }
+    
+    & > .personal__head_birthday {
+        text-transform: lowercase;
+        color: #9e9e9e;
+        margin: 10px 0px;
+    }
+
+    .personal__head_data {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-items: left;
+    }
+
+    .personal__head_name {
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 21px;
+    }
+    
+    .personal__head_phone {
+        color: #616161;
+    }
+    
+    .personal__head_avatar {
+        display: grid;
+        justify-items: center;
+        padding-top: 30px;
+
+        .personal__head_avatar_image {
+            background: #f1f1f1;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+
+            img {
+                margin: 15px;
+            }
+        }
+    }
+}
+
+.personal__footer {
+    
+    .personal__footer_title {
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    
+    .personal__footer_level {
+        position: relative;
+
+        .personal__footer_level_text {
+            position: absolute;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            top: 13%;
+            color: #fff;
+            text-transform: uppercase;
+        }
+    }
+    
+    .personal__footer_type {
+        display: none;
+        font-size: 18px;
+        color: #616161;
+        margin-top: 40px;
+    }
+    
+    .personal__footer_event {
+        margin-top: 4rem;
+    }
+}

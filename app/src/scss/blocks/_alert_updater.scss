@@ -1,0 +1,42 @@
+.alertUpdater {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    height: 6rem;
+    display: grid;
+    background: #fff;
+    align-items: center;
+    justify-items: center;
+    border-bottom: 1px #efefef ridge;
+    grid-template-columns: 1fr 4fr 1fr;
+    padding-top: env(safe-area-inset-top,0);
+    
+    .alertUpdater__icon {
+        align-self: end;
+    }
+    
+    .alertUpdater__desc {
+        color: #4063b7;
+        line-height: 2.1rem;
+        font-size: 1.32rem;
+        justify-self: left;
+        padding-left: 1rem;
+        
+        .alertUpdater__desc_name {
+            a {
+                color: #000;
+                font-weight: 600;
+                font-size: 1.7rem;
+                text-decoration: none;
+            }
+        }
+    }
+    
+    .alertUpdater__cancel {
+        i {
+            font-size: 2.5rem;
+            color: #d3d3d3;
+        }
+    }
+}

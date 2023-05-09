@@ -1,0 +1,25 @@
+.popupOverlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+    text-align: center;
+    background-color: rgba(0,0,0,.8);
+    font-size: 20px;
+}
+.popupCont {
+    margin: 8px;
+    padding: 16px;
+    position: relative;
+    background-color: white;
+    border-radius: 8px;
+    
+    hr {
+       margin: 0 0 1rem 0;
+    }
+}

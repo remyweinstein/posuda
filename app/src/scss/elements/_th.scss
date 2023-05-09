@@ -1,0 +1,17 @@
+.textWings {
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+    align-items: center;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  
+    &:before {
+        content:" ";
+        border-top: 1px solid #E1E1E1;
+    }
+    
+    &:after {
+        content:" ";
+        border-top: 1px solid #E1E1E1;
+    }
+}

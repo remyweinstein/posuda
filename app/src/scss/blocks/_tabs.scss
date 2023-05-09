@@ -1,0 +1,38 @@
+.system_tabsHead {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+    label {
+       text-transform: uppercase;
+       margin: 7px 0 0 30px !important;
+       height: 40px !important;
+    }
+   
+    & > span {
+        width: 94%;
+        text-align: left;
+        padding: 5px;
+        height: 40px;
+        position: relative;
+    }
+    
+    .tab_h_active {
+        background: #f6f6f6 !important;
+    }
+}
+
+.system_tabsContent {
+    
+    .tab_c_active {
+        background: #f6f6f6 !important;
+        display: block !important;
+        text-align: left;
+        padding-left: 10px;
+    }
+    
+    & > div {
+        display: none;
+        font-size: 13px;
+        padding: 10px;
+    }
+}

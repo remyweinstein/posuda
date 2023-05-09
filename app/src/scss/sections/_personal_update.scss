@@ -1,0 +1,31 @@
+.personalUpdate {
+    
+    .personalUpdate__setPlastic {
+        text-align: left;
+        margin-bottom: 4rem;
+        margin-top: 2rem;
+
+        p {
+            font-size: 14px;
+            color: #666;
+            margin: 0px;
+        }
+    }
+    
+    .personalUpdate__h {
+        font-weight: 600;
+    }
+    
+    .personalUpdate__inputPass {
+        position: relative;
+    }
+    
+    .personalUpdate__system {
+        background: #fff;
+        padding: 16px 0px;
+
+        .personalUpdate__system_update {
+            margin-bottom: 24px;
+        }
+    }
+}

@@ -1,0 +1,46 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Arial Regular", sans-serif;
+    overflow-x: hidden;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.required::after {
+    content: "*";
+    position: absolute;
+    top: 7px;
+    right: -12px;
+}
+
+.link {
+    font-size: 1.3rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.temporary {
+    padding-top: 10em;
+}
+
+.b {
+    font-weight: bold;
+}
+
+.hideOverflow {
+    overflow: hidden;
+}
+
+input.fail {
+    border: 1px solid #e91e63 !important;
+}

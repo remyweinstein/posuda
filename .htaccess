@@ -1,0 +1,10 @@
+AddDefaultCharset utf-8
+
+RewriteEngine on
+
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php
+RewriteCond %{HTTP_HOST} ^www.bonus.stolica-dv.ru$ [NC]
+RewriteRule ^(.*)$ https://bonus.stolica-dv.ru/$1 [R=301,L]

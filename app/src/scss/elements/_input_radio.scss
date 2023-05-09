@@ -1,0 +1,32 @@
+input[type="radio"] {
+    position: absolute;
+    left: -9999px;
+}
+
+input[type="radio"]:checked + label:before, input[type="radio"]:not(:checked) + label:before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+    background: #fff;
+}
+
+input[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    content: "";
+    width: 12px;
+    height: 12px;
+    background: #28a960;
+    position: absolute;
+    top: 19px;
+    left: 14px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}

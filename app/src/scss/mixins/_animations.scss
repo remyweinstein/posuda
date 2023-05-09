@@ -1,0 +1,139 @@
+@mixin keyframes($name){
+    @keyframes #{$name}{
+        @content;
+    }
+}
+
+@mixin animate($animation,$duration,$method,$times){
+    animation: $animation $duration $method $times;
+}
+
+@mixin flash {
+    @keyframes flash {
+        from,
+        50%,
+        to {
+            opacity: 1;
+        }
+        25%,
+        75% {
+            opacity: 0;
+        }
+    }
+}
+
+@mixin fadeIn {
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity:1 ;
+        }
+    }
+}
+
+@mixin fadeOut {
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+}
+
+@mixin slideInDown {
+    @keyframes slideInDown {
+        from {
+            transform: translate3d(0, -100%, 0);
+            visibility: visible;
+        }
+        to {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}
+
+@mixin slideInLeft {
+    @keyframes slideInLeft {
+        from {
+            transform: translate3d(-100%, 0, 0);
+            visibility: visible;
+        }
+        to {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}
+
+@mixin fadeInLeft {
+    @keyframes fadeInLeft {
+        from {
+            opacity: 0;
+            transform: translate3d(-100%, 0, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}
+
+@mixin fadeInDown {
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -100%, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}
+
+@mixin ellipsis3 {
+    @include keyframes(ellipsis3){
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(0);
+        }
+    }
+}
+
+@mixin ellipsis2 {
+    @include keyframes(ellipsis2){
+        0% {
+            transform: translate(0, 0);
+        }
+        100% {
+            transform: translate(24px, 0);
+        }
+    }
+}
+
+@mixin ellipsis1 {
+    @include keyframes(ellipsis1){
+        0% {
+            transform: scale(0);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+}
+
+@mixin rotation {
+    @include keyframes(rotation){
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}

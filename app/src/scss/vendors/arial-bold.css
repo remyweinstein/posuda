@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Arial Bold';
+  src: url('../../assets/fonts/ArialBold.eot');
+  src: url('../../assets/fonts/ArialBold.eot?#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/ArialBold.woff') format('woff'),
+    url('../../assets/fonts/ArialBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

@@ -1,0 +1,62 @@
+.terms {
+    position: fixed;
+    display: grid;
+    grid-template-rows: 4fr 1fr;
+    top: 0;
+    z-index: 4;
+    background: white;
+    height: 100vh;
+    width: 100vw;
+    
+    & > iframe {
+        width: 100%;
+        height: 100vh;
+    }
+	
+    .terms__content {
+        width: 100%;
+        height: 100vh;
+        overflow-y: auto;
+    }
+    
+    .terms__button {
+        display: grid;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #fff;
+        height: 10rem;
+        
+        button {
+            justify-self: center;
+            align-self: center;
+        }
+    }
+}
+
+.terms-of-use {
+    padding: 16px;
+    padding-bottom: 10rem;
+  
+    h3 {
+      text-align: center;
+    }
+    
+    h5 {
+      text-align: center;
+    }
+    
+    #terms_commands {
+      text-align: center;
+    }
+    
+    ul {
+      list-style-type: none;
+    }
+}
+
+@media(max-width: 440px) {
+  .terms-of-use {
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,57 @@
+.animated {
+    animation-duration: 0.33s;
+    animation-fill-mode: both;
+}
+
+.animate__faster {
+    animation-duration: 0.5s;
+}
+
+.animate__normaly {
+    animation-duration: 1s;
+}
+
+.animate__slow {
+    animation-duration: 2s;
+}
+
+.animate__furious {
+    animation-duration: 0.33s;
+}
+
+.animate__fadeInDown {
+    @include fadeInDown;
+    animation-name: fadeInDown;
+}
+
+.animate__fadeIn {
+    @include fadeIn;
+    animation-name: fadeIn;
+}
+
+.animate__fadeInLeft {
+    @include fadeInLeft;
+    animation-name: fadeInLeft;
+}
+
+
+.animate__slideInLeft {
+    @include slideInLeft;
+    animation-name: slideInLeft;
+}
+
+.animate__slideInDown {
+    @include slideInDown;
+    animation-name: slideInDown;
+}
+
+.animate__fadeOut {
+    @include fadeOut;
+    animation-name: fadeOut;
+}
+
+.animate__flash {
+    @include flash;
+    animation-name: flash;
+    animation-iteration-count: 2;
+}

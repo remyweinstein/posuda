@@ -1,0 +1,17 @@
+.alerts__block_item {
+    border-bottom: 1px solid #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    grid-gap: 2vw;
+    height: 6rem;
+    
+    & > span {
+        text-align: left;
+        padding-left: 3rem;
+    }
+    
+    & > div {
+        margin-left: 4rem
+    }
+}

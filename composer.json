@@ -1,0 +1,6 @@
+{
+    "require": {
+        "lkaybob/php-fcm-v1": "^1.0",
+        "sngrl/php-firebase-cloud-messaging": "dev-master"
+    }
+}

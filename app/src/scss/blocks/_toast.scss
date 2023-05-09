@@ -1,0 +1,29 @@
+.toasts {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 10rem;
+    z-index: 10000;
+    
+    .toast {
+        @extend .animated;
+        @extend .animate__slow;
+        @extend .animate__fadeOut;
+
+        .toast__cont {
+            padding: 0.25rem 2rem;
+            margin: 0 2rem;
+            text-align: center;
+            background-color: rgb(64 64 64 / 76%);
+            color: #ffffff;
+            border: 1px solid #9f9b9b;
+            border-radius: 36px;
+            font-size: 1.25rem;
+        }
+
+        &.active {
+            @extend .animate__fadeIn;
+            @extend .animate__normaly;
+        }
+    }
+}

@@ -1,0 +1,129 @@
+.setPlastic {
+    background: #F1F1F1;
+    
+    .setPlastic__head {
+        text-align: left;
+        margin-bottom: 4rem;
+        padding-top: 2rem;
+        
+        span {
+            font-weight: 600;
+            color: #5F5F5F;
+            font-size: 16px;
+        }
+        
+        p {
+            font-size: 14px;
+            color: #666;
+            margin: 0px;
+        }
+    }
+    
+    .setPlastic__foot {
+        
+        input {
+            width: 100%;
+        }
+        
+        button {
+            width: 100%;
+        }
+        
+        .setPlastic__foot_scanerQR {
+            position: relative;
+            height: 200px;
+            background: #fff;
+            width: 100%;
+            color: #666;
+            text-transform: none;
+            font-size: 13px;
+            font-weight: normal;
+            text-align: center;
+            display: grid;
+            padding: 0;
+            
+            #canvas {
+                width: 100%;
+                height: 198px;
+                background-color: #fff;
+                margin:0 auto;
+            }
+            
+            video {
+                width: 300px;
+                height: auto;
+                margin: 0 auto;
+                position: relative;
+                top: 2.75rem;
+                overflow: hidden;
+                background-color: #fff !important;
+            }
+            
+            .scan_focus {
+                position: absolute;
+                display: block;
+                height: 27px;
+                width: 28px;
+                justify-self: center;
+                align-self: center;
+
+                .scan_focus-block {
+                    display: block;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .scan_focus-item1 {
+                    @include focusItem(left, top);
+                }
+
+                .scan_focus-item2 {
+                    @include focusItem(right, top);
+                }
+
+                .scan_focus-item3 {
+                    @include focusItem(right, bottom);
+                }
+
+                .scan_focus-item4 {
+                    @include focusItem(left, bottom);
+                }
+
+                .scan_focus-item5 {
+                    position: absolute;
+                    width: 60%;
+                    height: 2px;
+                    background: #d3d3d3;
+                    top: 48%;
+                    left: 20%;
+                }
+            }
+        }
+        
+        .setPlastic__foot_scanText {
+            position: absolute;
+            width: 100%;
+            left: 0px;
+            top: 10%;
+            line-height: 24px;
+        }
+    }
+}
+
+.scan_border1 {
+    @include scanBorder(left, top);
+}
+
+.scan_border2 {
+    @include scanBorder(right, top);
+}
+
+.scan_border3 {
+    @include scanBorder(right, bottom);
+}
+
+.scan_border4 {
+    @include scanBorder(left, bottom);
+}
+
