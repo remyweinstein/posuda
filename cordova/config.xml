@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.stolica.bonuses" version="5.5.3" android-versionCode="239" ios-CFBundleVersion="239" ios-CFBundleIdentifier="com.stolica.bonuses" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mirposudy.bonuses" version="0.0.1" android-versionCode="1" ios-CFBundleVersion="1" ios-CFBundleIdentifier="com.mirposudy.bonuses" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Мир посуды</name>
     <description>Мир посуды - программа лояльности</description>
-    <author email="d.grebenyuk30@gmail.com" href="https://bonus.stolica-dv.ru/">
+    <author email="d.grebenyuk30@gmail.com" href="https://bonus.mp27.ru/">
         Отдел разработки ПО - Мир посуды
     </author>
     <content src="index.html" />
