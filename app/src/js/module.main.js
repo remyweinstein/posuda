@@ -889,6 +889,7 @@ function setConfirmationTimeout(result) {
         regConfInfoEl = C('#reg_confirmation_info');
 
     hide('#confirmation_button_reset');
+    //show('#confirmation_button_reset_note');
     secondsLeft = result.data.seconds_left;
     regConfCodePopupEl.text(result.description);
     regConfInfoEl.text(result.description);
@@ -905,6 +906,7 @@ function setConfirmationTimeout(result) {
             clearInterval(secondsInterval);
             regConfRemindEl.text('');
             show('#confirmation_button_reset');
+            //show('#confirmation_button_reset_note');
         }
     }, 1000);
 }
