@@ -1,4 +1,4 @@
-/* global C, Notification, fetch, ymaps, Document, Window, attachEvent, DOMAIN */
+/* global C, Notification, fetch, Document, Window, attachEvent, DOMAIN */
 
 const API_URL = `${DOMAIN}/api`;
 const TERMS_URL = `${DOMAIN}/politika-konfidentsialnosti`;
@@ -377,6 +377,40 @@ d.addEventListener('DOMContentLoaded', () => {
             C('body').bind("pointerdown", userActivity);
         }
     });
+
+    const x = 135.111677,
+          y = 48.427103;
+
+    const myMap = new ymaps.Map('map', {
+        center: [x, y],
+        zoom: 16
+    }, {
+        suppressMapOpenBlock: true
+    });
+
+    let objectManager = new ymaps.ObjectManager({
+        clusterize: true,
+        gridSize: 32,
+        clusterDisableClickZoom: true
+    });
+
+    objectManager.objects.options.set('preset', 'islands#greenDotIcon');
+    objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+
+    objectManager.add({
+        type: 'Feature',
+        id: 1,
+        geometry: {
+            type: 'Point',
+            coordinates: [x, y]
+        },
+        properties: {
+            hintContent: 'Мир посуды',
+            balloonContentHeader: ''
+        }
+    });
+
+    myMap.geoObjects.add(objectManager);
 });
 
 let startSwipeX = 0;
