@@ -391,9 +391,8 @@ d.addEventListener('DOMContentLoaded', () => {
         });
 
         const placemark = new ymaps.Placemark(myMap.getCenter(), {
-            balloonContentHeader: '<a href = "#">Мир посуды</a><br>' +
-                '<span class="description">Магазин посуды</span>',
-            balloonContentBody: '<img src="app/assets/icons/512x512.png" height="128" width="128"> <br/> ' +
+            balloonContentHeader: '<a href = "#">Мир посуды</a>',
+            balloonContentBody: '<img src="app/assets/logo/logo_512.png" height="128" width="12"> <br/> ' +
                 '<a href="tel:+7-4212-45-13-00">+7 (4212) 45-13-00</a><br/>' +
                 '<b>Режим работы</b> <br/> С 10:00 до 20:00',
             // Зададим содержимое нижней части балуна.
