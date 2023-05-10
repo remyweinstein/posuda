@@ -390,29 +390,21 @@ d.addEventListener('DOMContentLoaded', () => {
             suppressMapOpenBlock: true
         });
 
-        let objectManager = new ymaps.ObjectManager({
-            clusterize: true,
-            gridSize: 32,
-            clusterDisableClickZoom: true
+        const placemark = new ymaps.Placemark(myMap.getCenter(), {
+            balloonContentHeader: '<a href = "#">Мир посуды</a><br>' +
+                '<span class="description">Магазин посуды</span>',
+            balloonContentBody: '<img src="app/assets/icons/512x512.png" height="128" width="128"> <br/> ' +
+                '<a href="tel:+7-4212-45-13-00">+7 (4212) 45-13-00</a><br/>' +
+                '<b>Режим работы</b> <br/> С 10:00 до 20:00',
+            // Зададим содержимое нижней части балуна.
+            //balloonContentFooter: 'Информация предоставлена:<br/>OOO "Рога и копыта"',
+            // Зададим содержимое всплывающей подсказки.
+            hintContent: 'Мир посуды'
         });
-
-        objectManager.objects.options.set('preset', 'islands#greenDotIcon');
-        objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
-
-        objectManager.add({
-            type: 'Feature',
-            id: 1,
-            geometry: {
-                type: 'Point',
-                coordinates: [x, y]
-            },
-            properties: {
-                hintContent: 'Мир посуды',
-                balloonContentHeader: ''
-            }
-        });
-
-        myMap.geoObjects.add(objectManager);
+        // Добавим метку на карту.
+        myMap.geoObjects.add(placemark);
+        // Откроем балун на метке.
+        placemark.balloon.open();
     });
 });
 
