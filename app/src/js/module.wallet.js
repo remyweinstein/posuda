@@ -226,7 +226,7 @@ function drawPurchase(purchase) {
                 discount  = `${yana(discount_amount, "-")} Р`;
             }
             if(payment_amount && payment_amount != 0){
-                discount  = `${yana(payment_amount)} Б`;
+                discount  = `${yana(payment_amount)}`;// Б
             }
             
             tempPositions += `<div class="payment-details payment-details-full">
@@ -240,8 +240,8 @@ function drawPurchase(purchase) {
                             <div class="payment-details import">
                                 <span class="b">${yana(amount)} руб</span>
                                 <span class="bad b">${discount}</span>
-                                <span class="good b">${yana(cashback_amount, "+")} Б</span>
-                            </div>`;
+                                <span class="good b">${yana(cashback_amount, "+")}</span>
+                            </div>`;//+")} Б
         });
     }
     

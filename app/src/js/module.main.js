@@ -649,7 +649,6 @@ async function drawSection(section) {
         }
 
         case "reg_success": {
-            C('#tempName').val(C().getStor('tempName'));
             break;
         }
 
@@ -856,7 +855,7 @@ async function reg() {
         city: 1
     });
 
-    C().setStor('tempName', C("#reg_firstname").val());
+    C('#tempName').val(C("#reg_firstname").val());
 
     regButtonEl.disabled = false;
     hideLoader();
