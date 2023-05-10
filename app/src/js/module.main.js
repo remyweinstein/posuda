@@ -380,8 +380,8 @@ d.addEventListener('DOMContentLoaded', () => {
 
 
     ymaps.ready(function(){
-        const x = 135.111677,
-        y = 48.427103;
+        const y = 135.111677,
+        x = 48.427103;
 
         const myMap = new ymaps.Map('map', {
             center: [x, y],
