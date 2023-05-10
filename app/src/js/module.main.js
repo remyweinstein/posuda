@@ -378,39 +378,42 @@ d.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const x = 135.111677,
-          y = 48.427103;
 
-    const myMap = new ymaps.Map('map', {
-        center: [x, y],
-        zoom: 16
-    }, {
-        suppressMapOpenBlock: true
+    ymaps.ready(function(){
+        const x = 135.111677,
+        y = 48.427103;
+
+        const myMap = new ymaps.Map('map', {
+            center: [x, y],
+            zoom: 16
+        }, {
+            suppressMapOpenBlock: true
+        });
+
+        let objectManager = new ymaps.ObjectManager({
+            clusterize: true,
+            gridSize: 32,
+            clusterDisableClickZoom: true
+        });
+
+        objectManager.objects.options.set('preset', 'islands#greenDotIcon');
+        objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+
+        objectManager.add({
+            type: 'Feature',
+            id: 1,
+            geometry: {
+                type: 'Point',
+                coordinates: [x, y]
+            },
+            properties: {
+                hintContent: 'Мир посуды',
+                balloonContentHeader: ''
+            }
+        });
+
+        myMap.geoObjects.add(objectManager);
     });
-
-    let objectManager = new ymaps.ObjectManager({
-        clusterize: true,
-        gridSize: 32,
-        clusterDisableClickZoom: true
-    });
-
-    objectManager.objects.options.set('preset', 'islands#greenDotIcon');
-    objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
-
-    objectManager.add({
-        type: 'Feature',
-        id: 1,
-        geometry: {
-            type: 'Point',
-            coordinates: [x, y]
-        },
-        properties: {
-            hintContent: 'Мир посуды',
-            balloonContentHeader: ''
-        }
-    });
-
-    myMap.geoObjects.add(objectManager);
 });
 
 let startSwipeX = 0;
