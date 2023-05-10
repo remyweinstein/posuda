@@ -273,11 +273,11 @@ function drawPurchase(purchase) {
                     </div>
                     <div class="payment-row">
                         <span class="payment-amount" style="margin-left: 20px;">из них бонусами: </span>
-                        <span class="bad">${(amount ? `${amount} <span>Б</span>` : '')}</span>
+                        <span class="bad">${(amount ? `${amount}` : '')}</span>
                     </div>
                     <div class="payment-row">
                         <span class="payment-amount">Начислено бонусов: </span>
-                        <span class="good">${(cashback ? `${cashback} <span>Б</span>` : '')}</span>
+                        <span class="good">${(cashback ? `${cashback}` : '')}</span>
                     </div>
                     <div class="payment-row-store">
                         <span class="payment-amount">Магазин: </span>
@@ -292,6 +292,8 @@ function drawPurchase(purchase) {
                     </div>
                     ${tempPositions}
                     <center><button onClick="closePositions()">Закрыть</button></center>`;
+                    // ${amount} <span>Б</span>
+                    // ${cashback} <span>Б</span>
         }
         
     let typeTrans = type.name==="Покупка" ? "purch" : "trans";
@@ -304,10 +306,12 @@ function drawPurchase(purchase) {
                     </div>
                     <div class="purchase__row">
                         <span class="type"><span class="ring"><i class="${type.icon}"></i></span> <span class="title-${type.icon}">${type.name}</span></span>
-                        <span class="bad">${(amount ? `${amount} <span>Б</span>` : '')}</span>
-                        <span class="${(cashback_amount > 0 ? "good" : "bad")}">${(cashback ? `${cashback} <span>Б</span>` : "")}</span>
+                        <span class="bad">${(amount ? `${amount}` : '')}</span>
+                        <span class="${(cashback_amount > 0 ? "good" : "bad")}">${(cashback ? `${cashback}` : "")}</span>
                     </div>
                 </div>`;
+                // ${amount} <span>Б</span>
+                // ${cashback} <span>Б</span>
     
     const elList = C().strToNode(temp).el;
     C("#transactions").el.prepend(elList);
@@ -338,7 +342,8 @@ function openNearBurning() {
                                     <span>Дата сгорания:</span>
                                     <span class="bad">${date}</span>
                                 </div>
-                                <div class="payment-row-amount bad">${yana(amount)} <span>Б</span></div>`;
+                                <div class="payment-row-amount bad">${yana(amount)}</div>`;
+                                // ${amount} <span>Б</span>
             }
         });
         
