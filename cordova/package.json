@@ -23,7 +23,6 @@
     "cordova-plugin-device": "^2.1.0",
     "cordova-plugin-firebase-messaging": "^7.0.3",
     "cordova-plugin-inappbrowser": "^5.0.0",
-    "cordova-plugin-qr-barcode-scanner": "^8.0.3",
     "cordova-plugin-qrscanner": "github:bitpay/cordova-plugin-qrscanner",
     "cordova-plugin-splashscreen": "^6.0.1",
     "cordova-support-android-plugin": "^2.0.4",
@@ -53,10 +52,10 @@
       "cordova-plugin-firebase-messaging": {
         "ANDROID_FIREBASE_BOM_VERSION": "30.3.1"
       },
-      "cordova-support-android-plugin": {},
-      "cordova-plugin-qr-barcode-scanner": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
+      "cordova-support-android-plugin": {}
     }
+  },
+  "dependencies": {
+    "cordova": "^11.1.0"
   }
 }

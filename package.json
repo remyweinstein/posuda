@@ -1,5 +1,5 @@
 {
-  "name": "StolicaBonusLegacy",
+  "name": "posuda",
   "version": "1.0.0",
   "description": "SPA Bonuses AlcoMarket Stolica.",
   "main": "index.js",
@@ -13,7 +13,10 @@
     "gulp": "^4.0.2",
     "sass": "^1.49.9"
   },
-  "repository": "git@github.com:remyweinstein/StolicaBonusLegacy.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/remyweinstein/StolicaBonusLegacy.git"
+  },
   "private": true,
   "dependencies": {
     "cordova": "^11.0.0",
@@ -23,5 +26,9 @@
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/remyweinstein/StolicaBonusLegacy/issues"
+  },
+  "homepage": "https://github.com/remyweinstein/StolicaBonusLegacy#readme"
 }
