@@ -137,7 +137,7 @@ function show(selector) {
 }
 
 function linkToApp() {
-    let link = 'market://details?id=com.stolica.bonuses';
+    let link = 'market://details?id=com.mirposudy.bonuses';
     
     if (platform === 'iOS') {
         //https:

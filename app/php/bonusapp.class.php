@@ -180,7 +180,7 @@ class BonusApp
 
             case "application-google": {
                     $this->mobileDetectHandler();
-                    // header("Location: https://play.google.com/store/apps/details?id=com.stolica.bonuses");
+                    // header("Location: https://play.google.com/store/apps/details?id=com.mirposudy.bonuses");
                     break;
                 }
 
@@ -1405,7 +1405,7 @@ class BonusApp
         if ($detect->isiOS()) {
             header("Location: https://apps.apple.com/ru/app/%D1%81%D1%82%D0%BE%D0%BB%D0%B8%D1%86%D0%B0-%D0%B1%D0%BE%D0%BD%D1%83%D1%81%D1%8B/id1590266964");
         } elseif ($detect->isAndroidOS()) {
-            header("Location: https://play.google.com/store/apps/details?id=com.stolica.bonuses");
+            header("Location: https://play.google.com/store/apps/details?id=com.mirposudy.bonuses");
         } else {
             header("Location: https://" . $_SERVER["HTTP_HOST"]);
         }
