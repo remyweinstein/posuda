@@ -294,12 +294,12 @@ d.addEventListener('DOMContentLoaded', () => {
 
     passViewToggle();
 
-    const checkBrowserForUpdater = setTimeout(() => {
+    /*const checkBrowserForUpdater = setTimeout(() => {
         if (deviceType() !== "desktop" && !versionApp && C().getStor("NOW_DATE") != new Date().toLocaleDateString()) {
             C(".alertUpdater__desc_name a").el.href = `${DOMAIN}/application`;
             show(C("#alertUpdater").el);
         }
-    }, 10000);
+    }, 10000);*/
 
     C('#reg-button').bind("click", () => {
         if (checkReg()) {
