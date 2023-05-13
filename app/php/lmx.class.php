@@ -617,7 +617,7 @@ class LMX {
             $result["description"] = "Не удалось получить историю покупок.";    
         }
 
-        return $result;      
+        return $result;
     }
 
     public function setDiscountAttributeValue($personId, $value) {
