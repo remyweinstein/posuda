@@ -3130,7 +3130,7 @@ class BonusApp
 
 	    case "WHATSAPP": {
 		    $result = $this->sendWhatsapp($phone);
-		    $description = "Введите кодподтверждения, который мы направили в Whatsapp.";
+		    $description = "Введите код подтверждения, который мы направили в Whatsapp.";
 		    break;
 		}
 

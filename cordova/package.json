@@ -1,5 +1,5 @@
 {
-  "name": "ru.stolicadv.bonus",
+  "name": "com.stolicadv.bonuses",
   "displayName": "Stolica.Bonus",
   "version": "1.0.0",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
@@ -54,8 +54,5 @@
       },
       "cordova-support-android-plugin": {}
     }
-  },
-  "dependencies": {
-    "cordova": "^11.1.0"
   }
 }

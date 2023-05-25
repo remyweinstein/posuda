@@ -1,0 +1,84 @@
+{
+  "project_info": {
+    "project_number": "782598422054",
+    "project_id": "indriver-148622",
+    "storage_bucket": "indriver-148622.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782598422054:android:3ed57ebea351c5eddcb0e7",
+        "android_client_info": {
+          "package_name": "com.mirposudy.bonuses"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782598422054-oque6kig7ilgmagrm5cn2dm5741i2dij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaVfL9by_gB1eVfBuYwLCdII7sVyJmA3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782598422054-oque6kig7ilgmagrm5cn2dm5741i2dij.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "782598422054-1omrh0j8bi6o5068vcfmnvvf4gfmb9bi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.stolica.bonuses",
+                "app_store_id": "1590266964"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782598422054:android:3ff5f0da91fb4db0dcb0e7",
+        "android_client_info": {
+          "package_name": "com.stolica.bonuses"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782598422054-oque6kig7ilgmagrm5cn2dm5741i2dij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaVfL9by_gB1eVfBuYwLCdII7sVyJmA3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782598422054-oque6kig7ilgmagrm5cn2dm5741i2dij.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "782598422054-1omrh0j8bi6o5068vcfmnvvf4gfmb9bi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.stolica.bonuses",
+                "app_store_id": "1590266964"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
