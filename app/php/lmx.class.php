@@ -1215,18 +1215,18 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_TryFinishRegistration($personId) {
+    public function SAPI_TryFinishRegistration($personId) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Registration/TryFinishRegistration";
+            $url = LMX_HOST . "/systemapi/v1.2/Registration/TryFinishRegistrationCustomer";
             $options = array(
                 'http' => array(
                     'header' => [
-                        "Content-Type: application/json",
+                        "Content-Type: application/x-www-form-urlencoded",
                         "authorization: Bearer " . $this->SAPI_accessToken
                     ],
                     'method' => 'POST',
-                    'content' => json_encode(["personId" => $personId])
+                    'content' => "personId=" . $personId
                 )
             );
             
