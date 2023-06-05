@@ -291,7 +291,7 @@ class LMX {
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
 
                 //if (!empty($methodResult["data"]->data->items)) {
-                    $itemCurr = getCurrencyDetailedBalance($methodResult["data"]->data->items);
+                    $itemCurr = $this->getCurrencyDetailedBalance($methodResult["data"]->data->items);
                     $lifeTimes = [];
 
                     if (!empty($itemCurr->lifeTimesByTime))
@@ -330,7 +330,7 @@ class LMX {
             if ($debug) $result["debug"] = $methodResult;
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
                 //if (!empty($methodResult["data"]->data->items)) {
-                    $itemCurr = getCurrencyDetailedBalance($methodResult["data"]->data->items);
+                    $itemCurr = $this->getCurrencyDetailedBalance($methodResult["data"]->data->items);
                     $lifeTimes = [];
 
                     if (!empty($itemCurr->lifeTimesByTime))
@@ -369,7 +369,7 @@ class LMX {
             if ($debug) $result["debug"] = $methodResult;
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
                 //if (!empty($methodResult["data"]->data)) {
-                    $itemCurr = getCurrencyBalance($methodResult["data"]->data);
+                    $itemCurr = $this->getCurrencyBalance($methodResult["data"]->data);
                     $result["status"] = true;
                     $result["data"] = [
                         "name" => $itemCurr->currency->name,
@@ -480,6 +480,20 @@ class LMX {
         return $result;
     }
 
+    private function getHistoryForPartner($rows) {
+        $items = [];
+
+        for ($i = 0; $i < count($rows); $i++) {
+            if ($rows[$i]->partnerId == "3fba867b-1681-3ade-c5fa-efe294c5b48d") {
+                $row = new stdClass;
+                $row = $rows[$i];
+                $items[] = $row;
+            }
+        }
+
+        return $items;
+    } 
+
     public function getHistory($personId, $filters = null, $debug = false) {
         // Пример:
         // $filters = [
@@ -494,7 +508,8 @@ class LMX {
             $methodResult = $this->SAPI_History($personId, $filters, $debug);
             if ($debug) $result["debug"] = $methodResult["data"];
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
-                if (!empty($methodResult["data"]->data->rows)) {
+                $rows = $this->getHistoryForPartner($methodResult["data"]->data->rows);
+                //if (!empty($methodResult["data"]->data->rows)) {
                     $acceptedTypes = [
                         "RewardData",
                         "WithdrawData"
@@ -511,7 +526,7 @@ class LMX {
 
                     $result["data"] = [];
 
-                    foreach ($methodResult["data"]->data->rows as $key => $row) {
+                    foreach ($rows as $key => $row) {
                         if (in_array($row->type, $acceptedTypes)) {
                             $transaction = [
                                 "extId" => $row->id,
@@ -541,9 +556,9 @@ class LMX {
                     }
 
                     $result["status"] = true;
-                } else {
-                    $result["description"] = "История покупок за выбранный период пуста.";    
-                }
+                //} else {
+                //    $result["description"] = "История покупок за выбранный период пуста.";    
+                //}
             } else {
                 $result["description"] = "Не удалось получить историю покупок.";    
             }
@@ -730,7 +745,7 @@ class LMX {
         return $result;
     }
 
-    public function chargeOns($cardNumbers, $amount, $extId, $description = "bonus.mp27.ru", $deposit = true, $identifierType = "cardNumber") {
+    public function chargeOns($cardNumbers, $amount, $extId, $description = "bonus.мирпосуды27.рф", $deposit = true, $identifierType = "cardNumber") {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $type = ($deposit ? "Deposit" : "Withdraw");
@@ -757,8 +772,8 @@ class LMX {
                     "partnerId": 1
                 },
                 "currency": {
-                    "id": 1,
-                    "name": "Бонусы (9885300862.10)"
+                    "id": 4,
+                    "name": "Тарелочки"
                 },
                 "loyaltyProgram": {
                     "externalId": "D28308F6-B7F2-4851-8AAD-245A2BD4FFB9",
@@ -769,9 +784,9 @@ class LMX {
                     "name": "Default"
                 },
                 "partner": {
-                    "id": 1,
-                    "externalId": "d43db70f-dfb5-7158-df0d-f28ac938f3a4",
-                    "name": "Столица",
+                    "id": 2,
+                    "externalId": "3fba867b-1681-3ade-c5fa-efe294c5b48d",
+                    "name": "Мир посуды",
                     "canEdit": true,
                     "loyaltyPrograms": [
                         {
@@ -823,8 +838,8 @@ class LMX {
                     "partnerId": 1
                 },
                 "currency": {
-                    "id": 1,
-                    "name": "Бонусы (9885300862.10)"
+                    "id": 4,
+                    "name": "Тарелочки"
                 },
                 "loyaltyProgram": {
                     "externalId": "D28308F6-B7F2-4851-8AAD-245A2BD4FFB9",
@@ -835,9 +850,9 @@ class LMX {
                     "name": "Default"
                 },
                 "partner": {
-                    "id": 1,
-                    "externalId": "d43db70f-dfb5-7158-df0d-f28ac938f3a4",
-                    "name": "Столица",
+                    "id": 2,
+                    "externalId": "3fba867b-1681-3ade-c5fa-efe294c5b48d",
+                    "name": "Мир посуды",
                     "canEdit": true,
                     "loyaltyPrograms": [
                         {

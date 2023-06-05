@@ -5141,6 +5141,7 @@ class BonusApp
             if ($getLastPurchaseResult["status"]) $fromDate = $getLastPurchaseResult["data"]["sale_time"];
             $getPurchasesFullDataResult = $LMX->getPurchasesFullData([
                 "startChequeTime" => $fromDate,
+                "merchantIds" => ["0fe72f25-8646-b831-a149-a65127919319"],
                 "count" => 9999,
                 "personId" => $personId,
                 "state" => "Confirmed"
