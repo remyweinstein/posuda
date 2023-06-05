@@ -232,6 +232,55 @@ class LMX {
         return $result;  
     }
 
+    private function getCurrencyDetailedBalance($items)
+    {
+        $currencyItem = new stdClass;
+        $amount = 0;
+        $notActivatedAmount = 0;
+        $lifeTimesByTime = [];
+        $currency = new stdClass;
+        $currency->name = "Бонусы";
+
+        for($i=0; $i < count($items); $i++) {
+            if ($items[$i]->currency->id == 4) {
+                $amount = $items[$i]->amount;
+                $notActivatedAmount = $items[$i]->notActivatedAmount;
+                $lifeTimesByTime = $items[$i]->lifeTimesByTime;
+                $currency->name = $items[$i]->currrency->name;
+            }
+        }
+
+        $currencyItem->amount = $amount;
+        $currencyItem->notActivatedAmount = $notActivatedAmount;
+        $currencyItem->lifeTimesByTime = $lifeTimesByTime;
+        $currencyItem->currency = $currency;
+
+        return $currencyItem;
+    }
+
+    private function getCurrencyBalance($items)
+    {
+        $currencyItem = new stdClass;
+        $balance = 0;
+        $notActivated = 0;
+        $currency = new stdClass;
+        $currency->name = "Бонусы";
+
+        for($i=0; $i < count($items); $i++) {
+            if ($items[$i]->currency->id == 4) {
+                $balance = $items[$i]->balance;
+                $notActivated = $items[$i]->notActivated;
+                $currency->name = $items[$i]->currrency->name;
+            }
+        }
+
+        $currencyItem->balance = $balance;
+        $currencyItem->notActivated = $notActivated;
+        $currencyItem->currency = $currency;
+
+        return $currencyItem;
+    }
+
     public function getBalancePron($personId, $debug = false) {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
@@ -240,11 +289,13 @@ class LMX {
             $methodResult = $this->SAPI_DetailedBalance($personId);
             if ($debug) $result["debug"] = $methodResult;
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
-                if (!empty($methodResult["data"]->data->items)) {
+
+                //if (!empty($methodResult["data"]->data->items)) {
+                    $itemCurr = getCurrencyDetailedBalance($methodResult["data"]->data->items);
                     $lifeTimes = [];
 
-                    if (!empty($methodResult["data"]->data->items[0]->lifeTimesByTime))
-                        foreach($methodResult["data"]->data->items[0]->lifeTimesByTime as $value) {
+                    if (!empty($itemCurr->lifeTimesByTime))
+                        foreach($itemCurr->lifeTimesByTime as $value) {
                             array_push($lifeTimes, [
                                 "amount" => $value->amount * 100,
                                 "date" => $value->date
@@ -253,13 +304,13 @@ class LMX {
 
                     $result["status"] = true;
                     $result["data"] = [
-                        "balance"       => $methodResult["data"]->data->items[0]->amount,
-                        "activation"    => $methodResult["data"]->data->items[0]->notActivatedAmount,
+                        "balance"       => $itemCurr->amount,
+                        "activation"    => $itemCurr->notActivatedAmount,
                         "lifeTimes"     => $lifeTimes
                     ];
-                } else {
-                    $result["description"] = "Бонусные счета отсутствуют.";
-                }
+                //} else {
+                //    $result["description"] = "Бонусные счета отсутствуют.";
+                //}
             } else {
                 $result["description"] = "Не удалось запросить информацию о балансе.";
             }
@@ -278,11 +329,12 @@ class LMX {
             $methodResult = $this->SAPI_DetailedBalance($personId);
             if ($debug) $result["debug"] = $methodResult;
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
-                if (!empty($methodResult["data"]->data->items)) {
+                //if (!empty($methodResult["data"]->data->items)) {
+                    $itemCurr = getCurrencyDetailedBalance($methodResult["data"]->data->items);
                     $lifeTimes = [];
 
-                    if (!empty($methodResult["data"]->data->items[0]->lifeTimesByTime))
-                        foreach($methodResult["data"]->data->items[0]->lifeTimesByTime as $value) {
+                    if (!empty($itemCurr->lifeTimesByTime))
+                        foreach($itemCurr as $value) {
                                 array_push($lifeTimes, [
 									"amount" => round(($value->amount * 100) + gmp_sign(intval($value->amount)) * 0.5),
                                     "date" => $value->date
@@ -291,13 +343,13 @@ class LMX {
 
                     $result["status"] = true;
                     $result["data"] = [
-                        "balance"       => $methodResult["data"]->data->items[0]->amount,
-                        "activation"    => $methodResult["data"]->data->items[0]->notActivatedAmount,
+                        "balance"       => $itemCurr->amount,
+                        "activation"    => $itemCurr->notActivatedAmount,
                         "lifeTimes"     => $lifeTimes
                     ];
-                } else {
-                    $result["description"] = "Бонусные счета отсутствуют.";
-                }
+                //} else {
+                //    $result["description"] = "Бонусные счета отсутствуют.";
+                //}
             } else {
                 $result["description"] = "Не удалось запросить информацию о балансе.";
             }
@@ -316,15 +368,16 @@ class LMX {
             $methodResult = $this->SAPI_Balance($personId);
             if ($debug) $result["debug"] = $methodResult;
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
-                if (!empty($methodResult["data"]->data)) {
+                //if (!empty($methodResult["data"]->data)) {
+                    $itemCurr = getCurrencyBalance($methodResult["data"]->data);
                     $result["status"] = true;
                     $result["data"] = [
-                        "name" => $methodResult["data"]->data[0]->currency->name,
-                        "amount" => $methodResult["data"]->data[0]->balance + $methodResult["data"]->data[0]->notActivated
+                        "name" => $itemCurr->currency->name,
+                        "amount" => $itemCurr->balance + $itemCurr->notActivated
                     ];
-                } else {
-                    $result["description"] = "Бонусные счета отсутствуют.";
-                }
+                //} else {
+                //    $result["description"] = "Бонусные счета отсутствуют.";
+                //}
             } else {
                 $result["description"] = "Не удалось запросить информацию о балансе.";  
             }
