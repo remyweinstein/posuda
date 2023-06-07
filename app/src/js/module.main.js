@@ -672,7 +672,6 @@ async function drawSection(section) {
 
         case "reg_success": {
             C('#tempName').val(C().getStor('reg_name'));
-        
             break;
         }
 

@@ -76,7 +76,7 @@ async function updatePersonalData() {
         if (data.email) {
             C("#personal_email").text(data.email);
         } else {
-            C('input[name^="enableNotifyPush"]').el.disabled = "disabled";
+            C('input[name^="enableNotifyEmail"]').el.disabled = "disabled";
             C("#personal_email").text('-');
         }
 
@@ -126,7 +126,7 @@ function drawPersonal(personal) {
     if (data.email) {
         C("#personal_email").text(data.email);
     } else {
-        C('input[name^="enableNotifyPush"]').el.disabled = "disabled";
+        C('input[name^="enableNotifyEmail"]').el.disabled = "disabled";
         C("#personal_email").text('-');
     }
 }

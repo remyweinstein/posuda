@@ -23,13 +23,13 @@
     }
 
     input:disabled + .slider {
-        background-color: #ccc;
+        background-color: #ccc!important;
     }
     
     input:disabled + .slider:before {
-        -webkit-transform: translateX(0px);
-        -ms-transform: translateX(0px);
-        transform: translateX(0px);
+        -webkit-transform: translateX(0px)!important;
+        -ms-transform: translateX(0px)!important;
+        transform: translateX(0px)!important;
     }
     
     .slider {
