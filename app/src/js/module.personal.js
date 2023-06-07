@@ -73,10 +73,11 @@ async function updatePersonalData() {
             C("#personal_phone").text(`+${a[0]} (${a[1]}${a[2]}${a[3]}) ${a[4]}${a[5]}${a[6]}-${a[7]}${a[8]}-${a[9]}${a[10]}`);
         }
 
-        if (data.email) {
+        if (data.email && data.email != '-') {
+            C('input[name="enableNotifyEmail"]').el.disabled = false;
             C("#personal_email").text(data.email);
         } else {
-            C('input[name^="enableNotifyEmail"]').el.disabled = "disabled";
+            C('input[name="enableNotifyEmail"]').el.disabled = true;
             C("#personal_email").text('-');
         }
 
@@ -123,10 +124,11 @@ function drawPersonal(personal) {
         C("#personal_phone").text(`+${a[0]} (${a[1]}${a[2]}${a[3]}) ${a[4]}${a[5]}${a[6]}-${a[7]}${a[8]}-${a[9]}${a[10]}`);
     }
 
-    if (personal.email) {
+    if (personal.email && personal.email != '-') {
+        C('input[name="enableNotifyEmail"]').el.disabled = false;
         C("#personal_email").text(personal.email);
     } else {
-        C('input[name^="enableNotifyEmail"]').el.disabled = "disabled";
+        C('input[name="enableNotifyEmail"]').el.disabled = true;
         C("#personal_email").text('-');
     }
 }
