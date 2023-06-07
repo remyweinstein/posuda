@@ -392,17 +392,11 @@ d.addEventListener('DOMContentLoaded', () => {
 
         const placemark = new ymaps.Placemark(myMap.getCenter(), {
             balloonContentHeader: '<a href = "#">Мир посуды</a>',
-            balloonContentBody: '<img src="app/assets/logo/logo_512.png" height="12" width="128"> <br/> ' +
-                '<a href="tel:+7-4212-45-13-00">+7 (4212) 45-13-00</a><br/>' +
-                '<b>Режим работы</b> <br/> С 10:00 до 20:00',
-            // Зададим содержимое нижней части балуна.
-            //balloonContentFooter: 'Информация предоставлена:<br/>OOO "Рога и копыта"',
-            // Зададим содержимое всплывающей подсказки.
+            balloonContentBody: '<a href="tel:+7-4212-45-13-00">+7 (4212) 45-13-00</a><br/>' +
+                '<b>Режим работы</b> <br/>Ежедневно <br/>С 10:00 до 20:00',
             hintContent: 'Мир посуды'
         });
-        // Добавим метку на карту.
         myMap.geoObjects.add(placemark);
-        // Откроем балун на метке.
         placemark.balloon.open();
     });
 });
@@ -677,6 +671,8 @@ async function drawSection(section) {
         }
 
         case "reg_success": {
+            C('#tempName').val(C().getStor('reg_name'));
+        
             break;
         }
 
@@ -883,6 +879,7 @@ async function reg() {
         city: 1
     });
 
+    C().setStor('reg_name', C("#reg_firstname").val());
     C('#tempName').val(C("#reg_firstname").val());
 
     regButtonEl.disabled = false;
@@ -1158,7 +1155,7 @@ function deleteAccount() {
     showPopup(
         '',
         '',
-        'Вы уверены, что хотите удалить свою учетную запись?<p><small>Если да, то все ваши привелегии исчезнут.</small></p>',
+        'Вы уверены, что хотите удалить свою учетную запись?<p><small>Если да, то все ваши привилегии исчезнут.</small></p>',
         ['Да, уверен', 'Нет, отменить'],
         apiDeleteAccount,
     );

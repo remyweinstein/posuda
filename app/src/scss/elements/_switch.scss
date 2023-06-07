@@ -21,6 +21,16 @@
         -ms-transform: translateX(28px);
         transform: translateX(28px);
     }
+
+    input:disabled + .slider {
+        background-color: #ccc;
+    }
+    
+    input:disabled + .slider:before {
+        -webkit-transform: translateX(0px);
+        -ms-transform: translateX(0px);
+        transform: translateX(0px);
+    }
     
     .slider {
         position: absolute;
