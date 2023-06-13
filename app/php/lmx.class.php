@@ -173,7 +173,7 @@ class LMX {
                         $result["description"] = "Не удалось получить список действий для завершения регистрации.";
                     }
                 } else {
-                    $result["description"] = "Не удалось получить идентификатор клиента.";
+                    $result["description"] = ($result["description"] ? $result["description"] : "Не удалось получить идентификатор клиента.");
                 }
             } else {
                 $result["description"] = "Не удалось запросить информацию о клиенте.";   
