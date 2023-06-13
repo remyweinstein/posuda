@@ -930,7 +930,7 @@ class LMX {
         // Authorization: Bearer {merchant_token}
         // X-Identifier: {card_number}
 
-        $url = LMX_HOST . "/authorizationService/oauth/authorize?client_id=" . LMX_CLIENT_ID . "&redirect_uri=" . LMX_REDIRECT_URL . "&response_type=code&scope=" . join("%20", $scope);
+        $url = LMX_HOST . "/authorizationservice/oauth/authorize?client_id=" . LMX_CLIENT_ID . "&redirect_uri=" . LMX_REDIRECT_URL . "&response_type=code&scope=" . join("%20", $scope);
         $options = array(
             'http' => array(
                 'header'  => [
@@ -989,7 +989,7 @@ class LMX {
             $params = [];
             foreach ($filters as $key => $param) array_push($params, $key . "=" . $param);
 
-            $url = LMX_HOST . "/publicapi/v1.2/History?" . join("&", $params);
+            $url = LMX_HOST . "/publicapi/v1.2/history?" . join("&", $params);
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1012,7 +1012,7 @@ class LMX {
         //     "filter.currentUser" => "true"
         // ];
 
-        $url = LMX_HOST . "/publicapi/v1.2/Merchants";
+        $url = LMX_HOST . "/publicapi/v1.2/merchants";
         $options = array(
             'http' => array(
                 'header'  => [
@@ -1070,7 +1070,8 @@ class LMX {
         if ($result["status"]) {
             $result = ["status" => false, "data" => null];
 
-            $url = LMX_HOST . "/systemapi/api/Users?phone=" . $phone;
+            $url = LMX_HOST . "/systemapi/v1.2/users?phone=" . $phone;
+            ///systemapi/v1.2/users?phone=
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1091,7 +1092,7 @@ class LMX {
         if ($result["status"]) {
             $result = ["status" => false, "data" => null];
 
-            $url = LMX_HOST . "/systemapi/api/Cards?cardNumber=" . $cardNumber;
+            $url = LMX_HOST . "/systemapi/v1.2/cards?cardNumber=" . $cardNumber;
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1116,7 +1117,7 @@ class LMX {
 
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Registration/BeginRegistration";
+            $url = LMX_HOST . "/systemapi/v1.2/Registration/BeginRegistration";
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1137,7 +1138,7 @@ class LMX {
     private function SAPI_RegistrationActions($personId) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Users/" . $personId . "/RequiredActions";
+            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/RequiredActions";
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1156,7 +1157,7 @@ class LMX {
     private function SAPI_AcceptTenderOffer($personId) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Users/" . $personId . "/AcceptTenderOffer";
+            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/AcceptTenderOffer";
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1177,7 +1178,7 @@ class LMX {
     private function SAPI_SetRandomPassword($personId, $needNotify = "false") {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Users/" . $personId . "/SetRandomPassword?needNotify=" . $needNotify;
+            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/SetRandomPassword?needNotify=" . $needNotify;
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1198,7 +1199,7 @@ class LMX {
     private function SAPI_SetPhone($personId, $phone) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Users/" . $personId . "/SetPhone";
+            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/SetPhone";
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1222,7 +1223,7 @@ class LMX {
     private function SAPI_Questions($personId) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Users/" . $personId . "/Questions";
+            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/Questions";
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1266,7 +1267,7 @@ class LMX {
 
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Users/" . $personId . "/UpdateAnswers";
+            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/UpdateAnswers";
             // $url = "http://localhost/log?sds=s";
             $options = array(
                 'http' => array(
@@ -1309,7 +1310,7 @@ class LMX {
     private function SAPI_Balance($personId) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Users/" . $personId . "/Balance";
+            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/Balance";
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1328,7 +1329,7 @@ class LMX {
     private function SAPI_DetailedBalance($personId, $date = "") {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Users/" . $personId . "/DetailedBalance" . ($date ? "?date=" . $date : "");
+            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/DetailedBalance" . ($date ? "?date=" . $date : "");
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1347,7 +1348,7 @@ class LMX {
     private function SAPI_History($personId, $filters = null, $debug = false) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Users/" . $personId . "/History";
+            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/History";
             if ($filters) $url .= "?";
             if (isset($filters["fromDate"])) $url .= "&filter.fromDate=" . $filters["fromDate"];
             if (isset($filters["count"])) $url .= "&filter.count=" . $filters["count"];
@@ -1375,7 +1376,7 @@ class LMX {
         }
         
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/Users/" . $personId . "/Cards?cardShowMode=" . $cardShowMode;
+            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/Cards?cardShowMode=" . $cardShowMode;
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1412,7 +1413,7 @@ class LMX {
 
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/purchases";
+            $url = LMX_HOST . "/systemapi/v1.2/purchases";
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1433,7 +1434,7 @@ class LMX {
     private function SAPI_Purchase($purchaseId) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/purchases/" . $purchaseId;
+            $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId;
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1452,7 +1453,7 @@ class LMX {
     private function SAPI_PurchaseOperations($purchaseId) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/purchases/" . $purchaseId . "/operations";
+            $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId . "/operations";
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1471,7 +1472,7 @@ class LMX {
     private function SAPI_ChequePositions($purchaseId) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/purchases/" . $purchaseId . "/ChequePositions?showCanceledOperations=false";
+            $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId . "/ChequePositions?showCanceledOperations=false";
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1490,7 +1491,7 @@ class LMX {
     private function SAPI_EmitVirtual($personId) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/users/" . $personId . "/EmitVirtual";
+            $url = LMX_HOST . "/systemapi/v1.2/users/" . $personId . "/EmitVirtual";
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1511,7 +1512,7 @@ class LMX {
     private function SAPI_Deregister($personId, $reason = "Так положено") {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/users/" . $personId . "/Deregister";
+            $url = LMX_HOST . "/systemapi/v1.2/users/" . $personId . "/Deregister";
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1553,7 +1554,7 @@ class LMX {
     private function SAPI_Deposit($data) {    
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/deposit";
+            $url = LMX_HOST . "/systemapi/v1.2/deposit";
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1574,7 +1575,7 @@ class LMX {
     private function SAPI_SetCardToAccount($personId, $data) {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/users/" . $personId . "/SetCard";
+            $url = LMX_HOST . "/systemapi/v1.2/users/" . $personId . "/SetCard";
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1641,7 +1642,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/api/Registration/BeginRegistration', false, $context));
+        $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/v1.2/Registration/BeginRegistration', false, $context));
 
         $resultData = (array) $result["data"];
 
@@ -1664,7 +1665,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/api/Users/' .$personalID. '/AcceptTenderOffer', false, $context));
+        $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/v1.2/Users/' .$personalID. '/AcceptTenderOffer', false, $context));
 
 
         return $result;
@@ -1686,7 +1687,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = (array) json_decode(file_get_contents(LMX_HOST.'/publicapi/v1/User/PhoneNumber/', false, $context));
+        $result = (array) json_decode(file_get_contents(LMX_HOST.'/publicapi/v1.2/User/PhoneNumber/', false, $context));
 
         return $result;
     }
@@ -1707,7 +1708,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/api/Cards?cardNumber='.$cardNumber, false, $context));
+        $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/v1.2/Cards?cardNumber='.$cardNumber, false, $context));
 
 
         return $result;
@@ -1757,7 +1758,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/api/users/' . $id . '/SetPhone', false, $context));
+        $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/v1.2/users/' . $id . '/SetPhone', false, $context));
 
 
         return $result;
@@ -1779,7 +1780,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = file_get_contents(LMX_HOST.'/systemapi/api/Users/' .$personalID. '/SetRandomPassword?needNotify=false', false, $context);
+        $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Users/' .$personalID. '/SetRandomPassword?needNotify=false', false, $context);
 
 
         return $result;
@@ -1801,7 +1802,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = file_get_contents(LMX_HOST.'/systemapi/api/Users/' .$personalID. '/Questions', false, $context);
+        $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Users/' .$personalID. '/Questions', false, $context);
 
 
         return $result;
@@ -1826,7 +1827,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = file_get_contents(LMX_HOST.'/systemapi/api/Users/' .$personalID. '/UpdateAnswers', false, $context);
+        $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Users/' .$personalID. '/UpdateAnswers', false, $context);
 
 
         return $result;
@@ -1851,7 +1852,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = file_get_contents(LMX_HOST.'/systemapi/api/Users/' .$personalID. '/EmitVirtual', false, $context);
+        $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Users/' .$personalID. '/EmitVirtual', false, $context);
 
 
         return $result;
@@ -1874,7 +1875,7 @@ class LMX {
         header('Content-Type: application/json');
         header('Authorization: ' . $authToken);
 
-        $result = file_get_contents(LMX_HOST.'/systemapi/api/users/' .$personalID. '/RegistrationActions', false, $context);
+        $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/users/' .$personalID. '/RegistrationActions', false, $context);
 
 
         return $result;
@@ -1899,7 +1900,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = file_get_contents(LMX_HOST.'/systemapi/api/Registration/TryFinishRegistration', false, $context);
+        $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Registration/TryFinishRegistration', false, $context);
 
         return $result;
     }
@@ -2085,7 +2086,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = file_get_contents(LMX_HOST.'/systemapi/api/deposit', false, $context);
+        $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/deposit', false, $context);
 
 
         return $result;
