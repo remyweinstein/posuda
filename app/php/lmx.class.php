@@ -688,33 +688,35 @@ class LMX {
         return $result;
     }
 
-    public function setDiscountAttributeValue($personId, $value) {
+    public function setPartnerAttributeValue($phone, $value) {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $data = [
-                "id" => 365658,
                 "attribute" =>  [
-                    '$type' => "Loymax.SystemApi.Models.Attributes.UserAttributeViewModel, Loymax.SystemApi",
-                    "type" => "Bool",
-                    "params" => null,
-                    "description" => "Атрибут клиента Дисконт",
-                    "mergeMode" => "AlwaysCopy",
-                    "required" => false,
-                    "isDeleted" => false,
-                    "isHidden" => false,
-                    "isDynamic" => false,
-                    "items" => [],
-                    "hasMultipleValues" => false,
-                    "useTemplateEngine" => false,
-                    "id" => 39,
-                    "name" => "Дисконт",
-                    "order" => 0,
-                    "logicalName" => "AtrDiscount",
-                    "historyIsRecorded" => false
+
+                    "logicalName" => "Client_MP"
                 ],
                 "value" => $value
             ];
-            $result = $this->SAPI_UpdateAttributeValue($personId, $data);
+            $result = $this->SAPI_UpdateAttributeValue($phone, $data);
+        } else {
+            $result["description"] = "Не удалось получить токен.";
+        }
+
+        return $result;
+    }
+
+    public function setDiscountAttributeValue($phone, $value) {
+        $result = $this->initSAPIToken();
+        if ($result["status"]) {
+            $data = [
+                "attribute" =>  [
+                    "logicalName" => "AtrDiscount"
+                ],
+                "value" => $value
+            ];
+
+            $result = $this->SAPI_UpdateAttributeValue($phone, $data);
         } else {
             $result["description"] = "Не удалось получить токен.";
         }
@@ -1527,10 +1529,10 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_UpdateAttributeValue($personId, $data) {    
+    private function SAPI_UpdateAttributeValue($phone, $data) {    
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/api/users/" . $personId . "/UpdateAttributeValue";
+            $url = LMX_HOST . "/systemapi/v1.2/users/code/" . $phone . "/attributes";
             $options = array(
                 'http' => array(
                     'header'  => [

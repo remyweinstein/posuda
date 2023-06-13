@@ -1804,8 +1804,12 @@ class BonusApp
             $registerConsumerResult = $LMX->registerConsumer($phone, $getProfileDataResult["data"]);
             if ($registerConsumerResult["status"]) {
                 $personId = $registerConsumerResult["data"]["personId"];
-                //$setDiscountAttributeValue = $LMX->setDiscountAttributeValue($personId, boolval($getProfileDataResult["data"]["discount"]));
-                $setDiscountAttributeValue["status"] = true;
+                $setPartnerAttributeValue = $LMX->setPartnerAttributeValue($phone, true);
+                if (!$setPartnerAttributeValue["status"]) {
+                    $result = $setPartnerAttributeValue;
+                    $this->journal("CRON", __FUNCTION__, "", $setPartnerAttributeValue["status"], json_encode(["f" => "LMX->setPartnerAttributeValue", "a" => [$personId, $getProfileDataResult["data"]["discount"]]]), json_encode($setPartnerAttributeValue, JSON_UNESCAPED_UNICODE));
+                }
+                $setDiscountAttributeValue = $LMX->setDiscountAttributeValue($phone, boolval($getProfileDataResult["data"]["discount"]));
                 if ($setDiscountAttributeValue["status"]) {
                     $setProfileDataResult = $this->setProfileDataByPhone($phone, ["ext_id" => $personId]);
                     if ($setProfileDataResult["status"]) {
