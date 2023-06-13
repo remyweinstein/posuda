@@ -173,7 +173,6 @@ class LMX {
                         $result["description"] = "Не удалось получить список действий для завершения регистрации.";
                     }
                 } else {
-                    //$result["description"] = ($result["description"] ? $result["description"] : "Не удалось получить идентификатор клиента.");
                     $result["description"] = "Не удалось получить идентификатор клиента.";
                 }
             } else {
@@ -1118,7 +1117,7 @@ class LMX {
 
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/v1.2/Registration/BeginRegistration";
+            $url = LMX_HOST . "/publicapi/v1.2/Registration/BeginRegistration";
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1643,7 +1642,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/v1.2/Registration/BeginRegistration', false, $context));
+        $result = (array) json_decode(file_get_contents(LMX_HOST.'/publicapi/v1.2/Registration/BeginRegistration', false, $context));
 
         $resultData = (array) $result["data"];
 
@@ -1901,7 +1900,7 @@ class LMX {
 
         $context  = stream_context_create($opts);
 
-        $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Registration/TryFinishRegistration', false, $context);
+        $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Registration/TryFinishRegistrationCustomer', false, $context);
 
         return $result;
     }
