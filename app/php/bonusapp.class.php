@@ -3055,11 +3055,11 @@ class BonusApp
         }
 
         if ($this->countLastDayConfirmations($percent) > $this->averageWeekConfirmations() && !$this->existAlarmJournal()) {
-            try {
+        try {
         	$this->tg("Превышен лимит запросов на звонки, исходя из среднего количества за прошлую неделю, на " . $percent . "%");
 	    } catch (Exception $e) {
-		//$e->getMessage();
-    	    }
+		    //$e->getMessage();
+    	}
     	    
             $this->journal("ALARM", "", $_SERVER['REMOTE_ADDR'], false, json_encode([
                 "header" => getallheaders(),
@@ -3172,7 +3172,7 @@ class BonusApp
         } else {
             $this->journal("APP", "sendConfirmationCode", json_encode($result));
             //$phone . "/" . $confirmation_code . "/" . $provider, $result["status"]);
-            $result["description"] = "Не удалось отправить код подтверждения, попробуйте позже";
+            $result["description"] = json_encode($result);//"Не удалось отправить код подтверждения, попробуйте позже";
         }
 
         return $result;
