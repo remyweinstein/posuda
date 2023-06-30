@@ -5234,21 +5234,21 @@ class BonusApp
     private function sendWhatsapp($phone, $code) {
         $url = "https://www.voda-khv.ru/rest/notification/";
         $data = [
-                "func" => "send_code",
-                "code" => $code,
-                "client" => $phone,
-                "account" => "98b2ec6d-488a",
-                "channel" => "whatsapp"
+                    "func"    => "send_code",
+                    "code"    => $code,
+                    "client"  => $phone,
+                    "account" => "98b2ec6d-488a",
+                    "channel" => "whatsapp"
                 ];
 
             $options = array(
                 'http' => array(
                     'header'  => [
                         "Content-Type: application/json",
-                        "Authorization: Bearer ".BEARER_TOKEN_VODA
+                        "authorization: Bearer " . BEARER_TOKEN_VODA
                     ],
                     'method'  => 'POST',
-                    'content' => http_build_query(json_encode($data))
+                    'content' => json_encode($data)
                 )
             );
 
@@ -5262,21 +5262,21 @@ class BonusApp
     private function smsVoda($phone, $code, $callback = false) {
         $url = "https://www.voda-khv.ru/rest/notification/";
         $data = [
-                "func" => "send_code",
-                "code" => $code,
-                "client" => $phone,
-                "account" => "beeline",
-                "channel" => "sms"
+                    "func"    => "send_code",
+                    "code"    => $code,
+                    "client"  => $phone,
+                    "account" => "beeline",
+                    "channel" => "sms"
                 ];
 
             $options = array(
                 'http' => array(
                     'header'  => [
                         "Content-Type: application/json",
-                        "Authorization: Bearer ".BEARER_TOKEN_VODA
+                        "authorization: Bearer " . BEARER_TOKEN_VODA
                     ],
                     'method'  => 'POST',
-                    'content' => http_build_query(json_encode($data))
+                    'content' => json_encode($data)
                 )
             );
 
