@@ -2690,12 +2690,12 @@ class BonusApp
                     $result = $this->callPassword($phone, $message);
                     break;
                 }
-	    case "WHATSAPP": {
-		    $result = $this->sendWhatsapp($phone);
-		    break;
-		}
+            case "WHATSAPP": {
+                    $result = $this->sendWhatsapp($phone, $message);
+                    break;
+                }
             case "BEE": {
-                    $result = $this->sms($phone, $message, $callback);
+                    $result = $this->smsVoda($phone, $message, $callback);
                     break;
                 }
             case "DIG": {
@@ -2704,7 +2704,7 @@ class BonusApp
                 }
             case "DIG_FC": {
                     //$result = $this->sendMessageDig($phone, $message, "FLASHCALL");
-		    $result = $this->sms($phone, $message, $callback);
+		            $result = $this->smsVoda($phone, $message, $callback);
                     break;
                 }
         }
@@ -3127,16 +3127,16 @@ class BonusApp
 
         switch ($provider) {
             case "BEE": {
-                    $result = $this->sms($phone, 'Код подтверждения: ' . $confirmation_code, true);
+                    $result = $this->smsVoda($phone, 'Код подтверждения: ' . $confirmation_code, true);
                     $description = "Введите код из СМС.";
                     break;
                 }
 
-	    case "WHATSAPP": {
-		    $result = $this->sendWhatsapp($phone);
-		    $description = "Введите код подтверждения, который мы направили в Whatsapp.";
-		    break;
-		}
+            case "WHATSAPP": {
+                    $result = $this->sendWhatsapp($phone, $confirmation_code);
+                    $description = "Введите код подтверждения, который мы направили в Whatsapp.";
+                    break;
+                }
 
             case "NT": {
                     $result = $this->callPassword($phone, $confirmation_code);
@@ -3151,7 +3151,7 @@ class BonusApp
                 }
             case "DIG_FC": {
                     //$result = $this->sendMessageDig($phone, $confirmation_code, "FLASHCALL");
-		            $result = $this->sms($phone, 'Код подтверждения: ' . $confirmation_code, true);
+		            $result = $this->smsVoda($phone, 'Код подтверждения: ' . $confirmation_code, true);
                     $description = "Введите код подтверждения, который мы направили в WhatsApp.";
                     break;
                 }
@@ -5231,46 +5231,60 @@ class BonusApp
         return $result;
     }
 
-    private function sendWhatsapp($phone) {
-	$url = "https://voda-khv.ru/rest/loymax/";
-	$data = [
-             "phone" => $phone,
-             "step" => 0
-        ];
+    private function sendWhatsapp($phone, $code) {
+        $url = "https://www.voda-khv.ru/rest/notification/";
+        $data = [
+                "func" => "send_code",
+                "code" => $code,
+                "client" => $phone,
+                "account" => "98b2ec6d-488a",
+                "channel" => "whatsapp"
+                ];
 
-        $options = array(
-            'http' => array(
-                'header'  => [
-                    "Content-Type: application/json"
-                ],
-                'method'  => 'POST',
-                'content' => json_encode($data)
-            )
-        );
-	$result['status'] = true;
-        $result['data'] = json_decode(json_encode($this->doRequest($url, $options)), true);
-	$result['data']['ext_id'] = substr(str_shuffle('0123456789abcdefjhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, 32);
-	return $result;
+            $options = array(
+                'http' => array(
+                    'header'  => [
+                        "Content-Type: application/json",
+                        "Authorization: Bearer ".BEARER_TOKEN_VODA
+                    ],
+                    'method'  => 'POST',
+                    'content' => json_encode($data)
+                )
+            );
+
+        $result['data'] = json_decode($this->doRequest($url, $options), true);
+        $result['status'] = $result['data']['success'];
+        $result['data']['ext_id'] = substr(str_shuffle('0123456789abcdefjhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, 32);
+
+        return $result;
     }
 
-    private function checkWhatsapp($phone, $pin) {
-	$url = "https://voda-khv.ru/rest/loymax/";
-	$data = [
-	    "phone" => $phone,
-	    "pin" => $pin,
-	    "step" => 1
-	];
+    private function smsVoda($phone, $code, $callback = false) {
+        $url = "https://www.voda-khv.ru/rest/notification/";
+        $data = [
+                "func" => "send_code",
+                "code" => $code,
+                "client" => $phone,
+                "account" => "beeline",
+                "channel" => "sms"
+                ];
 
-	$options = array (
-	    'http' => array(
-		'header' => [
-		    "Content-Type: application/json"
-		],
-		'method' => 'POST',
-		'content' => json_encode($data)
-	    )
-	);
-	return json_decode(json_encode($this->doRequest($url, $options)), true);
+            $options = array(
+                'http' => array(
+                    'header'  => [
+                        "Content-Type: application/json",
+                        "Authorization: Bearer ".BEARER_TOKEN_VODA
+                    ],
+                    'method'  => 'POST',
+                    'content' => json_encode($data)
+                )
+            );
+
+        $result['data'] = json_decode($this->doRequest($url, $options), true);
+        $result['status'] = $result['data']['success'];
+        $result['data']['ext_id'] = substr(str_shuffle('0123456789abcdefjhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, 32);
+        
+        return $result;
     }
 
     private function sms($phone, $message, $callback = false)
@@ -5396,7 +5410,7 @@ class BonusApp
 	//if (strripos($phone, "914")===false) {
 	//
 	//} else {
-	//    return $this->sms($phone, $message);
+	//    return $this->smsVoda($phone, $message);
 	//}
         if (empty($phone)) return ["status" => false, "data" => "Empty phone"];
         if (empty($message)) return ["status" => false, "data" => "Empty message"];
