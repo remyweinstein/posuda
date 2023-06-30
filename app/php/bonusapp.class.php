@@ -3172,7 +3172,7 @@ class BonusApp
         } else {
             $this->journal("APP", "sendConfirmationCode", json_encode($result));
             //$phone . "/" . $confirmation_code . "/" . $provider, $result["status"]);
-            $result["description"] = json_encode($result);//"Не удалось отправить код подтверждения, попробуйте позже";
+            $result["description"] = $provider;//"Не удалось отправить код подтверждения, попробуйте позже";
         }
 
         return $result;
