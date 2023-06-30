@@ -3132,7 +3132,7 @@ class BonusApp
                     break;
                 }
 
-            case "WHATSAPP": {
+            case "WHATSAPP": { //WHATSAPP
                     $result = $this->sendWhatsapp($phone, $confirmation_code);
                     $description = "Введите код подтверждения, который мы направили в Whatsapp.";
                     break;
@@ -5248,7 +5248,7 @@ class BonusApp
                         "Authorization: Bearer ".BEARER_TOKEN_VODA
                     ],
                     'method'  => 'POST',
-                    'content' => json_encode($data)
+                    'content' => http_build_query(json_encode($data))
                 )
             );
 
@@ -5276,7 +5276,7 @@ class BonusApp
                         "Authorization: Bearer ".BEARER_TOKEN_VODA
                     ],
                     'method'  => 'POST',
-                    'content' => json_encode($data)
+                    'content' => http_build_query(json_encode($data))
                 )
             );
 
