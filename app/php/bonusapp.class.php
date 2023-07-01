@@ -5205,17 +5205,19 @@ class BonusApp
 
     private function doRequest($url, $opts, $returnHeaders = false) {
         $result = ["status" => false, "data" => null];
-        
-        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+
+        $client = new GuzzleHttp\Client();
         $headers = [
             'Authorization' => 'Bearer ' . BEARER_TOKEN_VODA,        
             'Accept'        => 'application/json',
         ];
 
-        $response = $client->request('GET', 'bar', [
+        $response = $client->post($url, [
             'headers' => $headers,
             'body'    => $body
         ]);
+
+        $response->getBody();
 
         if ($response) {
             $result["status"] = true;
