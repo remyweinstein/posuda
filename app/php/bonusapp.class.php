@@ -5252,7 +5252,7 @@ class BonusApp
                 )
             );
 
-        $result['data'] = $this->doRequest($url, $options);
+        $result = $this->doRequest($url, $options);
         $result['status'] = $result['data']['success'];
         $result['data']['ext_id'] = substr(str_shuffle('0123456789abcdefjhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, 32);
 
