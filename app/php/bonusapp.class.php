@@ -3171,7 +3171,7 @@ class BonusApp
             ];
         } else {
             $this->journal("APP", "sendConfirmationCode", $phone . "/" . $confirmation_code . "/" . $provider, $result["status"]);
-            $result["description"] = BEARER_TOKEN_VODA;//"Не удалось отправить код подтверждения, попробуйте позже";
+            $result["description"] = "Не удалось отправить код подтверждения, попробуйте позже";
         }
 
         return $result;
