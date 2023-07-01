@@ -5205,6 +5205,27 @@ class BonusApp
 
     private function doRequest($url, $opts, $returnHeaders = false) {
         $result = ["status" => false, "data" => null];
+        
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $headers = [
+            'Authorization' => 'Bearer ' . BEARER_TOKEN_VODA,        
+            'Accept'        => 'application/json',
+        ];
+
+        $response = $client->request('GET', 'bar', [
+            'headers' => $headers,
+            'body'    => $body
+        ]);
+
+        if ($response) {
+            $result["status"] = true;
+            $result["data"] = json_decode($response, true);
+        } else {
+            $result["description"] = "ERROR_DESCRIPTION";
+        }
+
+
+        /*
         $optSsl = array(
                         "ssl" => array(
                             "verify_peer"      => false,
@@ -5227,6 +5248,7 @@ class BonusApp
         } catch (\Throwable $th) {
             $result["description"] = $th->getMessage();
         }
+        */
 
         return $result;
     }
@@ -5252,7 +5274,8 @@ class BonusApp
                 )
             );
 
-        $result = $this->doRequest($url, $options);
+        //$result = $this->doRequest($url, $options);
+        $result = $this->doRequest($url, json_encode($data));
         $result['status'] = $result['data']['success'];
         $result['data']['ext_id'] = substr(str_shuffle('0123456789abcdefjhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, 32);
 
