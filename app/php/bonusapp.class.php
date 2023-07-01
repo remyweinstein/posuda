@@ -5218,7 +5218,7 @@ class BonusApp
 
             if ($requestResult) {
                 $result["status"] = true;
-                $result["data"] = json_decode($requestResult);
+                $result["data"] = json_decode($requestResult, true);
             } else {
                 $result["description"] = "ERROR_DESCRIPTION";
             }
