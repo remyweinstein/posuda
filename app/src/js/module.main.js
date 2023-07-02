@@ -1184,11 +1184,11 @@ async function logOff() {
     return result;
 }
 
-function clearLocalStorage() {
+const clearLocalStorage = () => {
     localStorage.clear();
 }
 
-function showRequestSms() {
+const showRequestSms = () => {
     showPopup("Вы не получили код?",
         "",
         "Попробуйте получить код подтверждения с помощью СМС<br><br>Если это вам не помогло, обратитесь в <a href=\"#\" onClick=\"showFeedback()\">службу поддержки</a>",
