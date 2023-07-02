@@ -5207,6 +5207,7 @@ class BonusApp
         $result = ["status" => false, "data" => null];
 
         $client = new GuzzleHttp\Client();
+        //$client -> request ( 'PUT' ,  '/put' ,  [ 'json'  =>  [ 'foo'  =>  'bar' ]]);
         $headers = [
             'Authorization' => 'Bearer ' . BEARER_TOKEN_VODA,        
             'Accept'        => 'application/json',
@@ -5215,7 +5216,7 @@ class BonusApp
         $response = $client->post($url, [
             'headers' => $headers,
             'verify' => false,
-            'body'    => $body
+            'body'    => $opts
         ]);
 
         $responser = $response->getBody();
