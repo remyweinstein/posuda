@@ -3127,7 +3127,7 @@ class BonusApp
 
         switch ($provider) {
             case "BEE": {
-                    $result = $this->smsVoda($phone, 'Код подтверждения: ' . $confirmation_code, true);
+                    $result = $this->smsVoda($phone, $confirmation_code, true);
                     $description = "Введите код из СМС.";
                     break;
                 }
