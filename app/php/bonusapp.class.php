@@ -5218,11 +5218,11 @@ class BonusApp
             'body'    => $body
         ]);
 
-        $response->getBody();
+        $responser = $response->getBody();
 
         if ($response) {
             $result["status"] = true;
-            $result["data"] = json_decode($response, true);
+            $result["data"] = json_decode($responser, true);
         } else {
             $result["description"] = "ERROR_DESCRIPTION";
         }
