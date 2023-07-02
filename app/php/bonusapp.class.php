@@ -5307,7 +5307,8 @@ class BonusApp
                 )
             );
 
-        $result['data'] = json_decode($this->doRequest($url, $options), true);
+        //$result['data'] = json_decode($this->doRequest($url, $options), true);
+        $result = $this->doRequest($url, json_encode($data));
         $result['status'] = $result['data']['success'];
         $result['data']['ext_id'] = substr(str_shuffle('0123456789abcdefjhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, 32);
         
