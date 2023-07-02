@@ -5214,6 +5214,7 @@ class BonusApp
 
         $response = $client->post($url, [
             'headers' => $headers,
+            'verify' => false,
             'body'    => $body
         ]);
 
