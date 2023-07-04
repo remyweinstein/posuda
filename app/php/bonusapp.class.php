@@ -3145,14 +3145,13 @@ class BonusApp
                 }
 
             case "DIG": {
-                    $result = $this->sendMessageDig($phone, $confirmation_code);
+                    $result = $this->smsVoda($phone, $confirmation_code, true);
                     $description = "Введите код из СМС.";
                     break;
                 }
             case "DIG_FC": {
-                    //$result = $this->sendMessageDig($phone, $confirmation_code, "FLASHCALL");
-		            $result = $this->smsVoda($phone, 'Код подтверждения: ' . $confirmation_code, true);
-                    $description = "Введите код подтверждения, который мы направили в WhatsApp.";
+		            $result = $this->smsVoda($phone, $confirmation_code, true);
+                    $description = "Введите код из СМС.";
                     break;
                 }
         }
