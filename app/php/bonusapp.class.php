@@ -141,6 +141,11 @@ class BonusApp
                     $this->runGiftDeposits();
                     break;
                 }
+            case "add-start": {
+                $LMX = $this->getLMX();
+                print_r($LMX->chargeOnRegisterBonus($phone));
+                break;
+            }
 
             case "add-news": {
                     $result = $this->initPDO();
