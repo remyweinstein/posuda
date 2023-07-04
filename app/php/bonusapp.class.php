@@ -465,6 +465,7 @@ class BonusApp
 
     private function startBonuses()
     {
+        $result = $this->initPDO();
         $LMX = $this->getLMX();
         print_r($LMX->chargeOnRegisterBonus('79242119864'));
     }
