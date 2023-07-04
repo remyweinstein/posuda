@@ -1809,6 +1809,9 @@ class BonusApp
                     $result = $setPartnerAttributeValue;
                     $this->journal("CRON", __FUNCTION__, "", $setPartnerAttributeValue["status"], json_encode(["f" => "LMX->setPartnerAttributeValue", "a" => [$personId, $getProfileDataResult["data"]["discount"]]]), json_encode($setPartnerAttributeValue, JSON_UNESCAPED_UNICODE));
                 }
+                $depositRegisterBonus = $LMX->chargeOnRegisterBonus($phone);
+                $this->journal("CRON", __FUNCTION__, "", $depositRegisterBonus["status"], json_encode(["f" => "depositRegisterBonus", "a" => [$phone, ["ext_id" => $personId]]]), json_encode($depositRegisterBonus, JSON_UNESCAPED_UNICODE));
+
                 $setDiscountAttributeValue = $LMX->setDiscountAttributeValue($phone, boolval($getProfileDataResult["data"]["discount"]));
                 if ($setDiscountAttributeValue["status"]) {
                     $setProfileDataResult = $this->setProfileDataByPhone($phone, ["ext_id" => $personId]);

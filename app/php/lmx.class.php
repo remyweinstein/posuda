@@ -63,7 +63,6 @@ class LMX {
                 } else {
                     if ($usersResult["data"]->data[0]->state == "Registered") {
                         // Клиент уже зарегистрирован
-                        $this->chargeOnRegisterBonus($phone);
                         return ["status" => true, "description" => "Клиент уже зарегистрирован", "data" => ["personId" => $usersResult["data"]->data[0]->id]];
                     } else {
                         // Клиент существует, регистрация уже начата
@@ -160,7 +159,6 @@ class LMX {
                             if ($isDone) {
                                 $tryToFinishRegistrationResult = $this->SAPI_TryFinishRegistration($personId);
                                 if ($tryToFinishRegistrationResult["status"] && $tryToFinishRegistrationResult["data"]->result->state == "Success" && $tryToFinishRegistrationResult["data"]->data->registrationCompleted) {
-                                    $this->chargeOnRegisterBonus($phone);
                                     $result = ["status" => true, "data" => ["personId" => $personId]];
                                 } else {
                                     $result["description"] = "Не удалось завершить регистрацию.";
