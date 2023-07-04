@@ -1822,7 +1822,7 @@ class BonusApp
                 }
 
                 $depositRegisterBonus["status"] = 0;
-                $query = $this->pdo->prepare("SELECT `phone` FROM `journal` WHERE `status` = 1 AND `input` = '" . $phone . "' LIMIT 1");
+                $query = $this->pdo->prepare("SELECT `input` FROM `journal` WHERE `status` = 1 AND `input` = '" . $phone . "' LIMIT 1");
                 $query->execute();
                 $queryResult = $query->fetchAll();
                 if (count($queryResult) == 0) {
