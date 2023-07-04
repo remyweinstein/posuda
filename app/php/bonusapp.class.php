@@ -1183,7 +1183,7 @@ class BonusApp
                     }
 
                     if ($needToUpdateBonuscardData) {
-                        $setBonusCardDataResult = $this->setBonusCardData($cardNumber, ["account_id" => $accountId, "status" => 0, "balance" => 200000]);
+                        $setBonusCardDataResult = $this->setBonusCardData($cardNumber, ["account_id" => $accountId, "status" => 0]);
                         if ($setBonusCardDataResult["status"]) {
                             $result["status"] = true;
                             $result["description"] = "Карта прикреплена";
