@@ -150,11 +150,12 @@ class LMX {
                         if ($registartionActionsResult["status"] && $registartionActionsResult["data"]->result->state == "Success" && !empty($registartionActionsResult["data"]->data->actions)) {
                             $isDone = true;
 
-                            foreach ($registartionActionsResult["data"]->data->actions as $key => $action) if (!$action->isDone) {
-                                $isDone = false;
-                                if ($debug) $result["debug"] = $action;
-                                break;
-                            }
+                            foreach ($registartionActionsResult["data"]->data->actions as $key => $action)
+                                if (!$action->isDone) {
+                                    $isDone = false;
+                                    if ($debug) $result["debug"] = $action;
+                                    break;
+                                }
 
                             if ($isDone) {
                                 $tryToFinishRegistrationResult = $this->SAPI_TryFinishRegistration($personId);
@@ -166,7 +167,7 @@ class LMX {
                                     if ($debug) $result["debug"] = $tryToFinishRegistrationResult;
                                 }
                             } else {
-                                $result["description"] = "Остаются незавершенные этапы регистрации.";
+                                $result["description"] = $result["debug"] ;//"Остаются незавершенные этапы регистрации.";
                             }
                         } else {
                             $result["description"] = "Не удалось запросить контрольный список действий для завершения регистрации.";

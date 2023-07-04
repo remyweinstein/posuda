@@ -3181,7 +3181,7 @@ class BonusApp
         $result = ["status" => false, "description" => ""];
 
         // Если код указан
-        $query = $this->pdo->prepare("SELECT code, attempts, sent_at, (NOW() - sent_at) > 500 AS outdate from confirmations WHERE phone = ? and sent_at IN (SELECT MAX(sent_at) AS LastSent FROM confirmations WHERE phone = ?)");
+        $query = $this->pdo->prepare("SELECT code, attempts, sent_at, (NOW() - sent_at) > " . MESSAGE_LIFE_SPAN . " AS outdate from confirmations WHERE phone = ? and sent_at IN (SELECT MAX(sent_at) AS LastSent FROM confirmations WHERE phone = ?)");
         $query->execute([$phone, $phone]);
         $queryResult = $query->fetchAll();
         if (count($queryResult)) {
