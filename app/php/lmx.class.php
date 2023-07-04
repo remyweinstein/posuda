@@ -167,7 +167,7 @@ class LMX {
                                     if ($debug) $result["debug"] = $tryToFinishRegistrationResult;
                                 }
                             } else {
-                                $result["description"] = $result["debug"] ;//"Остаются незавершенные этапы регистрации.";
+                                $result["description"] = json_encode($registartionActionsResult["data"]->data->actions);//"Остаются незавершенные этапы регистрации.";
                             }
                         } else {
                             $result["description"] = "Не удалось запросить контрольный список действий для завершения регистрации.";
