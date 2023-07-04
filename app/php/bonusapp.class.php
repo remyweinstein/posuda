@@ -720,10 +720,9 @@ class BonusApp
                         break;
                     }
                 case "getResetConfirmationSms": {
-                        $resultData = $this->API_sendConfirmation($requestData, DEFAULT_SMS_PROVIDER);
+                        $resultData = $this->API_sendConfirmation($requestData, 'BEE');
                         break;
                     }
-
                 case "getResetConfirmationCode": {
                         $resultData = $this->API_sendConfirmation($requestData);
                         break;
@@ -930,7 +929,7 @@ class BonusApp
                     ];
                 }
             } else {
-                $result["description"] = "Вы уже зарегистрированы";
+                $result["description"] = "Вы уже зарегистрированы.";
             }
         } else {
             $getCityByIdResult = $this->getCityById($cityId);
@@ -3142,7 +3141,7 @@ class BonusApp
             $confirmation_code .= substr($chars, rand(1, $numChars) - 1, 1);
         }
 
-        if ($provider == null) $provider = DEFAULT_PROVIDER;
+        if ($provider == null) $provider = "WHATSAPP";
 
         $description = "";
 

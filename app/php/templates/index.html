@@ -76,17 +76,12 @@
             <div class="mainMenu__content">
                 <ul class="mainMenu__content_nav">
                     <li data-section="wallet">Бонусы</li>
+                    <li data-section="refer">Пригласить друга</li>
+                    <li data-section="personal">Профиль</li>
                     <li data-section="news">Акции</li>
                     <li data-section="stores">Магазин</li>
-                    <li data-section="personal">Профиль</li>
-                    <li data-section="refer">Пригласить друга</li>
-		    <li onClick="openFaq();return false;">Частые вопросы</li>
                 </ul>
                 <ul class="mainMenu__content_bottom">
-                    <li onclick="showFeedback(); closeNav();">
-                        <i class="icon-help" aria-hidden="true"></i>
-                        <div>Задать вопрос</div>
-                    </li>
                     <li onclick="logOff()">
                         <i class="icon-logout" aria-hidden="true"></i>
                         <div>Выход</div>
@@ -218,10 +213,10 @@
                             <div id="reset_confirmation_info" style="font-weight:bold"></div>
                             <input class="u-full-width" maxlength="4" type="tel" placeholder="Код" id="reset_confirmation_code" />
                             <p id="reset_confirmation_time" class="neutral" style="display:none"></p>
-                            <p class="link">
+                            <!--<p class="link">
                                 <span>Мне не пришел код,</span>
                                 <a href="#" onclick="showRequestSms()">что мне делать?</a>
-                            </p>
+                            </p>-->
                             <button class="button button-primary" style="width:100%" onclick="checkResetConfirmationCode()"
                                     id="reset_confirmation_button" disabled>Войти</button>
                         </div>
@@ -335,13 +330,21 @@
                                     </label>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="personal__footer container">
                         <div class="personal__footer_event">
                             <button onclick="drawSection('personal_update');return false;">изменить данные</button>
                         </div>
-                    </div>
+                        <div style="
+                            text-align: left;
+                        "><a href="#" onclick="showRules();return false;">Правила программы лояльности</a></div>
+                                                <div style="
+                            text-align: left;
+                        "><a href="#" onclick="openFaq();return false;">Частые вопросы</a></div>
+                </div>
+                </div>
                 </div>
 
                 <div id="personal_update" class="personalUpdate">

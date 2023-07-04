@@ -58,7 +58,7 @@ class LMX {
                     if ($beginRegistrationResult["status"] && $beginRegistrationResult["data"]->result->state == "Success" && !empty($beginRegistrationResult["data"])) {
                         $personId = $beginRegistrationResult["data"]->data->personId;
                     } else {
-                        $result["description"] = $beginRegistrationResult["data"]->result->message;  
+                        $result["description"] = json_encode($beginRegistrationResult);//$beginRegistrationResult["data"]->result->message;  
                     } 
                 } else {
                     if ($usersResult["data"]->data[0]->state == "Registered") {

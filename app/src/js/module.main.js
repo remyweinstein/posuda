@@ -901,7 +901,7 @@ async function reg() {
 
         if (result.description) {
             promiseTimeout(() => {
-                showPopup('', `${result.description}, возможно вам нужно <a href="" onclick="drawSection('reset');return false;">восстановить пароль</a>?`);
+                showPopup('', `${result.description} Предлагаем <a href="#" onclick="drawSection('authorization');return false;>Войти</a> или <a href="#" onclick="drawSection('reset');return false;">восстановить пароль</a> выберите нужное`);
             }, 1000);
         }
     }
@@ -1191,7 +1191,7 @@ const clearLocalStorage = () => {
 const showRequestSms = () => {
     showPopup("Вы не получили код?",
         "",
-        "Попробуйте получить код подтверждения с помощью СМС<br><br>Если это вам не помогло, обратитесь в <a href=\"#\" onClick=\"showFeedback()\">службу поддержки</a>",
+        "Попробуйте получить код подтверждения с помощью СМС",
         ["Отправить код", "Попробую позже"],
         getResetConfirmationSms);
 }
@@ -1236,11 +1236,6 @@ function showIndicator() {
 
 function hideIndicator() {
     hide("#top-nav-indicator");
-}
-
-function showFeedback() {
-    show("#feedback");
-    d.body.classList.add("hideOverflow");
 }
 
 function hideFeedback() {

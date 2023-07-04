@@ -181,7 +181,7 @@ function drawPurchases(purchases, transactions) {
 async function disablePurchase(id, type) {
     showPopup('', 
               '', 
-              'Вы уверены, что хотите скрыть чек? <p><small>Для того, чтобы вернуть чек напишите в <a href="#" onClick="showFeedback();return false;">службу технической поддержки</a>.</small></p>', 
+              'Вы уверены, что хотите скрыть чек?', 
               ["Да", "Нет"], 
               async () => {
                         let apiMethod = (type==="purch") ? "disablePurchase" : "disableTransaction";
