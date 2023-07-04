@@ -143,7 +143,7 @@ class BonusApp
                 }
             case "add-start": {
                 $LMX = $this->getLMX();
-                print_r($LMX->chargeOnRegisterBonus($phone));
+                print_r($LMX->chargeOnRegisterBonus('79242119864'));
                 break;
             }
 
