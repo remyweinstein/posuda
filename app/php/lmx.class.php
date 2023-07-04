@@ -771,8 +771,8 @@ class LMX {
                     "id": ' . $extId . '
                 },
                 "legal": {
-                    "id": 12,
-                    "partnerId": 1
+                    "id": 13,
+                    "partnerId": 2
                 },
                 "currency": {
                     "id": 4,
@@ -837,8 +837,8 @@ class LMX {
                     "id": '.$extId.'
                 },
                 "legal": {
-                    "id": 12,
-                    "partnerId": 1
+                    "id": 13,
+                    "partnerId": 2
                 },
                 "currency": {
                     "id": 4,
@@ -901,8 +901,8 @@ class LMX {
                     "id": 28
                 },
                 "legal": {
-                    "id": 12,
-                    "partnerId": 1
+                    "id": 13,
+                    "partnerId": 2
                 },
                 "currency": {
                     "id": 4,
