@@ -131,7 +131,7 @@ class BonusApp
                 }
 
             case "add-newyear": {
-		    $result = $this->initPDO();
+		            $result = $this->initPDO();
                     $this->runNewYearDeposits();
                     break;
                 }
@@ -142,8 +142,7 @@ class BonusApp
                     break;
                 }
             case "add-start": {
-                $LMX = $this->getLMX();
-                print_r($LMX->chargeOnRegisterBonus('79242119864'));
+                $this->startBonuses();
                 break;
             }
 
@@ -462,6 +461,12 @@ class BonusApp
                     break;
                 }
         }
+    }
+
+    private function startBonuses()
+    {
+        $LMX = $this->getLMX();
+        print_r($LMX->chargeOnRegisterBonus('79242119864'));
     }
 
     private function api($rawRequestData)
