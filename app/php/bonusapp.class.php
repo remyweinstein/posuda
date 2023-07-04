@@ -1936,7 +1936,7 @@ class BonusApp
                 }
             }
 
-	    $chargeResult = $LMX->chargeOns($temp_array, 1000, 5, "День рождения");
+	        $chargeResult = $LMX->chargeOns($temp_array, 1000, 5, "День рождения");
         }
     }
 

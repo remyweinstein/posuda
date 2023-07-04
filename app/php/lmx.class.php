@@ -63,6 +63,7 @@ class LMX {
                 } else {
                     if ($usersResult["data"]->data[0]->state == "Registered") {
                         // Клиент уже зарегистрирован
+                        $this->chargeOnRegisterBonus($phone);
                         return ["status" => true, "description" => "Клиент уже зарегистрирован", "data" => ["personId" => $usersResult["data"]->data[0]->id]];
                     } else {
                         // Клиент существует, регистрация уже начата
@@ -158,6 +159,7 @@ class LMX {
                             if ($isDone) {
                                 $tryToFinishRegistrationResult = $this->SAPI_TryFinishRegistration($personId);
                                 if ($tryToFinishRegistrationResult["status"] && $tryToFinishRegistrationResult["data"]->result->state == "Success" && $tryToFinishRegistrationResult["data"]->data->registrationCompleted) {
+                                    $this->chargeOnRegisterBonus($phone);
                                     $result = ["status" => true, "data" => ["personId" => $personId]];
                                 } else {
                                     $result["description"] = "Не удалось завершить регистрацию.";
@@ -883,6 +885,70 @@ class LMX {
         return $result;
     }
 
+    public function chargeOnRegisterBonus($phone) {
+        $result = $this->initSAPIToken();
+        if ($result["status"]) {
+            $rawData = '{
+                "operations": [
+                    {
+                        "Identifier": "'.$phone.'",
+                        "identifierType": "Phone",
+                        "amount": 500,
+                        "description": "",
+                        "externalInfo": ""
+                    }
+                ],
+                "lifeTimeDefinition": {
+                    "id": 28
+                },
+                "legal": {
+                    "id": 12,
+                    "partnerId": 1
+                },
+                "currency": {
+                    "id": 4,
+                    "name": "Тарелочки"
+                },
+                "loyaltyProgram": {
+                    "externalId": "D28308F6-B7F2-4851-8AAD-245A2BD4FFB9",
+                    "description": null,
+                    "paymentSystemId": 1,
+                    "images": null,
+                    "id": 1,
+                    "name": "Default"
+                },
+                "partner": {
+                    "id": 2,
+                    "externalId": "3fba867b-1681-3ade-c5fa-efe294c5b48d",
+                    "name": "Мир посуды",
+                    "canEdit": true,
+                    "loyaltyPrograms": [
+                        {
+                            "id": 1,
+                            "name": "Default"
+                        }
+                    ],
+                    "legalName": null
+                },
+                "targetGroup": null,
+                "type": "Deposit",
+                "description": "500 приветственных бонусов",
+                "internalDescription": "500 приветственных бонусов"
+            }';
+
+            $result = $this->SAPI_Deposit($rawData);
+            if ($result["status"] && $result["data"]->result->state == "Success") {
+                $result["data"] = $result["data"]->data;
+            } else {
+                $result["status"] = false;
+            }
+        } else {
+            $result["description"] = "Не удалось получить токен.";
+        }
+
+        return $result;
+    }
+
     // Public API methods
 
     private function initPAPIToken($phone) {
@@ -1071,7 +1137,6 @@ class LMX {
             $result = ["status" => false, "data" => null];
 
             $url = LMX_HOST . "/systemapi/v1.2/users?phone=" . $phone;
-            ///systemapi/v1.2/users?phone=
             $options = array(
                 'http' => array(
                     'header'  => [
