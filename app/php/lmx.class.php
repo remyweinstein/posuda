@@ -893,8 +893,8 @@ class LMX {
                         "Identifier": "'.$phone.'",
                         "identifierType": "Phone",
                         "amount": 500,
-                        "description": "",
-                        "externalInfo": ""
+                        "description": "500 приветственных бонусов",
+                        "externalInfo": "500 приветственных бонусов"
                     }
                 ],
                 "lifeTimeDefinition": {
