@@ -235,6 +235,7 @@ d.addEventListener('DOMContentLoaded', () => {
 
     
     // Применим маску ко всем полям ввода даты
+    /*
     C('input[id*="-date_mask"]').els.forEach((inp) => {
         maskDate(inp);
         C(inp).bind("input", (e) => {
@@ -246,6 +247,7 @@ d.addEventListener('DOMContentLoaded', () => {
             C("#reset_button").el.disabled = (phone.length === 16 ? false : true);
         });
     });
+    */
 
     // Подключаем обработчики для Popup
     C('span[id*="-popup"]').els.forEach((pop) => {
