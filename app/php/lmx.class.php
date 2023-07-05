@@ -58,7 +58,7 @@ class LMX {
                     if ($beginRegistrationResult["status"] && $beginRegistrationResult["data"]->result->state == "Success" && !empty($beginRegistrationResult["data"])) {
                         $personId = $beginRegistrationResult["data"]->data->personId;
                     } else {
-                        $result["description"] = json_encode($beginRegistrationResult);//$beginRegistrationResult["data"]->result->message;  
+                        $result["description"] = $beginRegistrationResult["data"]->result->message;  
                     } 
                 } else {
                     if ($usersResult["data"]->data[0]->state == "Registered") {
@@ -1090,9 +1090,46 @@ class LMX {
 
         return $result;
     }
-    
+
     // System API methods
-    
+    public function initOauthToken() {
+        $result = ["status" => false, "data" => null];
+
+        if (!$this->Oauth_accessToken) {
+            $result = $this->Oauth_GetToken();
+            if ($result["status"]) $this->Oauth_accessToken = $result["data"]->access_token;    
+        } else {
+            $result["status"] = true;
+        }
+
+        return $result;
+    }
+
+    private function Oauth_GetToken() {
+        $result = ["status" => false, "data" => null];
+
+        $url = LMX_HOST . "/authorizationservice/token";
+        $data = array('grant_type' => 'password', 'username' => LMX_ARM_USER_NAME, 'password' => LMX_ARM_USER_PASS, 'area' => 'users');
+        $options = array(
+            'http' => array(
+                'header'  => [
+                    "Content-type: application/x-www-form-urlencoded"
+                ],
+                'method'  => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
+        
+        $result = $this->doRequest($url, $options);
+
+        return $result;
+    }
+
+    private function Oauth_CheckToken() {
+        return ["status" => $this->Oauth_accessToken != null, "description" => (!$this->Oauth_accessToken ? "Отсутствует ключ" : "Ok")];
+    }
+
+    // System API methods
     public function initSAPIToken() {
         $result = ["status" => false, "data" => null];
 
