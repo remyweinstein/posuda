@@ -467,7 +467,7 @@ class BonusApp
     {
         $result = $this->initPDO();
         $LMX = $this->getLMX();
-        print_r($LMX->chargeOnRegisterBonus('79268910860'));
+        print_r($LMX->chargeOnRegisterBonus('79098096386'));
     }
 
     private function api($rawRequestData)
