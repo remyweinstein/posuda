@@ -240,7 +240,7 @@ class LMX {
         $notActivatedAmount = 0;
         $lifeTimesByTime = [];
         $currency = new stdClass;
-        $currency->name = "Бонусы";
+        $currency->name = "Тарелочки";
 
         for($i=0; $i < count($items); $i++) {
             if ($items[$i]->currency->id == 4) {
@@ -338,15 +338,15 @@ class LMX {
                         foreach($itemCurr as $value) {
                                 array_push($lifeTimes, [
 									"amount" => round(($value->amount * 100) + gmp_sign(intval($value->amount)) * 0.5),
-                                    "date" => $value->date
+                                    "date"   => $value->date
                                 ]);
                         }
 
                     $result["status"] = true;
                     $result["data"] = [
-                        "balance"       => $itemCurr->amount,
-                        "activation"    => $itemCurr->notActivatedAmount,
-                        "lifeTimes"     => $lifeTimes
+                        "balance"    => $itemCurr->amount,
+                        "activation" => $itemCurr->notActivatedAmount,
+                        "lifeTimes"  => $lifeTimes
                     ];
                 //} else {
                 //    $result["description"] = "Бонусные счета отсутствуют.";
