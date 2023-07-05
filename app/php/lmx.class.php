@@ -23,7 +23,7 @@ class LMX {
 
             if ($requestResult) {
                 $result["status"] = true;
-                $result["data"] = json_decode($requestResult);
+                $result["data"] = json_decode($requestResult, true);
             } else {
                 $result["description"] = "ERROR_DESCRIPTION";
             }
@@ -265,7 +265,7 @@ class LMX {
         $balance = 0;
         $notActivated = 0;
         $currency = new stdClass;
-        $currency->name = "Бонусы";
+        $currency->name = "Тарелочки";
 
         for($i=0; $i < count($items); $i++) {
             if ($items[$i]->currency->id == 4) {
