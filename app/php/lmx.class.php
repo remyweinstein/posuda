@@ -334,7 +334,7 @@ class LMX {
                     $itemCurr = $this->getCurrencyDetailedBalance($methodResult["data"]->data->items);
                     $lifeTimes = [];
 
-                    //if (!empty($itemCurr->lifeTimesByTime))
+                    if (!empty($itemCurr->lifeTimesByTime))
                         foreach($itemCurr as $value) {
                                 array_push($lifeTimes, [
 									"amount" => round(($value->amount * 100) + gmp_sign(intval($value->amount)) * 0.5),
