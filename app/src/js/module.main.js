@@ -233,6 +233,20 @@ d.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    
+    // Применим маску ко всем полям ввода даты
+    C('input[id*="-date_mask"]').els.forEach((inp) => {
+        maskDate(inp);
+        C(inp).bind("input", (e) => {
+            let phone = e.currentTarget.value;
+            C('input[id*="-inp-date_mask"]').els.forEach((phn) => {
+                phn.value = phone;
+                setDateMask(phn);
+            });
+            C("#reset_button").el.disabled = (phone.length === 16 ? false : true);
+        });
+    });
+
     // Подключаем обработчики для Popup
     C('span[id*="-popup"]').els.forEach((pop) => {
         const inp = C(`#${pop.id.replace("-popup", "")}`).el;
@@ -264,7 +278,7 @@ d.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    C("#reg-birthdate").bind("input", (e) => validateBirthdate(e.target));
+    C("#reg-bd-date_mask").bind("input", (e) => validateBirthdate(e.target));
 
     C("#personal_changePassword_button").bind("click", () => changeProfileData());
 
@@ -820,7 +834,7 @@ async function auth() {
 
 function checkReg() {
     const regPhoneEl = C("#reg-phone-mask"),
-        regBdEl = C("#reg-birthdate").el,
+        regBdEl = C("#reg-bd-date_mask").el,
         regPassEl = C("#reg-pass"),
         regPassConfEl = C("#reg-pass-confirm"),
         phone = getPhoneNumbers(regPhoneEl.val());
@@ -852,7 +866,7 @@ function checkReg() {
 
 async function reg() {
     let regPhoneEl = C("#reg-phone-mask"),
-        regBdEl = C("#reg-birthdate"),
+        regBdEl = C("#reg-bd-date_mask"),
         regButtonEl = C("#reg-button").el,
         phone = getPhoneNumbers(regPhoneEl.val()),
         birthdate;

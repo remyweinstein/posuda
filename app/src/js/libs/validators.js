@@ -35,13 +35,13 @@ function validateBirthdate(el, isSubmit) {
             cd  = new Date(),
             age = (cd - bd);
 
-        if (age < 568036800000 || age > 3155760000000 || bd == 'Invalid Date' || !isValidDate(val)) {
-            showInputPopup('reg-birthdate');
+        if (bd == 'Invalid Date' || !isValidDate(val)) {
+            showInputPopup('reg-bd-date_mask');
         } else {
             return true;
         }
     } else if (isSubmit) {
-        showInputPopup('"reg-birthdate');
+        showInputPopup('reg-bd-date_mask');
     }
 
     return false;
