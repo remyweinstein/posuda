@@ -5152,7 +5152,7 @@ class BonusApp
         if (empty($personId)) return $result;
 
         $LMX = $this->getLMX();
-        $getBalanceResult = $LMX->getBalance($personId);
+        $getBalanceResult = $LMX->getBalanceNew($personId);//$LMX->getBalance($personId);
         if ($getBalanceResult["status"]) {
             $cd = new DateTime();
 
