@@ -23,7 +23,7 @@ class LMX {
 
             if ($requestResult) {
                 $result["status"] = true;
-                $result["data"] = json_decode($requestResult, true);
+                $result["data"] = json_decode($requestResult);
             } else {
                 $result["description"] = "ERROR_DESCRIPTION";
             }
