@@ -45,6 +45,9 @@ function getDateNumbers(value) {
 }
 
 function getValueDateByMask(value, mask, full) {
+    if (!value) {
+        return value;
+    }
     const phone = value.match(/\d/g);
     let newPhone = mask;
 

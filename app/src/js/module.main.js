@@ -235,7 +235,7 @@ d.addEventListener('DOMContentLoaded', () => {
 
     
     // Применим маску ко всем полям ввода даты
-    /*
+    
     C('input[id*="-date_mask"]').els.forEach((inp) => {
         maskDate(inp);
         C(inp).bind("input", (e) => {
@@ -247,7 +247,7 @@ d.addEventListener('DOMContentLoaded', () => {
             C("#reset_button").el.disabled = (phone.length === 16 ? false : true);
         });
     });
-    */
+    
 
     // Подключаем обработчики для Popup
     C('span[id*="-popup"]').els.forEach((pop) => {
@@ -687,7 +687,7 @@ async function drawSection(section) {
         }
 
         case "reg_success": {
-            C('#tempName').val(C().getStor('reg_name'));
+            C('#tempName').text(C().getStor('reg_name'));
             break;
         }
 
@@ -871,6 +871,7 @@ async function reg() {
         regBdEl = C("#reg-bd-date_mask"),
         regButtonEl = C("#reg-button").el,
         phone = getPhoneNumbers(regPhoneEl.val()),
+        firstname = C("#reg_firstname").val(),
         birthdate;
 
 
@@ -888,14 +889,13 @@ async function reg() {
         phone,
         birthdate,
         pass: C("#reg-pass").val(),
-        firstname: C("#reg_firstname").val(),
+        firstname,
         discount: 0,
         email: C("#reg_email").val(),
         city: 1
     });
 
-    C().setStor('reg_name', C("#reg_firstname").val());
-    C('#tempName').val(C("#reg_firstname").val());
+    C().setStor('reg_name', firstname);
 
     regButtonEl.disabled = false;
     hideLoader();
@@ -1201,7 +1201,12 @@ async function logOff() {
 }
 
 const clearLocalStorage = () => {
+    const name = C().getStor('reg_name');
     localStorage.clear();
+
+    if (name) {
+        C().setStor('reg_name', name)
+    }
 }
 
 const showRequestSms = () => {
