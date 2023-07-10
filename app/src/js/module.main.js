@@ -945,7 +945,8 @@ function setConfirmationTimeout(result) {
         if (secondsLeft <= 0) {
             clearInterval(secondsInterval);
             regConfRemindEl.text('');
-            show('#confirmation_button_reset');
+            sendSmsConfirmationCode();
+            //show('#confirmation_button_reset');
             //show('#confirmation_button_reset_note');
         }
     }, 1000);
@@ -1058,6 +1059,30 @@ async function getResetConfirmationCode() {
     }
 }
 
+async function sendSmsConfirmationCode() {
+    let resPhoneEl = C("#reset-phone-mask"),
+        resButtonEl = C("#reset_button").el,
+        resConfInfoEl = C("#reset_confirmation_info");
+
+    if (resPhoneEl.val()) {
+        resButtonEl.disabled = true;
+
+        let result = await api("getResetConfirmationSms", {
+            phone: resPhoneEl.val()
+        });
+
+        if (result.status) {
+            show("#reset_confirmation");
+            resConfInfoEl.text(result.description);
+        } else {
+            promiseTimeout(() => {
+                showPopup("Внимание", result.description);
+            }, 1000);
+            //showToast(result.description);
+        }
+    }
+}
+
 function restartResetConfirmationTimer(seconds) {
     let resConfTimeEl = C("#reset_confirmation_time");
 
@@ -1076,7 +1101,8 @@ function restartResetConfirmationTimer(seconds) {
         resetCodeTimerValue--;
 
         if (!resetCodeTimerValue) {
-            C("#reset_button").el.disabled = false;
+            //C("#reset_button").el.disabled = false;
+            sendSmsConfirmationCode();
             hide("#reset_confirmation_time");
             if (resetCodeTimer)
                 clearInterval(resetCodeTimer);

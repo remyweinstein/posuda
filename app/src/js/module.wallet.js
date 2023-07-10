@@ -250,7 +250,7 @@ function drawPurchase(purchase) {
     
     if (store_description==="Expiration") {
         icon = "clock";
-        name = "Сгорание";
+        name = "Списание бонусов в связи с окончанием срока действия";
     }
     
     if (store_description==="Bonus") {
@@ -296,22 +296,42 @@ function drawPurchase(purchase) {
                     // ${cashback} <span>Б</span>
         }
         
-    let typeTrans = type.name==="Покупка" ? "purch" : "trans";
+    const typeTrans = type.name==="Покупка" ? "purch" : "trans";
     const disablePurchase = purchase.id ? `<span class="delete ${typeTrans}" data-disable-purchase="${purchase.id}"><i class="icon-cancel"></i></span>` : '';
+    const sumka = typeTrans == "purch" ? amount : cashback;
+    let namur = '';
+
+    if (type.name==="Покупка") {
+        if (sumka < 0) {
+            type.name = `Списание за покупку`;
+        }
+        namur = `Начисление за покупку от ${onlyDate}`;
+    }
+
     const temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
                     <div>
                         <span>${onlyDate}</span>
-                        <span>&nbsp;</span>
                         ${disablePurchase}
                     </div>
                     <div class="purchase__row">
-                        <span class="type"><span class="ring"><i class="${type.icon}"></i></span> <span class="title-${type.icon}">${type.name}</span></span>
-                        <span class="bad">${(amount ? `${amount}` : '')}</span>
-                        <span class="${(cashback_amount > 0 ? "good" : "bad")}">${(cashback ? `${cashback}` : "")}</span>
+                        <span class="type">${type.name}</span>
+                        <span class="${(sumka > 0 ? "good" : "bad")}">${sumka}</span>
                     </div>
                 </div>`;
-                // ${amount} <span>Б</span>
-                // ${cashback} <span>Б</span>
+                if (typeTrans === "purch") {
+                    const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
+                        <div>
+                            <span>${onlyDate}</span>
+                            ${disablePurchase}
+                        </div>
+                        <div class="purchase__row">
+                            <span class="type">${namur}</span>
+                            <span class="${(cashback > 0 ? "good" : "bad")}">${cashback}</span>
+                        </div>
+                    </div>`;
+                    const elListura = C().strToNode(tempura).el;
+                    C("#transactions").el.prepend(elListura);
+                }
     
     const elList = C().strToNode(temp).el;
     C("#transactions").el.prepend(elList);

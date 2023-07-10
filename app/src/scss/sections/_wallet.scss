@@ -154,11 +154,12 @@
         
         & > div {
             display: grid;
-            grid-template-columns: 3fr 2fr 2fr;
+            grid-template-columns: 8fr 2fr;
+            align-items: center;
             
             &>span:nth-child(1) {
                 &.type {
-                    line-height: 0rem;
+                    font-size: 1em;
                     
                     .ring {
                         height: 21px;
@@ -343,7 +344,6 @@ a[data-click="openBalanceView"] {
 }
 
 .good {
-    color: #309960;
     font-weight: 600;
     
     span {

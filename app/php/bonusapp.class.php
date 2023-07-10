@@ -3148,7 +3148,7 @@ class BonusApp
         switch ($provider) {
             case "BEE": {
                     $result = $this->smsVoda($phone, $confirmation_code, true);
-                    $description = "Введите код из СМС.";
+                    $description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                     break;
                 }
 
@@ -3160,18 +3160,18 @@ class BonusApp
 
             case "NT": {
                     $result = $this->callPassword($phone, $confirmation_code);
-                    $description = "Введите код подтверждения, который мы направили в WhatsApp.";
+                    $description = "Мы позвоним Вам, после звонка, введите последние 4 цифры номера телефона.";
                     break;
                 }
 
             case "DIG": {
                     $result = $this->smsVoda($phone, $confirmation_code, true);
-                    $description = "Введите код из СМС.";
+                    $description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                     break;
                 }
             case "DIG_FC": {
 		            $result = $this->smsVoda($phone, $confirmation_code, true);
-                    $description = "Введите код из СМС.";
+                    $description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                     break;
                 }
         }
