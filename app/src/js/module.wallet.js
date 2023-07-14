@@ -200,10 +200,10 @@ async function disablePurchase(id, type) {
 }
 
 function drawPurchase(purchase) {
-    const {discount_amount, payment_amount, cashback_amount, store_description} = purchase;
+    const {discount_amount, amount, payment_amount, cashback_amount, store_description} = purchase;
     const totalDisc = (discount_amount || payment_amount) ? "-" + yana(Math.abs(discount_amount) + Math.abs(payment_amount)) : "",
           cashback  = (cashback_amount > 0) ? "+" + yana(cashback_amount) : yana(cashback_amount),
-          amount    = payment_amount ? yana(payment_amount) : "",
+          amounter  = payment_amount ? yana(payment_amount) : "",
           onlyDate  = purchase.operation_date.substr(0, 10).split("-").reverse().join("."),
           refund    = (!purchase.operation_type) ? '<span class="bad" style="font-size: 12px;text-align: right;">чек возврата</span>' : '',
           linkStore = `<span>${purchase.store_title}</span>`;
@@ -260,21 +260,27 @@ function drawPurchase(purchase) {
     
     let type = {icon, name};
     
+    const tobeornottobe = refund ? `<div class="payment-row">
+    <span>Сумма возврата: </span>
+    <span class="good">${yana(amount)} <span>Р</span></span>
+</div>` : `<div class="payment-row">
+<span>Всего скидка: </span>
+<span class="bad">${totalDisc} <span>Р</span></span>
+</div>
+<div class="payment-row">
+<span class="payment-amount" style="margin-left: 20px;">из них бонусами: </span>
+<span class="bad">${(amounter ? `${amounter}` : '')}</span>
+</div>`;
+
+
     if (purchase.positions) {
         tempOld = ` <h4><center>Детализация</center></h4>
                     <div class="payment-row-date">
                         <span>${onlyDate}</span>
                         <span><i class="icon-cancel" onClick="closePositions()"></i></span>
                     </div>
-                    <div class="payment-row">
-                        <span>Всего скидка: </span>
-                        <span class="bad">${totalDisc} <span>Р</span></span>
-                        ${refund}
-                    </div>
-                    <div class="payment-row">
-                        <span class="payment-amount" style="margin-left: 20px;">из них бонусами: </span>
-                        <span class="bad">${(amount ? `${amount}` : '')}</span>
-                    </div>
+                    ${refund}
+                    ${tobeornottobe}
                     <div class="payment-row">
                         <span class="payment-amount">Начислено бонусов: </span>
                         <span class="good">${(cashback ? `${cashback}` : '')}</span>
@@ -292,19 +298,25 @@ function drawPurchase(purchase) {
                     </div>
                     ${tempPositions}
                     <center><button onClick="closePositions()">Закрыть</button></center>`;
-                    // ${amount} <span>Б</span>
+                    // ${amounter} <span>Б</span>
                     // ${cashback} <span>Б</span>
         }
         
     const typeTrans = type.name==="Покупка" ? "purch" : "trans";
     const disablePurchase = purchase.id ? `<span class="delete ${typeTrans}" data-disable-purchase="${purchase.id}"><i class="icon-cancel"></i></span>` : '';
-    const sumka = typeTrans == "purch" ? amount : cashback;
+    let sumka = typeTrans == "purch" ? amounter : cashback;
     let namur = '';
 
     if (type.name==="Покупка") {
         if (sumka < 0) {
             type.name = `Списание за покупку`;
         }
+
+        if (refund) {
+            type.name = `Возврат товара`;
+            sumka = yana(cashback_amount, "+");
+        }
+
         namur = `Начисление за покупку от ${onlyDate}`;
     }
 
@@ -318,7 +330,7 @@ function drawPurchase(purchase) {
                         <span class="${(sumka > 0 ? "good" : "bad")}">${sumka}</span>
                     </div>
                 </div>`;
-                if (typeTrans === "purch") {
+                if (typeTrans === "purch" && !refund) {
                     const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
                         <div>
                             <span>${onlyDate}</span>

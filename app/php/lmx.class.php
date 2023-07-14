@@ -243,9 +243,15 @@ class LMX {
         $currency->name = "Тарелочки";
 
         for($i=0; $i < count($items); $i++) {
+            if ($items[$i]->currency->id == 3) {
+                $amount += $items[$i]->amount;
+                $notActivatedAmount += $items[$i]->notActivatedAmount;
+                $lifeTimesByTime = $items[$i]->lifeTimesByTime;
+                $currency->name = $items[$i]->currrency->name;
+            }
             if ($items[$i]->currency->id == 4) {
-                $amount = $items[$i]->amount;
-                $notActivatedAmount = $items[$i]->notActivatedAmount;
+                $amount += $items[$i]->amount;
+                $notActivatedAmount += $items[$i]->notActivatedAmount;
                 $lifeTimesByTime = $items[$i]->lifeTimesByTime;
                 $currency->name = $items[$i]->currrency->name;
             }
