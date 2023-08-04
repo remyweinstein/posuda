@@ -77,18 +77,15 @@ function drawWallet(walletData) {
         } else if (!walletData.discount && !walletData.preferredDiscount) {
             // Текущая: бонусы, предпочитаемая: бонусы
             typeEl.text("Покажите продавцу QR-код");
-            infoEl.text("Баланс");
-            curEl.text("бонусов");
+            infoEl.text("Баланс бонусов:");
         } else if (!walletData.discount && walletData.preferredDiscount) {
             // Текущая: бонусы, предпочитаемая: скидка
             typeEl.text("Покажите продавцу QR-код");
-            infoEl.text("Баланс");
-            curEl.text("бонусов");
+            infoEl.text("Баланс бонусов:");
         } else if (walletData.discount && !walletData.preferredDiscount) {
             // Текущая: скидка, предпочитаемая: бонусы
             typeEl.text("Покажите продавцу QR-код");
-            infoEl.text("Баланс");
-            curEl.text("бонусов");
+            infoEl.text("Баланс бонусов:");
         }
         
         const balance = (walletData.discount && discountBalance) ? walletData.discountValue : walletData.balance;
@@ -309,7 +306,7 @@ function drawPurchase(purchase) {
 
     if (type.name==="Покупка") {
         if (sumka < 0) {
-            type.name = `Списание за покупку`;
+            type.name = `Списание бонусов`;
         }
 
         if (refund) {
@@ -317,7 +314,7 @@ function drawPurchase(purchase) {
             sumka = yana(cashback_amount, "+");
         }
 
-        namur = `Начисление за покупку от ${onlyDate}`;
+        namur = `Начисление за покупку`;
     }
 
     const temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
