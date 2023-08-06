@@ -304,7 +304,7 @@ function drawPurchase(purchase) {
                     // ${amounter} <span>Б</span>
                     // ${cashback} <span>Б</span>
     }
-        
+    console.log(payment_amount, payment_amount_1, cashback_amount, cashback_amount_1);
     const typeTrans = type.name==="Списание за покупку" ? "purch" : "trans";
     const disablePurchase = purchase.id ? `<span class="delete ${typeTrans}" data-disable-purchase="${purchase.id}"><i class="icon-cancel"></i></span>` : '';
     let sumka = typeTrans == "purch" ? amounter : cashback;
