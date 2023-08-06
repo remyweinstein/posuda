@@ -491,7 +491,9 @@ class LMX {
         $items = [];
 
         for ($i = 0; $i < count($rows); $i++) {
-            if ($rows[$i]->partnerId == "3fba867b-1681-3ade-c5fa-efe294c5b48d") {
+            if ($rows[$i]->partnerId == "3fba867b-1681-3ade-c5fa-efe294c5b48d"
+            ||
+            $rows[$i]->partnerId == "85791858-5d6c-fe38-7fce-4d94c2fc8d4d") {
                 $row = new stdClass;
                 $row = $rows[$i];
                 $items[] = $row;
