@@ -323,7 +323,9 @@ function drawPurchase(purchase) {
         namur = `Начисление за покупку`;
     }
 
-    const temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
+    let temp;
+    
+    if (sumka != 0) temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
                     <div>
                         <span>${onlyDate}</span>
                         ${disablePurchase}
@@ -347,10 +349,44 @@ function drawPurchase(purchase) {
         const elListura = C().strToNode(tempura).el;
         C("#transactions").el.prepend(elListura);
     }
+
+    if (typeTrans === "purch" && !refund && cashback_amount_1 != 0) {
+        const cashback1  = (cashback_amount_1 > 0) ? "+" + yana(cashback_amount_1) : yana(cashback_amount_1);
+        const tempura1 = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
+            <div>
+                <span>${onlyDate}</span>
+                ${disablePurchase}
+            </div>
+            <div class="purchase__row" style="color:#426be0">
+                <span class="type">Начисление Юго-Восточная</span>
+                <span class="${(cashback1 > 0 ? "good" : "bad")}" style="color:#426be0">${cashback1}</span>
+            </div>
+        </div>`;
+        const elListura1 = C().strToNode(tempura1).el;
+        C("#transactions").el.prepend(elListura1);
+    }
+
+    if (typeTrans === "purch" && !refund && payment_amount_1 != 0) {
+        const payment1  = (payment_amount_1 > 0) ? "+" + yana(payment_amount_1) : yana(payment_amount_1);
+        const tempura2 = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
+            <div>
+                <span>${onlyDate}</span>
+                ${disablePurchase}
+            </div>
+            <div class="purchase__row" style="color:#426be0">
+                <span class="type">Списание Юго-Восточная</span>
+                <span class="${(payment1 > 0 ? "good" : "bad")}" style="color:#426be0">${payment1}</span>
+            </div>
+        </div>`;
+        const elListura2 = C().strToNode(tempura2).el;
+        C("#transactions").el.prepend(elListura2);
+    }
     
-    const elList = C().strToNode(temp).el;
-    C("#transactions").el.prepend(elList);
-    
+    if (temp) {
+        const elList = C().strToNode(temp).el;
+        C("#transactions").el.prepend(elList);
+    }
+
     if (purchase.positions) {
         C(".purchase__row", elList).bind("click", () => fillOverlay(tempOld));
     }
