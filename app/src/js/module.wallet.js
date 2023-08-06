@@ -323,9 +323,8 @@ function drawPurchase(purchase) {
         namur = `Начисление за покупку`;
     }
 
-    let temp = '';
-    
-    temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
+    if (sumka != 0) {
+        const temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
                     <div>
                         <span>${onlyDate}</span>
                         ${disablePurchase}
@@ -335,6 +334,10 @@ function drawPurchase(purchase) {
                         <span class="${(sumka > 0 ? "good" : "bad")}" ${(partner)?' style="color:#426be0"':''}>${sumka}</span>
                     </div>
                 </div>`;
+        const elList = C().strToNode(temp).el;
+        C("#transactions").el.prepend(elList);
+    }
+    
     if (typeTrans === "purch" && !refund && cashback > 0) {
         const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
             <div>
@@ -380,11 +383,6 @@ function drawPurchase(purchase) {
         </div>`;
         const elListura2 = C().strToNode(tempura2).el;
         C("#transactions").el.prepend(elListura2);
-    }
-    
-    if (sumka != 0) {
-        const elList = C().strToNode(temp).el;
-        C("#transactions").el.prepend(elList);
     }
 
     if (purchase.positions) {
