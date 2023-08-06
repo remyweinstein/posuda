@@ -153,7 +153,9 @@ function drawPurchases(purchases, transactions) {
                    store_title: el.description,
                    store_description: el.type,
                    cashback_amount: (el.amount/100),
-                   date: new Date(el.date.replace(new RegExp("-", 'g'), "/")) });
+                   date: new Date(el.date.replace(new RegExp("-", 'g'), "/")),
+                   partner: el.partner
+                });
         return acc;
     }, []);
     

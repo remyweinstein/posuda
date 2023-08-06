@@ -3698,7 +3698,8 @@ class BonusApp
                 date,
                 description,
                 type,
-                amount
+                amount,
+                partner
             FROM
                 transactions
             WHERE
