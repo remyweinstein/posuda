@@ -259,17 +259,21 @@ function drawPurchase(purchase) {
     
     let type = {icon, name};
     
-    const tobeornottobe = refund ? `<div class="payment-row">
-    <span>Сумма возврата: </span>
-    <span class="good">${yana(amount)} <span>Р</span></span>
-</div>` : `<div class="payment-row">
-<span>Всего скидка: </span>
-<span class="bad">${totalDisc} <span>Р</span></span>
-</div>
-<div class="payment-row">
-<span class="payment-amount" style="margin-left: 20px;">из них бонусами: </span>
-<span class="bad">${(amounter ? `${amounter}` : '')}</span>
-</div>`;
+    const tobeornottobe = refund 
+            ? 
+            `<div class="payment-row">
+                <span>Сумма возврата: </span>
+                <span class="good">${yana(amount)} <span>Р</span></span>
+            </div>`
+            :
+            `<div class="payment-row">
+                <span>Всего скидка: </span>
+                <span class="bad">${totalDisc} <span>Р</span></span>
+            </div>
+            <div class="payment-row">
+                <span class="payment-amount" style="margin-left: 20px;">из них бонусами: </span>
+                <span class="bad">${(amounter ? `${amounter}` : '')}</span>
+            </div>`;
 
 
     if (purchase.positions) {
@@ -329,20 +333,20 @@ function drawPurchase(purchase) {
                         <span class="${(sumka > 0 ? "good" : "bad")}" ${(partner)?' style="color:#426be0"':''}>${sumka}</span>
                     </div>
                 </div>`;
-                if (typeTrans === "purch" && !refund) {
-                    const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
-                        <div>
-                            <span>${onlyDate}</span>
-                            ${disablePurchase}
-                        </div>
-                        <div class="purchase__row">
-                            <span class="type">${namur}</span>
-                            <span class="${(cashback > 0 ? "good" : "bad")}">${cashback}</span>
-                        </div>
-                    </div>`;
-                    const elListura = C().strToNode(tempura).el;
-                    C("#transactions").el.prepend(elListura);
-                }
+    if (typeTrans === "purch" && !refund && cashback > 0) {
+        const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
+            <div>
+                <span>${onlyDate}</span>
+                ${disablePurchase}
+            </div>
+            <div class="purchase__row">
+                <span class="type">${namur}</span>
+                <span class="${(cashback > 0 ? "good" : "bad")}">${cashback}</span>
+            </div>
+        </div>`;
+        const elListura = C().strToNode(tempura).el;
+        C("#transactions").el.prepend(elListura);
+    }
     
     const elList = C().strToNode(temp).el;
     C("#transactions").el.prepend(elList);
