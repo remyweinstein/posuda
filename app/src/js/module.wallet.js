@@ -304,7 +304,7 @@ function drawPurchase(purchase) {
                     // ${amounter} <span>Б</span>
                     // ${cashback} <span>Б</span>
     }
-    console.log(payment_amount, payment_amount_1, cashback_amount, cashback_amount_1);
+    
     const typeTrans = type.name==="Списание за покупку" ? "purch" : "trans";
     const disablePurchase = purchase.id ? `<span class="delete ${typeTrans}" data-disable-purchase="${purchase.id}"><i class="icon-cancel"></i></span>` : '';
     let sumka = typeTrans == "purch" ? amounter : cashback;
@@ -323,7 +323,7 @@ function drawPurchase(purchase) {
         namur = `Начисление за покупку`;
     }
 
-    //if (sumka != 0) {
+    if (refund || typeTrans === "trans" || (payment_amount != 0 && typeTrans === "purch")) {
         const temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
                     <div>
                         <span>${onlyDate}</span>
@@ -336,7 +336,7 @@ function drawPurchase(purchase) {
                 </div>`;
         const elList = C().strToNode(temp).el;
         C("#transactions").el.prepend(elList);
-    //}
+    }
 
     if (typeTrans === "purch" && !refund && cashback > 0) {
         const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
