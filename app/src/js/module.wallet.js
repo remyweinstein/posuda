@@ -245,7 +245,7 @@ function drawPurchase(purchase) {
     }
     
     let icon = "basket",
-        name = "Покупка";
+        name = "Списание за покупку";
     
     if (store_description==="Expiration") {
         icon = "clock";
@@ -305,19 +305,19 @@ function drawPurchase(purchase) {
                     // ${cashback} <span>Б</span>
     }
         
-    const typeTrans = type.name==="Покупка" ? "purch" : "trans";
+    const typeTrans = type.name==="Списание за покупку" ? "purch" : "trans";
     const disablePurchase = purchase.id ? `<span class="delete ${typeTrans}" data-disable-purchase="${purchase.id}"><i class="icon-cancel"></i></span>` : '';
     let sumka = typeTrans == "purch" ? amounter : cashback;
     let namur = '';
 
-    if (type.name==="Покупка") {
+    if (type.name==="Списание за покупку") {
         if (sumka < 0) {
             type.name = `Списание бонусов`;
         }
 
         if (refund) {
             type.name = `Возврат товара`;
-            sumka = yana(cashback_amount, "+");
+            sumka = cashback_amount > 0 ? yana(cashback_amount, "+") : yana(cashback_amount_1, "+");
         }
 
         namur = `Начисление за покупку`;
