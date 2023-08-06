@@ -3649,15 +3649,17 @@ class BonusApp
                 date,
                 description,
                 type,
-                amount
-            ) VALUES (?, ?, ?, ?, ?, ?)");
+                amount,
+                partner
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $a = [
                 $data["extId"],
                 $personId,
                 $data["date"],
                 $data["description"],
                 $data["type"],
-                $data["amount"]
+                $data["amount"],
+                $data["partner"]
             ];
             $query->execute($a);
 

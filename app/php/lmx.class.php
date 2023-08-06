@@ -540,7 +540,8 @@ class LMX {
                             $transaction = [
                                 "extId" => $row->id,
                                 "date" => (new DateTime($row->dateTime))->format("Y-m-d H:i:s"),
-                                "description" => $row->description
+                                "description" => $row->description,
+                                "partner" => ($row->partnerId == "85791858-5d6c-fe38-7fce-4d94c2fc8d4d") ? 1 : 0
                             ];
     
                             switch ($row->type) {
