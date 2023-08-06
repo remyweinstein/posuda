@@ -223,13 +223,16 @@ function drawPurchase(purchase) {
             let discount  = "";
             if((discount_amount && discount_amount > 0) || (discount_amount_1 && discount_amount_1 > 0)){
                 const twoes = discount_amount + discount_amount_1;
+                console.log("twoes=", twoes);
                 discount  = `${yana(twoes, "-")} Р`;
             }
             if((payment_amount && payment_amount != 0) || (payment_amount_1 && payment_amount_1 != 0)){
                 const ones = payment_amount + payment_amount_1;
+                console.log("ones=", ones);
                 discount  = `${yana(ones)}`;// Б
             }
             const  cashbacktur = cashback_amount + cashback_amount_1;
+            console.log("cashbacktur=", cashbacktur);
             tempPositions += `<div class="payment-details payment-details-full">
                                 <span>
                                     ${(product_title || "Загрузка..")}
@@ -261,6 +264,7 @@ function drawPurchase(purchase) {
     
     let type = {icon, name};
     const paymentur = payment_amount + payment_amount_1;
+    console.log("paymentur=", paymentur);
     const tobeornottobe = refund 
             ? 
             `<div class="payment-row">
@@ -280,6 +284,7 @@ function drawPurchase(purchase) {
 
     if (purchase.positions) {
         const cashbackur = cashback_amount + cashback_amount_1;
+        console.log("cashbackur=", cashbackur);
         tempOld = ` <h4><center>Детализация</center></h4>
                     <div class="payment-row-date">
                         <span>${onlyDate}</span>
