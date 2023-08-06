@@ -199,7 +199,7 @@ async function disablePurchase(id, type) {
 }
 
 function drawPurchase(purchase) {
-    const {discount_amount, amount, payment_amount, cashback_amount, store_description} = purchase;
+    const {discount_amount, amount, payment_amount, cashback_amount, store_description, partner} = purchase;
     const totalDisc = (discount_amount || payment_amount) ? "-" + yana(Math.abs(discount_amount) + Math.abs(payment_amount)) : "",
           cashback  = (cashback_amount > 0) ? "+" + yana(cashback_amount) : yana(cashback_amount),
           amounter  = payment_amount ? yana(payment_amount) : "",
@@ -299,7 +299,7 @@ function drawPurchase(purchase) {
                     <center><button onClick="closePositions()">Закрыть</button></center>`;
                     // ${amounter} <span>Б</span>
                     // ${cashback} <span>Б</span>
-        }
+    }
         
     const typeTrans = type.name==="Покупка" ? "purch" : "trans";
     const disablePurchase = purchase.id ? `<span class="delete ${typeTrans}" data-disable-purchase="${purchase.id}"><i class="icon-cancel"></i></span>` : '';
@@ -324,8 +324,8 @@ function drawPurchase(purchase) {
                         <span>${onlyDate}</span>
                         ${disablePurchase}
                     </div>
-                    <div class="purchase__row">
-                        <span class="type">${type.name}</span>
+                    <div class="purchase__row" ${(partner)?' style="color:#426be0"':''}>
+                        <span class="type">${(partner && type.name==="Подарок")?'Начисление Юго-Восточная':type.name}</span>
                         <span class="${(sumka > 0 ? "good" : "bad")}">${sumka}</span>
                     </div>
                 </div>`;
