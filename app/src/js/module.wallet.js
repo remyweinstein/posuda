@@ -212,7 +212,7 @@ function drawPurchase(purchase) {
     if (purchase.positions && purchase.positions.length) {
 
         purchase.positions.forEach((position) => {
-            const {cashback_amount, count, amount, product_title, discount_amount, payment_amount} = position;
+            const {cashback_amount, cashback_amount_1, count, amount, product_title, discount_amount, payment_amount, discount_amount_1, payment_amount_1} = position;
             let counter = "_";
                 
             if (count) {
@@ -221,11 +221,11 @@ function drawPurchase(purchase) {
             }
             
             let discount  = "";
-            if(discount_amount && discount_amount > 0){
-                discount  = `${yana(discount_amount, "-")} Р`;
+            if((discount_amount && discount_amount > 0) || (discount_amount_1 && discount_amount_1 > 0)){
+                discount  = `${yana((discount_amount + discount_amount_1), "-")} Р`;
             }
-            if(payment_amount && payment_amount != 0){
-                discount  = `${yana(payment_amount)}`;// Б
+            if((payment_amount && payment_amount != 0) || (payment_amount_1 && payment_amount_1 != 0)){
+                discount  = `${yana(payment_amount + payment_amount_1)}`;// Б
             }
             
             tempPositions += `<div class="payment-details payment-details-full">
@@ -239,7 +239,7 @@ function drawPurchase(purchase) {
                             <div class="payment-details import">
                                 <span class="b">${yana(amount)} руб</span>
                                 <span class="bad b">${discount}</span>
-                                <span class="good b">${yana(cashback_amount, "+")}</span>
+                                <span class="good b">${yana((cashback_amount + cashback_amount_1), "+")}</span>
                             </div>`;//+")} Б
         });
     }
