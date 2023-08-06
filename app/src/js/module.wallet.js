@@ -272,7 +272,7 @@ function drawPurchase(purchase) {
             </div>
             <div class="payment-row">
                 <span class="payment-amount" style="margin-left: 20px;">из них бонусами: </span>
-                <span class="bad">${(amounter ? `${amounter}` : '')}</span>
+                <span class="bad">${yana(payment_amount + payment_amount_1)}</span>
             </div>`;
 
 
@@ -286,7 +286,7 @@ function drawPurchase(purchase) {
                     ${tobeornottobe}
                     <div class="payment-row">
                         <span class="payment-amount">Начислено бонусов: </span>
-                        <span class="good">${(cashback ? `${cashback}` : '')}</span>
+                        <span class="good">${yana(cashback_amount + cashback_amount_1)}</span>
                     </div>
                     <div class="payment-row-store">
                         <span class="payment-amount">Магазин: </span>
@@ -323,7 +323,7 @@ function drawPurchase(purchase) {
         namur = `Начисление за покупку`;
     }
 
-    let temp;
+    let temp = '';
     
     temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
                     <div>
@@ -382,10 +382,10 @@ function drawPurchase(purchase) {
         C("#transactions").el.prepend(elListura2);
     }
     
-    //if (temp) {
+    if (sumka != 0) {
         const elList = C().strToNode(temp).el;
         C("#transactions").el.prepend(elList);
-    //}
+    }
 
     if (purchase.positions) {
         C(".purchase__row", elList).bind("click", () => fillOverlay(tempOld));
