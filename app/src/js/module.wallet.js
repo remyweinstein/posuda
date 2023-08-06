@@ -323,6 +323,8 @@ function drawPurchase(purchase) {
         namur = `Начисление за покупку`;
     }
 
+    let elList;
+
     if (refund || typeTrans === "trans" || (payment_amount != 0 && typeTrans === "purch")) {
         const temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
                     <div>
@@ -334,7 +336,7 @@ function drawPurchase(purchase) {
                         <span class="${(sumka > 0 ? "good" : "bad")}" ${(partner)?' style="color:#426be0"':''}>${sumka}</span>
                     </div>
                 </div>`;
-        const elList = C().strToNode(temp).el;
+        elList = C().strToNode(temp).el;
         C("#transactions").el.prepend(elList);
     }
 
@@ -349,8 +351,8 @@ function drawPurchase(purchase) {
                 <span class="${(cashback > 0 ? "good" : "bad")}">${cashback}</span>
             </div>
         </div>`;
-        const elListura = C().strToNode(tempura).el;
-        C("#transactions").el.prepend(elListura);
+        elList = C().strToNode(tempura).el;
+        C("#transactions").el.prepend(elList);
     }
 
     if (typeTrans === "purch" && !refund && cashback_amount_1 != 0) {
@@ -365,8 +367,8 @@ function drawPurchase(purchase) {
                 <span class="${(cashback1 > 0 ? "good" : "bad")}" style="color:#426be0">${cashback1}</span>
             </div>
         </div>`;
-        const elListura1 = C().strToNode(tempura1).el;
-        C("#transactions").el.prepend(elListura1);
+        elList = C().strToNode(tempura1).el;
+        C("#transactions").el.prepend(elList);
     }
 
     if (typeTrans === "purch" && !refund && payment_amount_1 != 0) {
@@ -381,8 +383,8 @@ function drawPurchase(purchase) {
                 <span class="${(payment1 > 0 ? "good" : "bad")}" style="color:#426be0">${payment1}</span>
             </div>
         </div>`;
-        const elListura2 = C().strToNode(tempura2).el;
-        C("#transactions").el.prepend(elListura2);
+        elList = C().strToNode(tempura2).el;
+        C("#transactions").el.prepend(elList);
     }
 
     if (purchase.positions) {
