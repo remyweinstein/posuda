@@ -199,7 +199,7 @@ async function disablePurchase(id, type) {
 }
 
 function drawPurchase(purchase) {
-    const {discount_amount, amount, payment_amount, cashback_amount, store_description, partner} = purchase;
+    const {discount_amount_1, payment_amount_1, cashback_amount_1, discount_amount, amount, payment_amount, cashback_amount, store_description, partner} = purchase;
     const totalDisc = (discount_amount || payment_amount) ? "-" + yana(Math.abs(discount_amount) + Math.abs(payment_amount)) : "",
           cashback  = (cashback_amount > 0) ? "+" + yana(cashback_amount) : yana(cashback_amount),
           amounter  = payment_amount ? yana(payment_amount) : "",
