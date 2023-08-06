@@ -324,9 +324,9 @@ function drawPurchase(purchase) {
                         <span>${onlyDate}</span>
                         ${disablePurchase}
                     </div>
-                    <div class="purchase__row" ${(partner)?' style="color:#426be0"':''}>
-                        <span class="type">${(partner && type.name==="Подарок")?'Начисление Юго-Восточная':type.name}</span>
-                        <span class="${(sumka > 0 ? "good" : "bad")}">${sumka}</span>
+                    <div class="purchase__row">
+                        <span class="type" ${(partner)?' style="color:#426be0"':''}>${(partner && type.name==="Подарок")?'Начисление Юго-Восточная':type.name}</span>
+                        <span class="${(sumka > 0 ? "good" : "bad")}" ${(partner)?' style="color:#426be0"':''}>${sumka}</span>
                     </div>
                 </div>`;
                 if (typeTrans === "purch" && !refund) {

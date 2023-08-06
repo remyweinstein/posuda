@@ -609,6 +609,9 @@ class LMX {
                                 "cashback_amount" => 0,
                                 "discount_amount" => 0,
                                 "payment_amount" => 0,
+                                "cashback_amount_1" => 0,
+                                "discount_amount_1" => 0,
+                                "payment_amount_1" => 0,
                                 "discount_card" => $purchase->personIdentifier,
                                 "positions" => []
                             ];
@@ -622,6 +625,9 @@ class LMX {
                                     "cashback_amount" => 0,
                                     "discount_amount" => 0,
                                     "payment_amount" => 0,
+                                    "cashback_amount_1" => 0,
+                                    "discount_amount_1" => 0,
+                                    "payment_amount_1" => 0,
                                     "amount" => $chequePosition->amount->amount * 100
                                 ];
 
@@ -631,18 +637,30 @@ class LMX {
     
                                         switch ($discount->type) {
                                             case "CalculatedDiscount": {
-                                                $position["discount_amount"] += $discount->amount->amount * 100;
+                                                if ($discount->amount->currencyInfo->id === 4) {
+                                                    $position["discount_amount"] += $discount->amount->amount * 100;
+                                                } else {
+                                                    $position["discount_amount_1"] += $discount->amount->amount * 100;
+                                                }
                                                 $position["amount"] += $discount->amount->amount * 100;
                                                 break;
                                             }
     
                                             case "CalculatedCashback":{
-                                                $position["cashback_amount"] += $discount->amount->amount * 100;
+                                                if ($discount->amount->currencyInfo->id === 4) {
+                                                    $position["cashback_amount"] += $discount->amount->amount * 100;
+                                                } else {
+                                                    $position["cashback_amount_1"] += $discount->amount->amount * 100;
+                                                }
                                                 break;
                                             }
     
                                             case "CalculatedPayment":{
-                                                $position["payment_amount"] += $discount->amount->amount * 100;
+                                                if ($discount->amount->currencyInfo->id === 4) {
+                                                    $position["payment_amount"] += $discount->amount->amount * 100;
+                                                } else {
+                                                    $position["payment_amount_1"] += $discount->amount->amount * 100;
+                                                }
                                                 $position["amount"] += $discount->amount->amount * 100;
                                                 break;
                                             }
@@ -656,7 +674,11 @@ class LMX {
                                     foreach ($chequePosition->refunds as $key => $refund) {
                                         if (!$refund->amount->amount) continue;
     
-                                        $position["cashback_amount"] += $refund->amount->amount * 100;
+                                        if ($discount->amount->currencyInfo->id === 4) {
+                                            $position["cashback_amount"] += $refund->amount->amount * 100;
+                                        } else {
+                                            $position["cashback_amount_1"] += $refund->amount->amount * 100;
+                                        }
                                     }
                                 }
 
@@ -664,6 +686,9 @@ class LMX {
                                 $purchase["cashback_amount"]    += $position["cashback_amount"];
                                 $purchase["discount_amount"]    += $position["discount_amount"];
                                 $purchase["payment_amount"]     += $position["payment_amount"];
+                                $purchase["cashback_amount_1"]  += $position["cashback_amount_1"];
+                                $purchase["discount_amount_1"]  += $position["discount_amount_1"];
+                                $purchase["payment_amount_1"]   += $position["payment_amount_1"];
 
                                 array_push($purchase["positions"], $position);
                             }

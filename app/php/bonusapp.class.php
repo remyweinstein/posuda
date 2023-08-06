@@ -3780,8 +3780,11 @@ class BonusApp
                     profile_ext_id,
                     discount_amount,
                     payment_amount, 
-                    discount_card
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    discount_card,
+                    discount_amount_1,
+                    payment_amount_1,
+                    cashback_amount_1
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $a = [
                 md5($rsa_id . $purchase["sale_time"] . $purchase["number"]),
                 $rsa_id,
@@ -3796,7 +3799,10 @@ class BonusApp
                 $person_id,
                 $purchase["discount_amount"],
                 $purchase["payment_amount"],
-                $purchase["discount_card"]
+                $purchase["discount_card"],
+                $purchase["discount_amount_1"],
+                $purchase["payment_amount_1"],
+                $purchase["cashback_amount_1"]
             ];
             $query->execute($a);
 
@@ -3827,8 +3833,11 @@ class BonusApp
                         cashback_amount,
                         discount_amount,
                         payment_amount,
-                        amount
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                        amount,
+                        cashback_amount_1,
+                        discount_amount_1,
+                        payment_amount_1
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $a = [
                     $purchase_id,
                     $product_id,
@@ -3837,7 +3846,10 @@ class BonusApp
                     $position["cashback_amount"],
                     $position["discount_amount"],
                     $position["payment_amount"],
-                    $position["amount"]
+                    $position["amount"],
+                    $position["cashback_amount_1"],
+                    $position["discount_amount_1"],
+                    $position["payment_amount_1"]
                 ];
 
                 $query->execute($a);
@@ -3943,26 +3955,44 @@ class BonusApp
                     purchases.id,
                     ROUND(purchases.amount / 100, 2) AS purchase_amount,
                     ROUND(purchases.cashback_amount / 100, 2) AS purchase_cashback_amount,
+                    ROUND(purchases.cashback_amount_1 / 100, 2) AS purchase_cashback_amount_1,
                     CASE
                         WHEN purchases.profile_ext_id IS NULL THEN 0
                         ELSE ROUND(purchases.discount_amount / 100, 2)
                     END AS purchase_discount_amount,
                     CASE
+                        WHEN purchases.profile_ext_id IS NULL THEN 0
+                        ELSE ROUND(purchases.discount_amount_1 / 100, 2)
+                    END AS purchase_discount_amount_1,
+                    CASE
                         WHEN purchases.profile_ext_id IS NULL THEN -ROUND(purchases.discount_amount / 100, 2)
                         ELSE ROUND(purchases.payment_amount / 100, 2)
                     END AS purchase_payment_amount,
+                    CASE
+                        WHEN purchases.profile_ext_id IS NULL THEN -ROUND(purchases.discount_amount_1 / 100, 2)
+                        ELSE ROUND(purchases.payment_amount_1 / 100, 2)
+                    END AS purchase_payment_amount_1,
                     products.title AS product_title,
                     (positions.cost / 100) cost,
                     ROUND(positions.cashback_amount / 100, 2) AS cashback_amount,
+                    ROUND(positions.cashback_amount_1 / 100, 2) AS cashback_amount_1,
                     ROUND(positions.count / 1000, 1) AS count,
                     CASE
                         WHEN purchases.profile_ext_id IS NULL THEN 0
                         ELSE ROUND(positions.discount_amount / 100, 2)
                     END AS discount_amount,
                     CASE
+                        WHEN purchases.profile_ext_id IS NULL THEN 0
+                        ELSE ROUND(positions.discount_amount_1 / 100, 2)
+                    END AS discount_amount_1,
+                    CASE
                         WHEN purchases.profile_ext_id IS NULL THEN -ROUND(positions.discount_amount / 100, 2)
                         ELSE ROUND(positions.payment_amount / 100, 2)
                     END AS payment_amount,
+                    CASE
+                        WHEN purchases.profile_ext_id IS NULL THEN -ROUND(positions.discount_amount_1 / 100, 2)
+                        ELSE ROUND(positions.payment_amount_1 / 100, 2)
+                    END AS payment_amount_1,
                     ROUND(positions.amount / 100, 2) AS amount
                 FROM purchases
                 LEFT JOIN positions
@@ -3995,6 +4025,9 @@ class BonusApp
                             "cashback_amount"   => $row["purchase_cashback_amount"],
                             "discount_amount"   => $row["purchase_discount_amount"],
                             "payment_amount"    => $row["purchase_payment_amount"],
+                            "cashback_amount_1" => $row["purchase_cashback_amount_1"],
+                            "discount_amount_1" => $row["purchase_discount_amount_1"],
+                            "payment_amount_1"  => $row["purchase_payment_amount_1"],
                             "positions"         => []
                         ]);
 
@@ -4010,6 +4043,9 @@ class BonusApp
                             "cashback_amount"   => $row["cashback_amount"],
                             "discount_amount"   => $row["discount_amount"],
                             "payment_amount"    => $row["payment_amount"],
+                            "cashback_amount_1" => $row["cashback_amount_1"],
+                            "discount_amount_1" => $row["discount_amount_1"],
+                            "payment_amount_1"  => $row["payment_amount_1"],
                             "amount"            => $row["amount"]
                         ]);
                     }
@@ -4064,26 +4100,44 @@ class BonusApp
                     purchases.id,
                     ROUND(purchases.amount / 100, 2) AS purchase_amount,
                     ROUND(purchases.cashback_amount / 100, 2) AS purchase_cashback_amount,
+                    ROUND(purchases.cashback_amount_1 / 100, 2) AS purchase_cashback_amount_1,
                     CASE
                         WHEN purchases.profile_ext_id IS NULL THEN 0
                         ELSE ROUND(purchases.discount_amount / 100, 2)
                     END AS purchase_discount_amount,
                     CASE
+                        WHEN purchases.profile_ext_id IS NULL THEN 0
+                        ELSE ROUND(purchases.discount_amount_1 / 100, 2)
+                    END AS purchase_discount_amount_1,
+                    CASE
                         WHEN purchases.profile_ext_id IS NULL THEN -ROUND(purchases.discount_amount / 100, 2)
                         ELSE ROUND(purchases.payment_amount / 100, 2)
                     END AS purchase_payment_amount,
+                    CASE
+                        WHEN purchases.profile_ext_id IS NULL THEN -ROUND(purchases.discount_amount_1 / 100, 2)
+                        ELSE ROUND(purchases.payment_amount_1 / 100, 2)
+                    END AS purchase_payment_amount_1,
                     products.title AS product_title,
                     (positions.cost / 100) cost,
                     ROUND(positions.cashback_amount / 100, 2) AS cashback_amount,
+                    ROUND(positions.cashback_amount_1 / 100, 2) AS cashback_amount_1,
                     ROUND(positions.count / 1000, 1) AS count,
                     CASE
                         WHEN purchases.profile_ext_id IS NULL THEN 0
                         ELSE ROUND(positions.discount_amount / 100, 2)
                     END AS discount_amount,
                     CASE
+                        WHEN purchases.profile_ext_id IS NULL THEN 0
+                        ELSE ROUND(positions.discount_amount_1 / 100, 2)
+                    END AS discount_amount_1,
+                    CASE
                         WHEN purchases.profile_ext_id IS NULL THEN -ROUND(positions.discount_amount / 100, 2)
                         ELSE ROUND(positions.payment_amount / 100, 2)
                     END AS payment_amount,
+                    CASE
+                        WHEN purchases.profile_ext_id IS NULL THEN -ROUND(positions.discount_amount_1 / 100, 2)
+                        ELSE ROUND(positions.payment_amount_1 / 100, 2)
+                    END AS payment_amount_1,
                     ROUND(positions.amount / 100, 2) AS amount
                 FROM purchases
                 LEFT JOIN positions
@@ -4116,6 +4170,9 @@ class BonusApp
                             "cashback_amount"   => $row["purchase_cashback_amount"],
                             "discount_amount"   => $row["purchase_discount_amount"],
                             "payment_amount"    => $row["purchase_payment_amount"],
+                            "cashback_amount_1" => $row["purchase_cashback_amount_1"],
+                            "discount_amount_1" => $row["purchase_discount_amount_1"],
+                            "payment_amount_1"  => $row["purchase_payment_amount_1"],
                             "positions"         => []
                         ]);
 
@@ -4131,6 +4188,9 @@ class BonusApp
                             "cashback_amount"   => $row["cashback_amount"],
                             "discount_amount"   => $row["discount_amount"],
                             "payment_amount"    => $row["payment_amount"],
+                            "cashback_amount_1" => $row["cashback_amount_1"],
+                            "discount_amount_1" => $row["discount_amount_1"],
+                            "payment_amount_1"  => $row["payment_amount_1"],
                             "amount"            => $row["amount"]
                         ]);
                     }
