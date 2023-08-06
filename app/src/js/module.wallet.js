@@ -325,7 +325,7 @@ function drawPurchase(purchase) {
 
     let temp;
     
-    if (sumka != 0) temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
+    temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
                     <div>
                         <span>${onlyDate}</span>
                         ${disablePurchase}
@@ -382,10 +382,10 @@ function drawPurchase(purchase) {
         C("#transactions").el.prepend(elListura2);
     }
     
-    if (temp) {
+    //if (temp) {
         const elList = C().strToNode(temp).el;
         C("#transactions").el.prepend(elList);
-    }
+    //}
 
     if (purchase.positions) {
         C(".purchase__row", elList).bind("click", () => fillOverlay(tempOld));
