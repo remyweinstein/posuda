@@ -323,6 +323,10 @@ d.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    C('#accept_rules').bind("click", () => {
+        C('#accept_rules').el.style.boxShadow = 'none';
+    });
+
     C('a[data-click="openBalanceView"]').bind('click', (e) => {
         const el = C('.balance-view').el.classList;
 
@@ -863,6 +867,11 @@ function checkReg() {
         return 0;
     }
 
+    if (!C('#accept_rules').el.checked) {
+        C('#accept_rules').el.style.boxShadow = '0 0 10px red';
+        return 0;
+    }
+
     return 1;
 }
 
@@ -1275,6 +1284,8 @@ function closeTerms() {
     C('#terms .terms__content').el.innerHTML = '';
     hide('#terms');
     C('body').delclass('hideOverflow');
+    C('#accept_rules').el.style.boxShadow = 'none';
+    C('#accept_rules').el.checked = true;
 }
 
 function showIndicator() {

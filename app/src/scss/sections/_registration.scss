@@ -16,3 +16,19 @@
 .registration__confirm {
     padding-top: 5rem;
 }
+
+.reg_confirm {
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 11fr;
+    align-items: center;
+
+    input {
+        width: fit-content;
+        margin: 0;
+    }
+
+    span {
+        font-size: 0.9em;
+    }
+}

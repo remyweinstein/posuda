@@ -261,11 +261,14 @@
                             <div id="loyalty-system" class="system system-reg" style="display:none">
                             </div>
                             <!-- Согласие с условиями -->
-                            <p class="reg_confirm">Создавая аккаунт, я соглашаюсь с <a onclick="showRules()">правилами</a> и даю
-                                согласие
-                                на <a onclick="showTerms()">обработку персональных данных</a>.</p>
+                            <p class="reg_confirm">
+                                <input type="checkbox" id="accept_rules">
+                                <span>
+                                    Я соглашаюсь с <a onclick="showRules()">правилами</a> и даю согласие на <a onclick="showTerms()">обработку персональных данных</a>.
+                                </span>
+                            </p>
                             <!-- Кнопка регистрации -->
-                            <button id="reg-button" class="button button-primary" style="width:100%">СОХРАНИТЬ</button>
+                            <button id="reg-button" class="button button-primary" style="width:100%">СОЗДАТЬ АККАУНТ</button>
                         </div>
                         <!-- Блок подтверждения регистрации -->
                         <div id="reg_confirmation" class="registration__confirm" style="display:none">
@@ -281,7 +284,6 @@
                         </div>
                         <!-- Авторизация -->
                         <p class="reg_auth link">
-                            <span>Вспомнил, </span>
                             <a href="#" onclick="drawSection('authorization');return false;">я уже зарегистрирован(а)</a>
                         </p>
                     </div>
@@ -337,12 +339,8 @@
                         <div class="personal__footer_event">
                             <button onclick="drawSection('personal_update');return false;">изменить данные</button>
                         </div>
-                        <div style="
-                            text-align: left;
-                        "><a href="#" onclick="showRules();return false;">Правила программы лояльности</a></div>
-                                                <div style="
-                            text-align: left;
-                        "><a href="#" onclick="openFaq();return false;">Частые вопросы</a></div>
+                        <div style="text-align: left;"><a href="#" onclick="showRules();return false;">Правила программы лояльности</a></div>
+                        <!--<div style="text-align: left;"><a href="#" onclick="openFaq();return false;">Частые вопросы</a></div>-->
                     </div>
                 </div>
 
