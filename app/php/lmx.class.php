@@ -675,10 +675,10 @@ class LMX {
                                     foreach ($chequePosition->refunds as $key => $refund) {
                                         if (!$refund->amount->amount) continue;
     
-                                        if ($discount->amount->currencyInfo->id === 4) {
-                                            $position["cashback_amount"] = $refund->amount->amount * 100;
+                                        if ($refund->amount->currencyInfo->id == 4) {
+                                            $position["cashback_amount"] += $refund->amount->amount * 100;
                                         } else {
-                                            $position["cashback_amount_1"] = $refund->amount->amount * 100;
+                                            $position["cashback_amount_1"] += $refund->amount->amount * 100;
                                         }
                                     }
                                 }
