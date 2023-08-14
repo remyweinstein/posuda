@@ -1827,7 +1827,7 @@ class BonusApp
                 if (count($queryResult) == 0) {
                     $depositRegisterBonus = $LMX->chargeOnRegisterBonus($phone);
                 }
-                $this->journal("CRON", __FUNCTION__, "", $depositRegisterBonus["status"], $phone, json_encode($depositRegisterBonus, JSON_UNESCAPED_UNICODE));
+                $this->journal("CRON", __FUNCTION__, "", $depositRegisterBonus["status"], $phone, '');
 
                 $setDiscountAttributeValue = $LMX->setDiscountAttributeValue($phone, boolval($getProfileDataResult["data"]["discount"]));
                 if ($setDiscountAttributeValue["status"]) {
@@ -4529,7 +4529,7 @@ class BonusApp
     }
 
     private function journal($source, $event, $comment = "", $status = null, $input = null, $output = null)
-    {
+    { //$this->journal("CRON", __FUNCTION__, "", $depositRegisterBonus["status"], $phone, json_encode($depositRegisterBonus, JSON_UNESCAPED_UNICODE));
         $result = ["status" => false];
 
         try {
