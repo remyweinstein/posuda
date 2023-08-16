@@ -34,7 +34,8 @@ function drawWallet(walletData) {
         hide("#wallet-placeholder");
         hide("#wallet-loader");
         show("#wallet-data");
-        
+        clearInterval(loadBonusesTimer);
+
         C(".nearBurn").el.style.display = "none";
         
         if (walletData.lifeTimes && walletData.lifeTimes.length > 0) {
@@ -137,6 +138,8 @@ function drawWallet(walletData) {
         show("#wallet-placeholder");
         show("#wallet-loader");
         hide("#wallet-data");
+        clearInterval(loadBonusesTimer);
+        loadBonusesTimer = setInterval(checkUpdates, 1000);
     }
 }
 

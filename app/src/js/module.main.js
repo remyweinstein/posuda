@@ -18,6 +18,7 @@ let secondsInterval = null;
 let secondsLeft = 0;
 let resetCodeTimer = null;
 let resetCodeTimerValue = 0;
+let loadBonusesTimer = null;
 let viewNewApp = 1;
 let currentBrightness;
 let newNotifies = false;
