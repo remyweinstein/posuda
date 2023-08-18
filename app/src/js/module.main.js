@@ -394,7 +394,6 @@ d.addEventListener('DOMContentLoaded', () => {
 
     checkUpdates(() => {
         if (bearerToken && !loadBonusesTimer) {
-            console.log('start');
             C('body').bind("pointerover", userActivity);
             C('body').bind("pointerdown", userActivity);
         }

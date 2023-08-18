@@ -36,7 +36,12 @@ function drawWallet(walletData) {
         show("#wallet-data");
         clearInterval(loadBonusesTimer);
         loadBonusesTimer = null;
-        checkUpdates();
+        checkUpdates(()=>{
+            if (bearerToken && !loadBonusesTimer) {
+                C('body').bind("pointerover", userActivity);
+                C('body').bind("pointerdown", userActivity);
+            }
+        });
 
         C(".nearBurn").el.style.display = "none";
         
