@@ -3573,7 +3573,7 @@ class BonusApp
         $result = ["status" => false];
 
         try {
-            $query = $this->pdo->prepare("INSERT INTO bonuscards (account_id, card_number, last_sync, status, type) VALUES (
+            $query = $this->pdo->prepare("INSERT IGNORE INTO bonuscards (account_id, card_number, last_sync, status, type) VALUES (
                     (SELECT id FROM accounts WHERE phone = :phone),
                     :cardNumber,
                     '2021-10-02',
