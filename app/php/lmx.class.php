@@ -1252,7 +1252,7 @@ class LMX {
 
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/publicapi/v1.2/Registration/BeginRegistration";
+            $url = LMX_HOST . "/systemapi/v1.2/Registration/BeginRegistration";
             $options = array(
                 'http' => array(
                     'header'  => [
