@@ -139,7 +139,7 @@ function drawWallet(walletData) {
         show("#wallet-loader");
         hide("#wallet-data");
         clearInterval(loadBonusesTimer);
-        loadBonusesTimer = setInterval(checkUpdates, 1000);
+        loadBonusesTimer = setInterval(checkUpdates, 20000);
     }
 }
 
