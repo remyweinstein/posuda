@@ -35,6 +35,7 @@ function drawWallet(walletData) {
         hide("#wallet-loader");
         show("#wallet-data");
         clearInterval(loadBonusesTimer);
+        loadBonusesTimer = null;
 
         C(".nearBurn").el.style.display = "none";
         
@@ -139,7 +140,7 @@ function drawWallet(walletData) {
         show("#wallet-loader");
         hide("#wallet-data");
         clearInterval(loadBonusesTimer);
-        loadBonusesTimer = setInterval(checkUpdates, 20000);
+        loadBonusesTimer = setInterval(checkUpdates, 3333);
     }
 }
 

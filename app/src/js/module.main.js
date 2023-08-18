@@ -393,7 +393,8 @@ d.addEventListener('DOMContentLoaded', () => {
     drawSection((bearerToken && C().getStor(LS_SECTION) !== "reg_success") ? 'wallet' : C().getStor(LS_SECTION));
 
     checkUpdates(() => {
-        if (bearerToken) {
+        if (bearerToken && !loadBonusesTimer) {
+            console.log('start');
             C('body').bind("pointerover", userActivity);
             C('body').bind("pointerdown", userActivity);
         }
