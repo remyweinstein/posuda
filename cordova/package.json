@@ -53,5 +53,8 @@
       },
       "cordova-support-android-plugin": {}
     }
+  },
+  "dependencies": {
+    "cordova": "^12.0.0"
   }
 }
