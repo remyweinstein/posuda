@@ -1746,16 +1746,33 @@ class BonusApp
     {
         $operationResult = $this->initPDO();
         if ($operationResult["status"]) {
-            $start = microtime(true);
+            $pidDir = sys_get_temp_dir(). '/php/job';
 
-            // Регистрация профилей
-            $this->service_regExtProfiles();
+            if(FALSE === is_dir($pidDir)){
+                mkdir($pidDir, 0775, TRUE);
+            }
+    
+            $pidFile = $pidDir. '/pid-'. md5(__METHOD__);
+    
+            if(TRUE === file_exists($pidFile) && (0 === ($pid = (int)file_get_contents($pidFile)) || FALSE === posix_kill($pid, 0))){
+                $pid = NULL;
+            }
 
-            // Выпуск карт лояльности
-            $this->service_emitCards();
+            if(TRUE === empty($pid)){ // process not exist, so we can run syncing
 
-            // Фиксация завершения обработки
-            $this->journal("CRON", __FUNCTION__, round(microtime(true) - $start, 4), true);
+                $start = microtime(true);
+
+                // Регистрация профилей
+                $this->service_regExtProfiles();
+
+                // Выпуск карт лояльности
+                $this->service_emitCards();
+
+                // Фиксация завершения обработки
+                $this->journal("CRON", __FUNCTION__, round(microtime(true) - $start, 4), true);
+
+                unlink($pidFile);
+            }
         }
     }
 
