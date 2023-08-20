@@ -1759,6 +1759,7 @@ class BonusApp
             }
 
             if(TRUE === empty($pid)){ // process not exist, so we can run syncing
+                file_put_contents($pidFile, posix_getpid()); // write `pid` to pid file
 
                 $start = microtime(true);
 
