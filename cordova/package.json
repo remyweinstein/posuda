@@ -14,7 +14,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@globules-io/cordova-plugin-ios-xhr": "^1.2.2",
-    "cordova-android": "^11.0.0",
+    "cordova-android": "^12.0.0",
     "cordova-plugin-add-swift-support": "^2.0.2",
     "cordova-plugin-android-mediastore": "github:remyweinstein/cordova-plugin-android-mediastore",
     "cordova-plugin-android-permissions": "^1.1.3",

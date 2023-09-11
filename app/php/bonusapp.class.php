@@ -917,7 +917,7 @@ class BonusApp
             if ($queryResult[0]["status"] == 0) {
                 $operationResult = $this->canSendConfirmationCode($phone);
                 if ($operationResult["status"]) {
-                    $result = $this->sendConfirmationCode($phone, "WHATSAPP");
+                    $result = $this->sendConfirmationCode($phone, "BEE");
                 } else {
                     $result = [
                         "status" => true,
@@ -948,7 +948,7 @@ class BonusApp
                     $result = $this->setProfileDataByPhone($phone, $profile);
 
                     if ($result["status"]) {
-                        $result = $this->sendConfirmationCode($phone, "WHATSAPP");
+                        $result = $this->sendConfirmationCode($phone, "BEE");
 
                         if ($result["status"]) $this->pdo->commit();
                     }
@@ -3141,14 +3141,15 @@ class BonusApp
             $confirmation_code .= substr($chars, rand(1, $numChars) - 1, 1);
         }
 
-        if ($provider == null) $provider = "WHATSAPP";
+        if ($provider == null) $provider = "BEE";
 
         $description = "";
 
         switch ($provider) {
             case "BEE": {
                     $result = $this->smsVoda($phone, $confirmation_code, true);
-                    $description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
+                    $description = "Введите код подтверждения, который мы направили в СМС";
+                    //$description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                     break;
                 }
 
@@ -3166,12 +3167,14 @@ class BonusApp
 
             case "DIG": {
                     $result = $this->smsVoda($phone, $confirmation_code, true);
-                    $description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
+                    $description = "Введите код подтверждения, который мы направили в СМС";
+                    //$description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                     break;
                 }
             case "DIG_FC": {
 		            $result = $this->smsVoda($phone, $confirmation_code, true);
-                    $description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
+                    $description = "Введите код подтверждения, который мы направили в СМС";
+                    //$description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                     break;
                 }
         }

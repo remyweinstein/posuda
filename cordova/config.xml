@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mirposudy.bonuses" version="2.1.4" android-versionCode="20" ios-CFBundleVersion="20" ios-CFBundleIdentifier="com.mirposudy.bonuses" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mirposudy.bonuses" version="2.2.0" android-versionCode="21" ios-CFBundleVersion="21" ios-CFBundleIdentifier="com.mirposudy.bonuses" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Мир посуды</name>
     <description>Мир посуды - программа лояльности</description>
     <author email="d.grebenyuk30@gmail.com" href="https://bonus.мирпосуды27.рф/">
@@ -13,9 +13,6 @@
     <allow-intent href="tel:*" />
     
     <platform name="android">
-        <preference name="android-minSdkVersion" value="22" />
-        <preference name="android-targetSdkVersion" value="33" />
-        <preference name="android-compileSdkVersion" value="33" />
         <resource-file src="res/values/colors.xml" target="app/src/main/res/values/colors.xml"/>
         <preference name="AndroidXEnabled" value="true" />
         <resource-file src="res/google-services.json" target="app/google-services.json" />

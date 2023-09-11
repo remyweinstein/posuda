@@ -27,7 +27,7 @@
         <script src="app/build/js/module.personal.js?v=05144042" defer></script>
         <script src="app/build/js/module.wallet.js?v=05144042" defer></script>
         <script src="https://api-maps.yandex.ru/2.1/?apikey=7a895d82-a17c-4fbd-8849-04120c71e5ae&amp;lang=ru_RU"></script>
-        
+        <script></script>
     </head>
 
     <body>
@@ -276,11 +276,12 @@
                             <div id="reg_confirmation_remind"></div>
                             <div class="popup"><span class="popup-text" id="reg-confirmation-code-popup"></span></div>
                             <input class="u-full-width" type="tel" maxlength="4" placeholder="Код" id="reg-confirmation-code" />
-                            <div id="confirmation_button_reset_note">Если Whatsapp отсутствует или вы не получили код, дождитесь СМС</div>
+                            <div id="confirmation_button_reset_note">Дождитесь СМС и введите код</div>
+                            <!--<div id="confirmation_button_reset_note">Если Whatsapp отсутствует или вы не получили код, дождитесь СМС</div>-->
                             <button class="button button-primary" style="width:100%" onclick="confirmation()"
                                     id="confirmation_button" disabled>Подтвердить</button>
                             <button class="button button-primary" style="width:100%;display:none" onclick="confirmationReset()"
-                                    id="confirmation_button_reset">Получить СМС</button>
+                                    id="confirmation_button_reset">Отправить код еще раз</button>
                         </div>
                         <!-- Авторизация -->
                         <p class="reg_auth link">

@@ -1056,9 +1056,9 @@ async function getResetConfirmationCode() {
         if (result.status) {
             show("#reset_confirmation");
             resConfInfoEl.text(result.description);
-            if (result.data.seconds_left) {
-                restartResetConfirmationTimer(result.data.seconds_left);
-            }
+            //if (result.data.seconds_left) {
+            //    restartResetConfirmationTimer(result.data.seconds_left);
+            //}
         } else {
             resButtonEl.disabled = false;
             promiseTimeout(() => {
@@ -1183,8 +1183,8 @@ async function getResetConfirmationSms() {
         if (result.status) {
             show("#reset_confirmation");
             resConfInfoEl.text(result.description);
-            if (result.data.seconds_left)
-                restartResetConfirmationTimer(result.data.seconds_left);
+            //if (result.data.seconds_left)
+                //restartResetConfirmationTimer(result.data.seconds_left);
         } else {
             resButtonEl.disabled = false;
             promiseTimeout(() => {
