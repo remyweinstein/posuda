@@ -1413,7 +1413,7 @@ class BonusApp
         $detect = new Mobile_Detect;
 
         if ($detect->isiOS()) {
-            header("Location: https://apps.apple.com/ru/app/%D1%81%D1%82%D0%BE%D0%BB%D0%B8%D1%86%D0%B0-%D0%B1%D0%BE%D0%BD%D1%83%D1%81%D1%8B/id1590266964");
+            header("Location: https://apps.apple.com/us/app/%D0%BC%D0%B8%D1%80-%D0%BF%D0%BE%D1%81%D1%83%D0%B4%D1%8B-%D0%B1%D0%BE%D0%BD%D1%83%D1%81%D1%8B/id6448986172");
         } elseif ($detect->isAndroidOS()) {
             header("Location: https://play.google.com/store/apps/details?id=com.mirposudy.bonuses");
         } else {
