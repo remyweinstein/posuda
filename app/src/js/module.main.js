@@ -1463,12 +1463,12 @@ async function checkUpdates(callback) {
     if (!bearerToken && callback) callback();
 
     if (!bearerToken) return;
+
+    if (bearerToken) {
+        userActivityTimeout = null;
+    }
     
     const marcus = await api("updateWalletData");
-
-    if (!marcus.status) {
-        return;
-    }
 
     const result = await getUpdates();
     const { data, status } = result;
@@ -1543,14 +1543,6 @@ async function checkUpdates(callback) {
         if (sections[curSection] && sections[curSection].needAuth) {
             logOff();
         }
-    }
-
-    if (bearerToken) {
-        if (callback) {
-            callback();
-        }
-
-        userActivityTimeout = null;
     }
 }
 
