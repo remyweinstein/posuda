@@ -19,9 +19,9 @@ function yana(val, plus, notnull) {
 }
 
 function drawWallet(walletData) {
-    if (!permitRedrawSection('wallet')) {
-        return;
-    }
+    //if (!permitRedrawSection('wallet')) {
+    //    return;
+    //}
     
     const cardEl   = C("#cardNumber"),
           qrEl     = C("#qrcode").el,

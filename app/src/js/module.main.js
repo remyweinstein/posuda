@@ -22,6 +22,7 @@ let loadBonusesTimer = null;
 let viewNewApp = 1;
 let currentBrightness;
 let newNotifies = false;
+let firstStart = true;
 
 const carouselSections = [
     'news',
@@ -1462,6 +1463,12 @@ async function checkUpdates(callback) {
     if (!bearerToken && callback) callback();
 
     if (!bearerToken) return;
+    
+    const marcus = await api("updateWalletData");
+
+    if (marcus.status) {
+        return;
+    }
 
     const result = await getUpdates();
     const { data, status } = result;
@@ -1543,7 +1550,6 @@ async function checkUpdates(callback) {
             callback();
         }
 
-        await api("updateWalletData");
         userActivityTimeout = null;
     }
 }
