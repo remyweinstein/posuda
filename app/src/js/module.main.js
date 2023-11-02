@@ -1465,9 +1465,8 @@ async function checkUpdates(callback) {
     if (!bearerToken) return;
     
     const marcus = await api("updateWalletData");
-    console.log(marcus);
 
-    if (marcus.status) {
+    if (!marcus.status) {
         return;
     }
 
