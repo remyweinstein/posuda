@@ -34,14 +34,14 @@ function drawWallet(walletData) {
         hide("#wallet-placeholder");
         hide("#wallet-loader");
         show("#wallet-data");
-        clearInterval(loadBonusesTimer);
-        loadBonusesTimer = null;
-        checkUpdates(()=>{
-            if (bearerToken && !loadBonusesTimer) {
-                C('body').bind("pointerover", userActivity);
-                C('body').bind("pointerdown", userActivity);
-            }
-        });
+        //clearInterval(loadBonusesTimer);
+        //loadBonusesTimer = null;
+        //checkUpdates(()=>{
+        //    if (bearerToken && !loadBonusesTimer) {
+        //        C('body').bind("pointerover", userActivity);
+        //        C('body').bind("pointerdown", userActivity);
+        //    }
+        //});
 
         C(".nearBurn").el.style.display = "none";
         
@@ -145,8 +145,8 @@ function drawWallet(walletData) {
         show("#wallet-placeholder");
         show("#wallet-loader");
         hide("#wallet-data");
-        clearInterval(loadBonusesTimer);
-        loadBonusesTimer = setInterval(checkUpdates, 3333);
+        //clearInterval(loadBonusesTimer);
+        //loadBonusesTimer = setInterval(checkUpdates, 3333);
     }
 }
 
