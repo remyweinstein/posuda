@@ -1460,12 +1460,12 @@ function setNeedUpdate(contents, result, section) {
 }
 
 async function checkUpdates(callback) {
-    userActivityTimeout = null;
-    
     if (!bearerToken && callback) callback();
 
     if (!bearerToken) return;
 
+    userActivityTimeout = null;
+    
     const marcus = await api("updateWalletData");
 
     const result = await getUpdates();
