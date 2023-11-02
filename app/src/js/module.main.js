@@ -1460,7 +1460,7 @@ function setNeedUpdate(contents, result, section) {
 }
 
 async function checkUpdates(callback) {
-    if (!bearerToken && callback) callback();
+    if (callback) callback();
 
     if (!bearerToken) return;
 
