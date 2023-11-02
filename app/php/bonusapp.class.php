@@ -5234,9 +5234,12 @@ class BonusApp
     {
         $result = ["status" => false, "data" => ["purchases" => [], "transactions" => [], "setBonusCardData" => null]];
         if (empty($personId)) return $result;
-
+        $resultat = $this->initPDO();
         $LMX = $this->getLMX();
-        $getBalanceResult = $LMX->getBalance($personId);//$LMX->getBalance($personId);
+        $getBalanceResult = $LMX->getBalance($personId);
+        $query = $this->pdo->prepare("UPDATE bonuscards SET balance = :value WHERE card_number = :cardNumber");
+        $query->execute(["value" => $getBalanceResult["data"]["balance"] * 100, "cardNumber" => $cardNumber]);
+
         if ($getBalanceResult["status"]) {
             $cd = new DateTime();
 
