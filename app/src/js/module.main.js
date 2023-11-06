@@ -18,7 +18,6 @@ let secondsInterval = null;
 let secondsLeft = 0;
 let resetCodeTimer = null;
 let resetCodeTimerValue = 0;
-let loadBonusesTimer = null;
 let viewNewApp = 1;
 let currentBrightness;
 let newNotifies = false;
@@ -393,14 +392,8 @@ d.addEventListener('DOMContentLoaded', () => {
     renderSections();
     drawSection((bearerToken && C().getStor(LS_SECTION) !== "reg_success") ? 'wallet' : C().getStor(LS_SECTION));
 
-    checkUpdates(() => {
-        if (bearerToken && !loadBonusesTimer) {
-            C('body').bind("pointerover", userActivity);
-            C('body').bind("pointerdown", userActivity);
-        }
-    });
-
-
+    checkUpdates();
+    loadBonusesTimer = setInterval(checkUpdates, 3334);
     ymaps.ready(function(){
         const y = 135.111677,
         x = 48.427103;
