@@ -59,12 +59,6 @@ const sections = {
         showMenu: true,
         needAuth: true
     },
-    refer: {
-        title: 'Приглашение',
-        showMenu: true,
-        prevSection: 'personal',
-        needAuth: true
-    },
     stores: {
         title: 'Магазин',
         showMenu: true,
@@ -680,11 +674,6 @@ async function drawSection(section) {
             break;
         }
 
-        case "refer": {
-            renderReferSection();
-            break;
-        }
-
         case "reg_success": {
             C('#tempName').text(C().getStor('reg_name'));
             break;
@@ -730,59 +719,6 @@ async function drawSection(section) {
     });
 
     C().setStor(LS_SECTION, section);
-}
-
-async function renderReferSection() {
-    let response = await getReferLink();
-    const referQr = C("#referQr").el;
-
-    if (response.status) {
-        const { data } = response;
-
-        if (!referQr.children.length) {
-            const qrCanvas = C().create("canvas").el;
-            let qr = new QRious({
-                element: qrCanvas,
-                size: 192,
-                value: data.link
-            });
-
-            referQr.appendChild(qrCanvas);
-            qrCanvas.classList.add("animated", "animate__fadeIn");
-
-            show("#referLink");
-
-            C("#referLinkTG").attr("href", `https://t.me/share/url?url=${data.link}&text=Мир посуды: бонусы&utm_source=ref_tg`);
-            C("#referLinkWA").attr("href", `https://api.whatsapp.com/send?text=Мир посуды: бонусы ${data.link}&utm_source=ref_wa`);
-        }
-
-        if (data.referrals && data.referrals.length)
-            data.referrals.map((ref_row) => {
-                const tr = C().create("tr"),
-                    td = C().create("td");
-
-                td.text(ref_row.last_sync);
-                tr.append(td);
-
-                td = C().create("td");
-                td.text(`7-***-***-${ref_row.phone}`);
-                tr.append(td);
-
-                td = C().create("td");
-                td.text((ref_row.gifted ? "Совершена покупка" : "Регистрация по приглашению"));
-                tr.append(td);
-
-                td = C().create("td");
-                if (ref_row.gifted) {
-                    td.style("fontWeight", "bold");
-                }
-                td.text((ref_row.gifted ? `+${ref_row.referral_gift}` : 'n/a'));
-                td.addclass(ref_row.gifted ? 'good' : 'bad');
-                tr.append(td);
-
-                C('#referrals').append(tr);
-            });
-    }
 }
 
 async function checkAuthorization() {
@@ -1156,10 +1092,6 @@ async function checkResetConfirmationCode() {
             C("#reset_confirmation_button").el.disabled = true;
         });
     }
-}
-
-async function getReferLink() {
-    return await api("getReferLink");
 }
 
 async function getResetConfirmationSms() {
