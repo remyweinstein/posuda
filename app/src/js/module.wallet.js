@@ -89,7 +89,7 @@ function drawWallet(walletData) {
         
         const balance = (walletData.discount && discountBalance) ? walletData.discountValue : walletData.balance;
         if (balance !== undefined) {
-            if (bonusEl.text != yana(balance)) {
+            if (bonusEl.text() != yana(balance)) {
                 bonusEl.el.classList.remove("load");
                 
                 for (let i = 1; i < 101; i=i+3) {
