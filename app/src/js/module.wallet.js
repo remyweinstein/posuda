@@ -327,6 +327,7 @@ function drawPurchase(purchase) {
 
     let elList;
 
+    //
     if (refund || typeTrans === "trans" || (payment_amount != 0 && typeTrans === "purch")) {
         const temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
                     <div>
@@ -342,6 +343,8 @@ function drawPurchase(purchase) {
         C("#transactions").el.prepend(elList);
     }
 
+    // НАЧИСЛЕНИЕ ЗА ПОКУПКУ
+    console.log(typeTrans, refund, cashback);
     if (typeTrans === "purch" && !refund && cashback > 0) {
         const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
             <div>
@@ -357,6 +360,7 @@ function drawPurchase(purchase) {
         C("#transactions").el.prepend(elList);
     }
 
+    // НАЧИСЛЕНИЕ ЮГО-ВОСТОЧНАЯ
     if (typeTrans === "purch" && !refund && cashback_amount_1 != 0) {
         const cashback1  = (cashback_amount_1 > 0) ? "+" + yana(cashback_amount_1) : yana(cashback_amount_1);
         const tempura1 = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
@@ -373,6 +377,7 @@ function drawPurchase(purchase) {
         C("#transactions").el.prepend(elList);
     }
 
+    // СПИСАНИЕ ЮГО-ВОСТОЧНАЯ
     if (typeTrans === "purch" && !refund && payment_amount_1 != 0) {
         const payment1  = (payment_amount_1 > 0) ? "+" + yana(payment_amount_1) : yana(payment_amount_1);
         const tempura2 = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
