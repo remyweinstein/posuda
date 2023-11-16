@@ -327,6 +327,23 @@ function drawPurchase(purchase) {
 
     let elList;
 
+    // СПИСАНИЕ ЮГО-ВОСТОЧНАЯ
+    if (typeTrans === "purch" && !refund && payment_amount_1 != 0) {
+        const payment1  = (payment_amount_1 > 0) ? "+" + yana(payment_amount_1) : yana(payment_amount_1);
+        const tempura2 = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
+            <div>
+                <span>${onlyDate}</span>
+                ${disablePurchase}
+            </div>
+            <div class="purchase__row" style="color:#426be0">
+                <span class="type">Списание Юго-Восточная</span>
+                <span class="${(payment1 > 0 ? "good" : "bad")}" style="color:#426be0">${payment1}</span>
+            </div>
+        </div>`;
+        elList = C().strToNode(tempura2).el;
+        C("#transactions").el.prepend(elList);
+    }
+
     //
     if (refund || typeTrans === "trans" || (payment_amount != 0 && typeTrans === "purch")) {
         const temp = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
@@ -340,22 +357,6 @@ function drawPurchase(purchase) {
                     </div>
                 </div>`;
         elList = C().strToNode(temp).el;
-        C("#transactions").el.prepend(elList);
-    }
-
-    // НАЧИСЛЕНИЕ ЗА ПОКУПКУ
-    if (typeTrans === "purch" && !refund && cashback_amount > 0) {
-        const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
-            <div>
-                <span>${onlyDate}</span>
-                ${disablePurchase}
-            </div>
-            <div class="purchase__row">
-                <span class="type">${namur}</span>
-                <span class="${(cashback_amount > 0 ? "good" : "bad")}">${cashback}</span>
-            </div>
-        </div>`;
-        elList = C().strToNode(tempura).el;
         C("#transactions").el.prepend(elList);
     }
 
@@ -376,20 +377,19 @@ function drawPurchase(purchase) {
         C("#transactions").el.prepend(elList);
     }
 
-    // СПИСАНИЕ ЮГО-ВОСТОЧНАЯ
-    if (typeTrans === "purch" && !refund && payment_amount_1 != 0) {
-        const payment1  = (payment_amount_1 > 0) ? "+" + yana(payment_amount_1) : yana(payment_amount_1);
-        const tempura2 = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
+    // НАЧИСЛЕНИЕ ЗА ПОКУПКУ
+    if (typeTrans === "purch" && !refund && cashback_amount > 0) {
+        const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
             <div>
                 <span>${onlyDate}</span>
                 ${disablePurchase}
             </div>
-            <div class="purchase__row" style="color:#426be0">
-                <span class="type">Списание Юго-Восточная</span>
-                <span class="${(payment1 > 0 ? "good" : "bad")}" style="color:#426be0">${payment1}</span>
+            <div class="purchase__row">
+                <span class="type">${namur}</span>
+                <span class="${(cashback_amount > 0 ? "good" : "bad")}">${cashback}</span>
             </div>
         </div>`;
-        elList = C().strToNode(tempura2).el;
+        elList = C().strToNode(tempura).el;
         C("#transactions").el.prepend(elList);
     }
 
