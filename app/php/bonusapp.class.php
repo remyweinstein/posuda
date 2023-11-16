@@ -5287,7 +5287,7 @@ class BonusApp
             // Запись даты синхронизации баланса
             $setBonusCardDataResult = $this->setBonusCardData($cardNumber, [
                 "last_sync"     => $cd->format('Y-m-d H:i:s'),
-                "balance"       => $getBalanceResult["data"]["balance"] * 100,
+                "balance"       => number_format($getBalanceResult["data"]["balance"] * 100, 0, '', ' '),
                 "activation"    => $getBalanceResult["data"]["activation"] * 100,
                 "life_times"    => json_encode($getBalanceResult["data"]["lifeTimes"], JSON_UNESCAPED_UNICODE)
             ]);
