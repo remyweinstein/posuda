@@ -344,8 +344,8 @@ function drawPurchase(purchase) {
     }
 
     // НАЧИСЛЕНИЕ ЗА ПОКУПКУ
-    console.log(typeTrans, refund, cashback);
     if (typeTrans === "purch" && !refund && cashback > 0) {
+        console.log(typeTrans, refund, cashback);
         const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
             <div>
                 <span>${onlyDate}</span>
