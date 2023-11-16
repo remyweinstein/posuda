@@ -1072,7 +1072,7 @@ class BonusApp
         // Подгружаем актуальный баланс из процессинговой системы
         if (($dd >= WALLET_TIMEOUT_SECONDS || $dd < 0)) {
             $result = $this->updateWalletDataByLMX($personId, $cardNumber);
-            $result["data"]["setBonusCardData"]["balance"] = number_format($result["data"]["setBonusCardData"]["balance"], 0, '', ' ');
+            //$result["data"]["setBonusCardData"]["balance"] = number_format($result["data"]["setBonusCardData"]["balance"], 0, '', ' ');
         } else {
             $result["data"] = "Запрос баланса будет доступен через: [" . (WALLET_TIMEOUT_SECONDS - $dd) . "] сек.";
         }
