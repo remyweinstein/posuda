@@ -344,8 +344,7 @@ function drawPurchase(purchase) {
     }
 
     // НАЧИСЛЕНИЕ ЗА ПОКУПКУ
-    if (typeTrans === "purch" && !refund && cashback > 0) {
-        console.log(typeTrans, refund, cashback);
+    if (typeTrans === "purch" && !refund && cashback_amount > 0) {
         const tempura = `<div class="animated animate__fadeIn" data-purchase-id="${purchase.id}">
             <div>
                 <span>${onlyDate}</span>
@@ -353,7 +352,7 @@ function drawPurchase(purchase) {
             </div>
             <div class="purchase__row">
                 <span class="type">${namur}</span>
-                <span class="${(cashback > 0 ? "good" : "bad")}">${cashback}</span>
+                <span class="${(cashback_amount > 0 ? "good" : "bad")}">${cashback}</span>
             </div>
         </div>`;
         elList = C().strToNode(tempura).el;
