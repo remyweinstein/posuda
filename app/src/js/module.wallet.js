@@ -279,6 +279,7 @@ function drawPurchase(purchase) {
 
     if (purchase.positions) {
         const cashbackur = Number(cashback_amount) + Number(cashback_amount_1);
+        const namePlus = (!refund) ? 'Начислено бонусов:' : 'Возврат бонусов:';
         tempOld = ` <h4><center>Детализация</center></h4>
                     <div class="payment-row-date">
                         <span>${onlyDate}</span>
@@ -287,7 +288,7 @@ function drawPurchase(purchase) {
                     ${refund}
                     ${tobeornottobe}
                     <div class="payment-row">
-                        <span class="payment-amount">Начислено бонусов: </span>
+                        <span class="payment-amount">${namePlus} </span>
                         <span class="good">${yana(cashbackur)}</span>
                     </div>
                     <div class="payment-row-store">
