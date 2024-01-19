@@ -1,4 +1,6 @@
-const mask = inp => {
+/* global C */
+
+function mask(inp) {
     let underlay = C().create('input').el,
         attr = {};
 
@@ -16,14 +18,13 @@ const mask = inp => {
     C(inp).bind('input', (e) => setPhoneMask(e.target));
 }
 
-const setPhoneMask = (inp, mask) => {
+function setPhoneMask(inp, mask) {
     const hideId = `#${inp.id.replace('-mask', '')}`;
-    let phone = inp.value.replace(/\D/g, '');
+    let phone = inp.value;
 
     if (phone === '') {
         phone = '7';
     }
-
     if (!mask) {
         mask = '+_(___)___-__-__';
     }
@@ -34,11 +35,19 @@ const setPhoneMask = (inp, mask) => {
     C(hideId).val(getValueByMask(phone, mask, true));
 }
 
-const getPhoneNumbers = phone => {
-    return phone ? phone.replace(/^([^7])/, '7$1').replace(/^(\d{11})(.+)/, '$1') : '7';
+function getPhoneNumbers(value) {
+    let phone = value.replace(/\D/g, '');
+
+    if (phone) {
+        phone = phone.replace(/^([^7])/, '7$1').replace(/^(\d{11})(.+)/, '$1');
+    } else {
+        phone = '7';
+    }
+
+    return phone;
 }
 
-const getValueByMask = (value, mask, full) => {
+function getValueByMask(value, mask, full) {
     const phone = value.match(/\d/g);
     let newPhone = mask;
 
