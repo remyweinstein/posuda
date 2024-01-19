@@ -320,7 +320,7 @@ function drawPurchase(purchase) {
         if (refund) {
             type.name = `Возврат товара`;
             //sumka = cashback_amount > 0 ? yana(cashback_amount, "+") : yana(cashback_amount_1, "+");
-            sumka = yana((cashback_amount + cashback_amount_1), "+");
+            sumka = yana((parseInt(cashback_amount) + parseInt(cashback_amount_1)), "+");
         }
 
         namur = `Начисление за покупку`;
