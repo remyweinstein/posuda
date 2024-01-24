@@ -734,6 +734,14 @@ class LMX {
                 "value" => $value
             ];
             $result = $this->SAPI_UpdateAttributeValue($phone, $data);
+            $data = [
+                "attribute" =>  [
+
+                    "logicalName" => "Client_KAF"
+                ],
+                "value" => $value
+            ];
+            $result = $this->SAPI_UpdateAttributeValue($phone, $data);
         } else {
             $result["description"] = "Не удалось получить токен.";
         }
