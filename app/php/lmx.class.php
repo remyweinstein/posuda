@@ -934,7 +934,7 @@ class LMX {
                     {
                         "Identifier": "'.$phone.'",
                         "identifierType": "Phone",
-                        "amount": 500,
+                        "amount": 200,
                         "description": "начисление",
                         "externalInfo": "deposition"
                     }
@@ -973,8 +973,8 @@ class LMX {
                 },
                 "targetGroup": null,
                 "type": "Deposit",
-                "description": "500 приветственных бонусов",
-                "internalDescription": "500 приветственных бонусов"
+                "description": "200 приветственных бонусов",
+                "internalDescription": "200 приветственных бонусов"
             }';
 
             $result = $this->SAPI_Deposit($rawData);
