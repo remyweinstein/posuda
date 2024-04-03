@@ -2733,7 +2733,7 @@ class BonusApp
                     break;
                 }
             case "BEE": {
-                    $result = $this->smsVoda($phone, $message, $callback);
+                    $result = $this->sms($phone, $message, $callback);
                     break;
                 }
             case "DIG": {
@@ -2742,7 +2742,7 @@ class BonusApp
                 }
             case "DIG_FC": {
                     //$result = $this->sendMessageDig($phone, $message, "FLASHCALL");
-		            $result = $this->smsVoda($phone, $message, $callback);
+		            $result = $this->sms($phone, $message, $callback);
                     break;
                 }
         }
@@ -3165,7 +3165,7 @@ class BonusApp
 
         switch ($provider) {
             case "BEE": {
-                    $result = $this->smsVoda($phone, $confirmation_code, true);
+                    $result = $this->sms($phone, $confirmation_code, true);
                     $description = "Введите код подтверждения, который мы направили в СМС";
                     //$description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                     break;
@@ -3184,13 +3184,13 @@ class BonusApp
                 }
 
             case "DIG": {
-                    $result = $this->smsVoda($phone, $confirmation_code, true);
+                    $result = $this->sms($phone, $confirmation_code, true);
                     $description = "Введите код подтверждения, который мы направили в СМС";
                     //$description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                     break;
                 }
             case "DIG_FC": {
-		            $result = $this->smsVoda($phone, $confirmation_code, true);
+		            $result = $this->sms($phone, $confirmation_code, true);
                     $description = "Введите код подтверждения, который мы направили в СМС";
                     //$description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                     break;
@@ -5428,7 +5428,7 @@ class BonusApp
         try {
             $sms_text = $message;
             $target = '+' . $phone;
-            $sender = (API_DEBUG ? "" : "STOLICA-DV");
+            $sender = (API_DEBUG ? "" : "STEVROSTROI");
             $period = 600;
             $sms = new QTSMS(SMS_API_USER, SMS_API_PASS, "a2p-sms-https.beeline.ru");
             $requestResult = $sms->post_message($sms_text, $target, $sender, null, $period);
