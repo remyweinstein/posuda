@@ -73,13 +73,13 @@ class BonusApp
         default: {
                 header("Location: https://" . $_SERVER["HTTP_HOST"] . "/404");
                 break;
-}
+        }
 
         case "": {
                 include_once 'templates/index.html';
 
                 break;
-}
+        }
 
         case "push": {
                 // Пример: http://localhost/push?token=API_TOKEN&phone=79635658436&title=title&message=message
@@ -93,7 +93,7 @@ class BonusApp
                 print_r($this->sendPush($token, $title, $message));
                     
                 break;
-}
+        }
 
         case "add-mailing": {
                 $result = $this->initPDO();
@@ -130,23 +130,23 @@ class BonusApp
             }
 
             break;
-}
+        }
 
         case "add-newyear": {
             $result = $this->initPDO();
                 $this->runNewYearDeposits();
                 break;
-}
+        }
 
         case "add-gift": {
                 $result = $this->initPDO();
                 $this->runGiftDeposits();
                 break;
-}
+        }
         case "add-start": {
             $this->startBonuses();
             break;
-}
+        }
 
         case "add-news": {
                 $result = $this->initPDO();
@@ -168,7 +168,7 @@ class BonusApp
             }
 
             break;
-}
+        }
 
         case "list-news": {
                 $result   = $this->initPDO();
@@ -176,64 +176,64 @@ class BonusApp
                 include_once 'templates/forms/template_form_list_news.php';
 
                 break;
-}
+        }
 
         case "application-apple": {
                 $this->mobileDetectHandler();
                 // header("Location: https://apps.apple.com/ru/app/%D1%81%D1%82%D0%BE%D0%BB%D0%B8%D1%86%D0%B0-%D0%B1%D0%BE%D0%BD%D1%83%D1%81%D1%8B/id1590266964");
                 break;
-}
+        }
 
         case "application-google": {
                 $this->mobileDetectHandler();
                 // header("Location: https://play.google.com/store/apps/details?id=com.mirposudy.bonuses");
                 break;
-}
+        }
 
         case "application": {
                 $this->mobileDetectHandler();
                 break;
-}
+        }
 
         case "support": {
             include_once 'templates/support.php';
             break;
-}
+        }
 
         case "politika-konfidentsialnosti": {
                 include_once 'templates/template_terms.php';
                 break;
-}
+        }
 
         case "pravila": {
                 include_once 'templates/template_rules.php';
                 break;
-}
+        }
 
         case "pravila_190421": {
                 include_once 'templates/template_rules_190421.php';
                 break;
-}
+        }
 
         case "pravila_080621": {
                 include_once 'templates/template_rules_080621.php';
                 break;
-}
+        }
 
         case "pravila_090721": {
                 include_once 'templates/template_rules_090721.php';
                 break;
-}
+        }
 
         case "pravila-akcii": {
                 include_once 'templates/template_referral.php';
                 break;
-}
+        }
 
         case "pravila-rozigrisha": {
                 include_once 'templates/template_drawing.php';
                 break;
-}
+        }
 
         case "api": {
                 $rawRequestData = file_get_contents('php://input');
@@ -248,7 +248,7 @@ class BonusApp
             }
 
             break;
-}
+        }
 
         case "log": {
                 $file_get = $_SERVER["DOCUMENT_ROOT"] . "/logs/get.log";
@@ -270,7 +270,7 @@ class BonusApp
             }
 
             break;
-}
+        }
 
         case "sms2": {
                 // Пример: http://localhost/sms2?token=API_TOKEN&phone=79635658436&message=1234
@@ -312,7 +312,7 @@ class BonusApp
 
                 echo (json_encode($result));
             break;
-}
+        }
 
         case "sms": {
                 // Пример: http://localhost/sms?token=API_TOKEN&phone=79635658436&message=hello
@@ -348,7 +348,7 @@ class BonusApp
 
                 echo (json_encode($result));
             break;
-}
+        }
 
         case "cron": {
                 // Пример: http://localhost/cron?token=CRON_TOKEN&method=METHOD_NAME
@@ -359,55 +359,55 @@ class BonusApp
             default: {
                 echo (1);
                 break;
-}
+            }
             case "completeregistration": {
                     print_r($this->service_completeRegistration());
                     break;
-}
+            }
             case "specialcharge": {
                     print_r($this->service_specialCharge());
                     break;
-}
+            }
             case "cron3": {
                     // print_r($this->uploadCC());
                     break;
-}
+            }
             case "cron4": {
                     // print_r($this->sendEmail());
                     break;
-}
+            }
             case "cron5": {
                     // print_r($this->sendEmailDrawing());
                     break;
-}
+            }
             case "cron7": {
                     print_r($this->service_drawingRemind());
                     break;
-}
+            }
             case "cron8": {
                     print_r($this->getBonuscardsToReferralCong());
                     break;
-}
+            }
             case "cron10": {
                     print_r($this->uploadDump());
                     break;
-}
+            }
             case "sendfeedbacks": {
                     print_r($this->sheduler_sendFeedbacks());
                     break;
-}
+            }
             case "prepareprolongations": {
                     $this->service_prepareProlongations();
                     break;
-}
+            }
             case "executeprolongations": {
                     $this->service_executeProlongations();
                             break;
-}
+            }
                 }
 
                 break;
-}
+        }
 
         case "ref": {
                 // Пример: http://localhost/ref?id=#
@@ -427,7 +427,7 @@ class BonusApp
                 header("Location: https://" . $_SERVER["HTTP_HOST"] . "/");
             }
             break;
-}
+        }
 
         case "bd": {
                 // Пример: http://localhost/bd?tk=TOKEN
@@ -439,7 +439,7 @@ class BonusApp
                 header("Location: https://" . $_SERVER["HTTP_HOST"] . "/");
 
             break;
-}
+        }
 
         case "version": {
             if (!empty($_GET) || !empty($_GET["platform"])) {
@@ -449,11 +449,11 @@ class BonusApp
                 case "android": {
                     $currentVersion = APP_VERSION_ANDROID;
                     break;
-}
+                }
                 case "ios": {
                         $currentVersion = APP_VERSION_IOS;
                         break;
-}
+                }
                 }
 
                 echo ($currentVersion);
@@ -462,12 +462,12 @@ class BonusApp
             }
 
             break;
-}
+        }
 
         case "404": {
                 include_once 'templates/404.php';
                 break;
-}
+        }
         }
     }
 
@@ -495,7 +495,7 @@ class BonusApp
                 "json" => file_get_contents('php://input')
                 ]
             )
-        );
+            );
         }
 
         if (getallheaders()["User-Agent"] == "Mozilla/5.0 (Linux; Android 10; SM-A205FN Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/99.0.4844.58 Mobile Safari/537.36") {
@@ -526,13 +526,13 @@ class BonusApp
                 case "regPhys": {
                     $resultData = $this->service_regPhysCards();
                     break;
-}
+                }
 
                 case "checkAuthorization": {
                     $resultData = $this->checkAuthorization();
 
                     break;
-}
+                }
 
                 case "readNotificaton": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
@@ -540,7 +540,7 @@ class BonusApp
                         $resultData = $this->API_readNotificaton($resultData["data"], $requestData["data"]);
                     }
                     break;
-}
+                }
 
                 case "disableTransaction": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
@@ -548,7 +548,7 @@ class BonusApp
                         $resultData = $this->API_disableTransaction($resultData["data"], $requestData["data"]);
                     }
                     break;
-}
+                }
 
                 case "disablePurchase": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
@@ -556,7 +556,7 @@ class BonusApp
                         $resultData = $this->API_disablePurchase($resultData["data"], $requestData["data"]);
                     }
                     break;
-}
+                }
 
                 case "getUpdates": {
                     $resultData = $this->checkAuthorization($requestData["method"], array_key_exists("source", $requestData) ? $requestData["source"] : null);
@@ -564,7 +564,7 @@ class BonusApp
                     }
 
                     break;
-}
+                }
 
                 case "authorization": {
                     if (!empty($requestData["data"]["phone"]) && preg_match("/^[7]\d{10}$/", $requestData["data"]["phone"])) {
@@ -579,7 +579,7 @@ class BonusApp
                         $resultData["description"] = "Введите номер телефона";
                     }
                     break;
-}
+                }
 
                 case "registration": {
                     if (!empty($requestData["data"]["phone"]) && preg_match("/^[7]\d{10}$/", $requestData["data"]["phone"])) {
@@ -616,7 +616,7 @@ class BonusApp
                         $resultData["description"] = "Введите номер телефона";
                     }
                     break;
-}
+                }
 
                 case "confirmation": {
                     if (!empty($requestData["data"]["phone"]) && preg_match("/^[7]\d{10}$/", $requestData["data"]["phone"]) && !empty($requestData["data"]["code"])) {
@@ -628,7 +628,7 @@ class BonusApp
                         $resultData = ["status" => false, "description" => "Отсутствуют данные"];
                     }
                     break;
-}
+                }
 
                 case "confirmationReset": {
                     if (!empty($requestData["data"]["phone"]) && preg_match("/^[7]\d{10}$/", $requestData["data"]["phone"])) {
@@ -639,28 +639,28 @@ class BonusApp
                         $resultData = ["status" => false, "description" => "Отсутствуют данные"];
                     }
                     break;
-}
+                }
 
                 case "getProfileData": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
                     if ($resultData["status"]) { $resultData = $this->getProfileDataByPhone($resultData["data"]["phone"]);
                     }
                     break;
-}
+                }
 
                 case "getReferLink": {
                     $resultData = $this->checkAuthorization();
                     if ($resultData["status"]) { $resultData = $this->getReferLink($resultData["data"]["id"]);
                     }
                     break;
-}
+                }
 
                 case "canParticipateInDrawing": {
                     $resultData = $this->checkAuthorization();
                     if ($resultData["status"]) { $resultData = $this->canParticipateInDrawing($resultData["data"]["card_number"], 50000, $resultData["data"]["id"]);
                     }
                     break;
-}
+                }
 
                 case "addParticipateInDrawing": {
                     $resultData = $this->checkAuthorization();
@@ -677,7 +677,7 @@ class BonusApp
                         }
                     }
                     break;
-}
+                }
 
                 case "setProfileData": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
@@ -685,7 +685,7 @@ class BonusApp
                         $resultData = $this->setProfileDataByPhone($resultData["data"]["phone"], $requestData["data"]);
                     }
                     break;
-}
+                }
 
                 case "getWalletData": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
@@ -695,7 +695,7 @@ class BonusApp
                     }
 
                     break;
-}
+                }
 
                 case "updateWalletData": {
                     $resultData = $this->checkAuthorization();
@@ -703,14 +703,14 @@ class BonusApp
                     }
 
                     break;
-}
+                }
 
                 case "getBCD": {
                     if (!empty($requestData["data"]["cardNumber"])) {
                         $resultData = $this->getBonusCardData($requestData["data"]["cardNumber"]);
                     }
                     break;
-}
+                }
 
                 case "changePassword": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
@@ -718,34 +718,34 @@ class BonusApp
                         $resultData = $this->setNewPassword($resultData["data"]["phone"], $requestData["data"]["new_password"]);
                     }
                     break;
-}
+                }
 
                 case "changeCardType": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
                     //if ($resultData) $resultData = $this->API_changeDiscountSystem($resultData["data"]["id"], $resultData["data"]["personId"], $requestData["data"]["discount"]);
 
                     break;
-}
+                }
 
                 case "logOff": {
                     $resultData = $this->logOff();
                     break;
-}
+                }
                 case "deleteAccount": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
                     if ($resultData["status"]) {
                         $resultData = $this->deleteAccount($resultData["data"]);
                     }
                     break;
-}
+                }
                 case "getResetConfirmationSms": {
                     $resultData = $this->API_sendConfirmation($requestData, 'BEE');
                     break;
-}
+                }
                 case "getResetConfirmationCode": {
                     $resultData = $this->API_sendConfirmation($requestData);
                     break;
-}
+                }
 
                 case "checkResetConfirmationCode": {
                     if (!empty($requestData["data"]["phone"]) && !empty($requestData["data"]["code"])) {
@@ -769,50 +769,50 @@ class BonusApp
                         $resultData = ["status" => false, "description" => "Отсутствуют данные"];
                     }
                     break;
-}
+                }
 
                 case "importStores": {
                     if ($requestData["data"]["token"] == API_TOKEN && $requestData["data"]["stores"]) { $resultData = $this->importStores($requestData["data"]["stores"]);
                     }
                     break;
-}
+                }
 
                 case "getStores": {
                     $resultData = $this->API_getStores();
                     break;
-}
+                }
 
                 case "getStoresList": {
                     $resultData = $this->getStoresList($requestData["city_id"]);
                     break;
-}
+                }
 
                 case "updateProfile": {
                     $resultData = $this->setProfileDataByPhone($requestData["phone"], $requestData["data"]);
 
                     break;
-}
+                }
 
                 case "getDrawingWinners": {
                     $resultData = $this->getDrawingWinners();
 
                     break;
-}
+                }
 
                 case "showPopupDrawing": {
                     $resultData = $this->showPopupDrawing();
                     break;
-}
+                }
 
                 case "getCities": {
                     $resultData = $this->getCities();
                     break;
-}
+                }
 
                 case "getStores": {
                     $resultData = $this->getStoresFullData();
                     break;
-}
+                }
 
                 case "getNews": { // устаревший метод
                     $resultData = $this->API_getNews(
@@ -821,7 +821,7 @@ class BonusApp
                     );
 
                         break;
-}
+                }
                     
                 case "changeEnableNotify": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
@@ -829,7 +829,7 @@ class BonusApp
                     }
                         
                     break;
-}
+                }
 
                 case "setCard": {
                     $resultData = $this->checkAuthorization($requestData["method"]);
@@ -837,13 +837,13 @@ class BonusApp
                     }
                         
                     break;
-}
+                }
 
                 case "setFeedback": {
                     $resultData = $this->API_setFeedback($requestData["data"]);
 
                     break;
-}
+                }
             }
             }
         } catch (\Throwable $th) {
@@ -1508,7 +1508,8 @@ class BonusApp
 
             $bonusCards = [];
             foreach ($getPurchasesResult["data"]->data as $value) {
-                if (!empty($value->personIdentifier) && !in_array($value->personIdentifier, $bonusCards)) { array_push($bonusCards, $value->personIdentifier);
+                if (!empty($value->personIdentifier) && !in_array($value->personIdentifier, $bonusCards)) {
+                    array_push($bonusCards, $value->personIdentifier);
                 }
             }
             // $bonusCards = ["00000028N1H63E"];
@@ -2801,32 +2802,32 @@ class BonusApp
         default: {
                 $result = ["status" => false, "description" => "UNDEFINED_PROVIDER"];
                 break;
-}
+        }
         case "PUSH": {
                 $result = $this->push($phone, "", $message);
                 break;
-}
+        }
         case "NT": {
                 $result = $this->callPassword($phone, $message);
                 break;
-}
+        }
         case "WHATSAPP": {
                 $result = $this->sendWhatsapp($phone, $message);
                 break;
-}
+        }
         case "BEE": {
                 $result = $this->sms($phone, $message, $callback);
                 break;
-}
+        }
         case "DIG": {
                 $result = $this->sendMessageDig($phone, $message);
                 break;
-}
+        }
         case "DIG_FC": {
                 //$result = $this->sendMessageDig($phone, $message, "FLASHCALL");
             $result = $this->sms($phone, $message, $callback);
                 break;
-}
+        }
         }
 
         if ($result["status"]) {
@@ -3287,32 +3288,32 @@ class BonusApp
                 $description = "Введите код подтверждения, который мы направили в СМС";
                 //$description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                 break;
-}
+        }
 
         case "WHATSAPP": { //WHATSAPP
                 $result = $this->sendWhatsapp($phone, $confirmation_code);
                 $description = "Введите код подтверждения, который мы направили в Whatsapp.";
                 break;
-}
+        }
 
         case "NT": {
                 $result = $this->callPassword($phone, $confirmation_code);
                 $description = "Мы позвоним Вам, после звонка, введите последние 4 цифры номера телефона.";
                 break;
-}
+        }
 
         case "DIG": {
                 $result = $this->sms($phone, $confirmation_code, true);
                 $description = "Введите код подтверждения, который мы направили в СМС";
                 //$description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                 break;
-}
+        }
         case "DIG_FC": {
             $result = $this->sms($phone, $confirmation_code, true);
                 $description = "Введите код подтверждения, который мы направили в СМС";
                 //$description = "С вашим WA что-то нетак :( Код подтверждения направлен по СМС";
                 break;
-}
+        }
         }
 
         if ($result["status"]) {
@@ -4427,9 +4428,12 @@ class BonusApp
                 }
 
                 foreach ($purchases as $key => $purchase) {
-                    foreach ($positions as $key => $position) { if ($purchase["id"] == $position["purchase_id"]) { array_push($purchase["positions"], $position);
+                    foreach ($positions as $key => $position) {
+                        if ($purchase["id"] == $position["purchase_id"]) {
+                            array_push($purchase["positions"], $position);
+                        }
                     }
-                    }
+
                     array_push($result["data"], $purchase);
                 }
 
@@ -4450,16 +4454,18 @@ class BonusApp
             $currentStores = [];
 
             $operationResult = $this->getStores();
-            if ($operationResult["status"]) { $currentStores = array_map(
-                function ($store) {
-                    return $store["rsa_id"];
-                },
-                $operationResult["data"]
-            );
+            if ($operationResult["status"]) { 
+                $currentStores = array_map(
+                    function ($store) {
+                        return $store["rsa_id"];
+                    },
+                    $operationResult["data"]
+                );
             }
 
             $this->pdo->beginTransaction();
-            foreach ($stores as $store) { array_push($result["data"], (!in_array($store["rsa_id"], $currentStores) ? $this->addStore($store) : $this->updateStore($store)));
+            foreach ($stores as $store) {
+                array_push($result["data"], (!in_array($store["rsa_id"], $currentStores) ? $this->addStore($store) : $this->updateStore($store)));
             }
             $this->pdo->commit();
 
@@ -4537,6 +4543,7 @@ class BonusApp
         );
         $query->execute();
         $queryResult = $query->fetchAll();
+
         foreach ($this->array_unique_key($queryResult, 'city_name') as $item) {
             if (!empty($item['city_name'])) {
                 $cities[] = [
@@ -4560,7 +4567,6 @@ class BonusApp
     private function getStoresList($cityId)
     {
         $result = ["status" => false];
-
 
         $query = $this->pdo->prepare(
             "SELECT

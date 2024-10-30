@@ -1,14 +1,22 @@
 <?php
-class LMX {
+class LMX
+{
     private $SAPI_accessToken = null;
     private $PAPI_accessToken = null;
 
-    function __construct($SAPI_accessToken = "", $PAPI_accessToken = "") {
-        if (!empty($SAPI_accessToken)) $this->SAPI_accessToken = $SAPI_accessToken;
-        if (!empty($PAPI_accessToken)) $this->PAPI_accessToken = $PAPI_accessToken;
+    function __construct($SAPI_accessToken = "", $PAPI_accessToken = "")
+    {
+        if (!empty($SAPI_accessToken)) { 
+            $this->SAPI_accessToken = $SAPI_accessToken;
+        }
+
+        if (!empty($PAPI_accessToken)) { 
+            $this->PAPI_accessToken = $PAPI_accessToken;
+        }
     }
 
-    private function doRequest($url, $opts, $returnHeaders = false) {
+    private function doRequest($url, $opts, $returnHeaders = false)
+    {
         $result = ["status" => false, "data" => null];
         $optSsl = array(
                         "ssl" => array(
@@ -28,7 +36,9 @@ class LMX {
                 $result["description"] = "ERROR_DESCRIPTION";
             }
 
-            if ($returnHeaders) $result["headers"] = $http_response_header;
+            if ($returnHeaders) { 
+                $result["headers"] = $http_response_header;
+            }
         } catch (\Throwable $th) {
             $result["description"] = $th->getMessage();
         }
@@ -38,12 +48,14 @@ class LMX {
     
     // Common methods
 
-    public function setPhone($phone, $personId) {
+    public function setPhone($phone, $personId)
+    {
         $this->initSAPIToken();
         $setPhoneResult = $this->SAPI_SetPhone($personId, $phone);
     }
 
-    public function registerConsumer($phone, $profile, $debug = false) {
+    public function registerConsumer($phone, $profile, $debug = false)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
@@ -66,7 +78,9 @@ class LMX {
                         return ["status" => true, "description" => "Клиент уже зарегистрирован", "data" => ["personId" => $usersResult["data"]->data[0]->id]];
                     } else {
                         // Клиент существует, регистрация уже начата
-                        if ($usersResult["data"]->data[0]->id) $personId = $usersResult["data"]->data[0]->id;
+                        if ($usersResult["data"]->data[0]->id) { 
+                            $personId = $usersResult["data"]->data[0]->id;
+                        }
                     }
                 }
 
@@ -77,70 +91,72 @@ class LMX {
                     if ($registartionActionsResult["status"] && $registartionActionsResult["data"]->result->state == "Success" && !empty($registartionActionsResult["data"]->data->actions)) {
                         // Обрабатываем каждое из действий
                         foreach ($registartionActionsResult["data"]->data->actions as $key => $action) {
-                            if ($action->isDone) continue;
+                            if ($action->isDone) { 
+                                continue;
+                            }
 
                             switch ($action->userActionType) {
-                                case "AcceptTenderOffer": {
-                                    $acceptTenderOfferResult = $this->SAPI_AcceptTenderOffer($personId);
-                                    break;
-                                }
-                                case "ChangePhone": {
-                                    $setPhoneResult = $this->SAPI_SetPhone($personId, $phone);
-                                    break;
-                                }
-                                case "PasswordRequired": {
-                                    $setRandomPasswordResult = $this->SAPI_SetRandomPassword($personId);
-                                    break;
-                                }
-                                case "Questions": {
-                                    $answers = [
-                                        [
-                                            "questionId" => 4,
-                                            "fixedAnswerIds" => null,
-                                            "value" => $profile["firstname"],
-                                            "tag" => "0",
-                                            "questionGroupId" => 1,
-                                            "fixedAnswers" => []
-                                        ],[
-                                            "questionId" => 5,
-                                            "fixedAnswerIds" => null,
-                                            "value" => $profile["lastname"],
-                                            "tag" => "0",
-                                            "questionGroupId" => 1,
-                                            "fixedAnswers" => []
-                                        ],[
-                                            "questionId" => 6,
-                                            "fixedAnswerIds" => null,
-                                            "value" => $profile["middlename"],
-                                            "tag" => "0",
-                                            "questionGroupId" => 1,
-                                            "fixedAnswers" => []
-                                        ],[
-                                            "questionId" => 35,
-                                            "fixedAnswerIds" => null,
-                                            "value" => $profile["birthdate"],
-                                            "tag" => "0",
-                                            "questionGroupId" => 1,
-                                            "fixedAnswers" => []
-                                        ],[
-                                            "questionId" => 38,
-                                            "fixedAnswerIds" => null,
-                                            "value" => $profile["email"],
-                                            "tag" => "0",
-                                            "questionGroupId" => 1,
-                                            "fixedAnswers" => []
-                                        ],[
-                                            "questionId" => 37,
-                                            "fixedAnswerIds" => null,
-                                            "value" => $profile["city"],
-                                            "tag" => "0",
-                                            "questionGroupId" => 1,
-                                            "fixedAnswers" => []
-                                        ]
-                                    ];
-                                    $updateAnswersResult = $this->SAPI_UpdateAnswers($personId, $answers);
-                                    break;
-                                }
+                            case "AcceptTenderOffer": {
+                                $acceptTenderOfferResult = $this->SAPI_AcceptTenderOffer($personId);
+                                break;
+                            }
+                            case "ChangePhone": {
+                                $setPhoneResult = $this->SAPI_SetPhone($personId, $phone);
+                                break;
+                            }
+                            case "PasswordRequired": {
+                                $setRandomPasswordResult = $this->SAPI_SetRandomPassword($personId);
+                                break;
+                            }
+                            case "Questions": {
+                                $answers = [
+                                    [
+                                        "questionId" => 4,
+                                        "fixedAnswerIds" => null,
+                                        "value" => $profile["firstname"],
+                                        "tag" => "0",
+                                        "questionGroupId" => 1,
+                                        "fixedAnswers" => []
+                                    ],[
+                                        "questionId" => 5,
+                                        "fixedAnswerIds" => null,
+                                        "value" => $profile["lastname"],
+                                        "tag" => "0",
+                                        "questionGroupId" => 1,
+                                        "fixedAnswers" => []
+                                    ],[
+                                        "questionId" => 6,
+                                        "fixedAnswerIds" => null,
+                                        "value" => $profile["middlename"],
+                                        "tag" => "0",
+                                        "questionGroupId" => 1,
+                                        "fixedAnswers" => []
+                                    ],[
+                                        "questionId" => 35,
+                                        "fixedAnswerIds" => null,
+                                        "value" => $profile["birthdate"],
+                                        "tag" => "0",
+                                        "questionGroupId" => 1,
+                                        "fixedAnswers" => []
+                                    ],[
+                                        "questionId" => 38,
+                                        "fixedAnswerIds" => null,
+                                        "value" => $profile["email"],
+                                        "tag" => "0",
+                                        "questionGroupId" => 1,
+                                        "fixedAnswers" => []
+                                    ],[
+                                        "questionId" => 37,
+                                        "fixedAnswerIds" => null,
+                                        "value" => $profile["city"],
+                                        "tag" => "0",
+                                        "questionGroupId" => 1,
+                                        "fixedAnswers" => []
+                                    ]
+                                ];
+                                $updateAnswersResult = $this->SAPI_UpdateAnswers($personId, $answers);
+                                break;
+                            }
                             }
                         }
 
@@ -149,12 +165,14 @@ class LMX {
                         if ($registartionActionsResult["status"] && $registartionActionsResult["data"]->result->state == "Success" && !empty($registartionActionsResult["data"]->data->actions)) {
                             $isDone = true;
 
-                            foreach ($registartionActionsResult["data"]->data->actions as $key => $action)
+                            foreach ($registartionActionsResult["data"]->data->actions as $key => $action) {
                                 if (!$action->isDone) {
                                     $isDone = false;
-                                    if ($debug) $result["debug"] = $action;
+                                    if ($debug) { $result["debug"] = $action;
+                                    }
                                     break;
                                 }
+                            }
 
                             if ($isDone) {
                                 $tryToFinishRegistrationResult = $this->SAPI_TryFinishRegistration($personId);
@@ -162,7 +180,9 @@ class LMX {
                                     $result = ["status" => true, "data" => ["personId" => $personId]];
                                 } else {
                                     $result["description"] = "Не удалось завершить регистрацию.";
-                                    if ($debug) $result["debug"] = $tryToFinishRegistrationResult;
+                                    if ($debug) { 
+                                        $result["debug"] = $tryToFinishRegistrationResult;
+                                    }
                                 }
                             } else {
                                 $result["description"] = json_encode($registartionActionsResult["data"]->data->actions);//"Остаются незавершенные этапы регистрации.";
@@ -186,7 +206,8 @@ class LMX {
         return $result;
     }
 
-    public function getConsumerData($phone) {
+    public function getConsumerData($phone)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
@@ -209,13 +230,16 @@ class LMX {
         return $result;
     }
 
-    public function emitVirtual($personId, $debug = false) {
+    public function emitVirtual($personId, $debug = false)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
 
             $emitVirtualResult = $this->SAPI_EmitVirtual($personId);
-            if ($debug) $result["debug"] = $emitVirtualResult["data"];
+            if ($debug) { 
+                $result["debug"] = $emitVirtualResult["data"];
+            }
             if ($emitVirtualResult["status"]) {
                 if ($emitVirtualResult["data"]->result->state == "Success") {
                     $result["status"] = true;
@@ -242,7 +266,7 @@ class LMX {
         $currency = new stdClass;
         $currency->name = "Тарелочки";
 
-        for($i=0; $i < count($items); $i++) {
+        for ($i=0; $i < count($items); $i++) {
             if ($items[$i]->currency->id == 3) {
                 $amount += $items[$i]->amount;
                 $notActivatedAmount += $items[$i]->notActivatedAmount;
@@ -273,7 +297,7 @@ class LMX {
         $currency = new stdClass;
         $currency->name = "Тарелочки";
 
-        for($i=0; $i < count($items); $i++) {
+        for ($i=0; $i < count($items); $i++) {
             if ($items[$i]->currency->id == 4) {
                 $balance = $items[$i]->balance;
                 $notActivated = $items[$i]->notActivated;
@@ -288,26 +312,32 @@ class LMX {
         return $currencyItem;
     }
 
-    public function getBalancePron($personId, $debug = false) {
+    public function getBalancePron($personId, $debug = false)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
 
             $methodResult = $this->SAPI_DetailedBalance($personId);
-            if ($debug) $result["debug"] = $methodResult;
+            if ($debug) {
+                $result["debug"] = $methodResult;
+            }
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
 
                 //if (!empty($methodResult["data"]->data->items)) {
                     $itemCurr = $this->getCurrencyDetailedBalance($methodResult["data"]->data->items);
                     $lifeTimes = [];
 
-                    if (!empty($itemCurr->lifeTimesByTime))
-                        foreach($itemCurr->lifeTimesByTime as $value) {
-                            array_push($lifeTimes, [
-                                "amount" => $value->amount * 100,
-                                "date" => $value->date
-                            ]);
-                        }
+                if (!empty($itemCurr->lifeTimesByTime)) {
+                    foreach ($itemCurr->lifeTimesByTime as $value) {
+                        array_push(
+                            $lifeTimes, [
+                            "amount" => $value->amount * 100,
+                            "date" => $value->date
+                                ]
+                        );
+                    }
+                }
 
                     $result["status"] = true;
                     $result["data"] = [
@@ -315,9 +345,9 @@ class LMX {
                         "activation"    => $itemCurr->notActivatedAmount,
                         "lifeTimes"     => $lifeTimes
                     ];
-                //} else {
-                //    $result["description"] = "Бонусные счета отсутствуют.";
-                //}
+                    //} else {
+                    //    $result["description"] = "Бонусные счета отсутствуют.";
+                    //}
             } else {
                 $result["description"] = "Не удалось запросить информацию о балансе.";
             }
@@ -328,25 +358,31 @@ class LMX {
         return $result;
     }
 
-    public function getBalance($personId, $debug = false) {
+    public function getBalance($personId, $debug = false)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
 
             $methodResult = $this->SAPI_DetailedBalance($personId);
-            if ($debug) $result["debug"] = $methodResult;
+            if ($debug) {
+                $result["debug"] = $methodResult;
+            }
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
                 //if (!empty($methodResult["data"]->data->items)) {
                     $itemCurr = $this->getCurrencyDetailedBalance($methodResult["data"]->data->items);
                     $lifeTimes = [];
 
-                    if (!empty($itemCurr->lifeTimesByTime))
-                        foreach($itemCurr as $value) {
-                                array_push($lifeTimes, [
-									"amount" => round(($value->amount * 100) + gmp_sign(intval($value->amount)) * 0.5),
-                                    "date"   => $value->date
-                                ]);
-                        }
+                if (!empty($itemCurr->lifeTimesByTime)) {
+                    foreach ($itemCurr as $value) {
+                        array_push(
+                            $lifeTimes, [
+                            "amount" => round(($value->amount * 100) + gmp_sign(intval($value->amount)) * 0.5),
+                            "date"   => $value->date
+                                    ]
+                        );
+                    }
+                }
 
                     $result["status"] = true;
                     $result["data"] = [
@@ -354,9 +390,9 @@ class LMX {
                         "activation" => $itemCurr->notActivatedAmount,
                         "lifeTimes"  => $lifeTimes
                     ];
-                //} else {
-                //    $result["description"] = "Бонусные счета отсутствуют.";
-                //}
+                    //} else {
+                    //    $result["description"] = "Бонусные счета отсутствуют.";
+                    //}
             } else {
                 $result["description"] = "Не удалось запросить информацию о балансе.";
             }
@@ -367,13 +403,16 @@ class LMX {
         return $result;
     }
 
-    public function getBalanceNew($personId, $debug = false) {
+    public function getBalanceNew($personId, $debug = false)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
 
             $methodResult = $this->SAPI_Balance($personId);
-            if ($debug) $result["debug"] = $methodResult;
+            if ($debug) { 
+                $result["debug"] = $methodResult;
+            }
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
                 //if (!empty($methodResult["data"]->data)) {
                     $itemCurr = $this->getCurrencyBalance($methodResult["data"]->data);
@@ -382,9 +421,9 @@ class LMX {
                         "name" => $itemCurr->currency->name,
                         "amount" => $itemCurr->balance + $itemCurr->notActivated
                     ];
-                //} else {
-                //    $result["description"] = "Бонусные счета отсутствуют.";
-                //}
+                    //} else {
+                    //    $result["description"] = "Бонусные счета отсутствуют.";
+                    //}
             } else {
                 $result["description"] = "Не удалось запросить информацию о балансе.";  
             }
@@ -393,13 +432,16 @@ class LMX {
         return $result;
     }
 
-    public function getConsumerCards($personId, $debug = false) {
+    public function getConsumerCards($personId, $debug = false)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
 
             $methodResult = $this->SAPI_UsersCards($personId);
-            if ($debug) $result["debug"] = $methodResult["data"];
+            if ($debug) {
+                $result["debug"] = $methodResult["data"];
+            }
             if ($methodResult["status"] && array_key_exists("data", $methodResult) && is_object($methodResult["data"]) && $methodResult["data"]->result->state == "Success") {
                 if (!empty($methodResult["data"]->data)) {
                     $result["status"] = true;
@@ -417,7 +459,8 @@ class LMX {
         return $result;
     }
 
-    public function getPurchases($filters) {
+    public function getPurchases($filters)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
@@ -431,7 +474,8 @@ class LMX {
         return $result;
     }
 
-    public function getPurchase($purchaseId) {
+    public function getPurchase($purchaseId)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
@@ -445,7 +489,8 @@ class LMX {
         return $result;
     }
 
-    public function getPurchaseOperations($purchaseId) {
+    public function getPurchaseOperations($purchaseId)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
@@ -459,7 +504,8 @@ class LMX {
         return $result;
     }
 
-    public function getChequePositions($purchaseId) {
+    public function getChequePositions($purchaseId)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
@@ -473,7 +519,8 @@ class LMX {
         return $result;
     }
 
-    public function deregisterConsumer($personId) {
+    public function deregisterConsumer($personId)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
@@ -487,13 +534,15 @@ class LMX {
         return $result;
     }
 
-    private function getHistoryForPartner($rows) {
+    private function getHistoryForPartner($rows)
+    {
         $items = [];
 
         for ($i = 0; $i < count($rows); $i++) {
             if ($rows[$i]->partnerId == "3fba867b-1681-3ade-c5fa-efe294c5b48d"
-            ||
-            $rows[$i]->partnerId == "85791858-5d6c-fe38-7fce-4d94c2fc8d4d") {
+                
+                || $rows[$i]->partnerId == "85791858-5d6c-fe38-7fce-4d94c2fc8d4d"
+            ) {
                 $row = new stdClass;
                 $row = $rows[$i];
                 $items[] = $row;
@@ -503,7 +552,8 @@ class LMX {
         return $items;
     } 
 
-    public function getHistory($personId, $filters = null, $debug = false) {
+    public function getHistory($personId, $filters = null, $debug = false)
+    {
         // Пример:
         // $filters = [
         //     "fromDate" => "2021-01-01",
@@ -515,7 +565,9 @@ class LMX {
             $result = ["status" => false, "description" => ""];
 
             $methodResult = $this->SAPI_History($personId, $filters, $debug);
-            if ($debug) $result["debug"] = $methodResult["data"];
+            if ($debug) {
+                $result["debug"] = $methodResult["data"];
+            }
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
                 $rows = $this->getHistoryForPartner($methodResult["data"]->data->rows);
                 //if (!empty($methodResult["data"]->data->rows)) {
@@ -545,17 +597,21 @@ class LMX {
                             ];
     
                             switch ($row->type) {
-                                case "RewardData": {
-                                    if (in_array($row->data->rewardType, $acceptedRewardTypes)) $transaction["type"] = $row->data->rewardType;
-
-                                    break;
+                            case "RewardData": {
+                                if (in_array($row->data->rewardType, $acceptedRewardTypes)) {
+                                    $transaction["type"] = $row->data->rewardType;
                                 }
 
-                                case "WithdrawData": {
-                                    if (in_array($row->data->withdrawType, $acceptedWithdrawTypes)) $transaction["type"] = $row->data->withdrawType;
+                                break;
+                            }
 
-                                    break;
+                            case "WithdrawData": {
+                                if (in_array($row->data->withdrawType, $acceptedWithdrawTypes)) {
+                                    $transaction["type"] = $row->data->withdrawType;
                                 }
+
+                                break;
+                            }
                             }
 
                             if (isset($transaction["type"])) {
@@ -566,9 +622,9 @@ class LMX {
                     }
 
                     $result["status"] = true;
-                //} else {
-                //    $result["description"] = "История покупок за выбранный период пуста.";    
-                //}
+                    //} else {
+                    //    $result["description"] = "История покупок за выбранный период пуста.";    
+                    //}
             } else {
                 $result["description"] = "Не удалось получить историю покупок.";    
             }
@@ -579,7 +635,8 @@ class LMX {
         return $result;   
     }
 
-    public function getPurchasesFullData($filters, $debug = false) {
+    public function getPurchasesFullData($filters, $debug = false)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
@@ -587,14 +644,18 @@ class LMX {
             $methodResult = $this->SAPI_Purchases($filters);
             if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
                 if (!empty($methodResult["data"]->data)) {
-                    if ($debug) debug($methodResult["data"]);
+                    if ($debug) {
+                        debug($methodResult["data"]);
+                    }
                     
                     $purchases = [];
 
                     foreach ($methodResult["data"]->data as $key => $purchase) {
                         $chequePositionsResult = $this->SAPI_ChequePositions($purchase->purchaseId);
                         if ($chequePositionsResult["status"] && $chequePositionsResult["data"]->result->state == "Success") {
-                            if ($debug) debug($chequePositionsResult["data"]);
+                            if ($debug) {
+                                debug($chequePositionsResult["data"]);
+                            }
                             
                             $oper_day = new DateTime($purchase->purchaseTime);
                             $sale_time = new DateTime($purchase->completeTime);
@@ -617,8 +678,9 @@ class LMX {
                                 "positions" => []
                             ];
 
-                            if (!empty($chequePositionsResult["data"]->data)) foreach ($chequePositionsResult["data"]->data as $key => $chequePosition) {
-                                $position = [
+                            if (!empty($chequePositionsResult["data"]->data)) {
+                                foreach ($chequePositionsResult["data"]->data as $key => $chequePosition) {
+                                    $position = [
                                     "product_id" => null,
                                     "title" => $chequePosition->gooodName,
                                     "count" => $chequePosition->quantity * 1000,
@@ -630,13 +692,15 @@ class LMX {
                                     "discount_amount_1" => 0,
                                     "payment_amount_1" => 0,
                                     "amount" => $chequePosition->amount->amount * 100
-                                ];
+                                    ];
 
-                                if (!empty($chequePosition->discounts)) {
-                                    foreach ($chequePosition->discounts as $key => $discount) {
-                                        if (!$discount->amount->amount) continue;
+                                    if (!empty($chequePosition->discounts)) {
+                                        foreach ($chequePosition->discounts as $key => $discount) {
+                                            if (!$discount->amount->amount) { 
+                                                continue;
+                                            }
     
-                                        switch ($discount->type) {
+                                            switch ($discount->type) {
                                             case "CalculatedDiscount": {
                                                 if ($discount->amount->currencyInfo->id === 4) {
                                                     $position["discount_amount"] += $discount->amount->amount * 100;
@@ -665,33 +729,36 @@ class LMX {
                                                 $position["amount"] += $discount->amount->amount * 100;
                                                 break;
                                             }
+                                            }
                                         }
                                     }
-                                }
 
-                                if (!empty($chequePosition->refunds)) {
-                                    $purchase["operation_type"] = 0;
+                                    if (!empty($chequePosition->refunds)) {
+                                        $purchase["operation_type"] = 0;
 
-                                    foreach ($chequePosition->refunds as $key => $refund) {
-                                        if (!$refund->amount->amount) continue;
+                                        foreach ($chequePosition->refunds as $key => $refund) {
+                                            if (!$refund->amount->amount) { 
+                                                continue;
+                                            }
     
-                                        if ($refund->amount->currencyInfo->id == 4) {
-                                            $position["cashback_amount"] += $refund->amount->amount * 100;
-                                        } else {
-                                            $position["cashback_amount_1"] += $refund->amount->amount * 100;
+                                            if ($refund->amount->currencyInfo->id == 4) {
+                                                $position["cashback_amount"] += $refund->amount->amount * 100;
+                                            } else {
+                                                $position["cashback_amount_1"] += $refund->amount->amount * 100;
+                                            }
                                         }
                                     }
-                                }
 
-                                $purchase["amount"]             += $position["amount"];
-                                $purchase["cashback_amount"]    += $position["cashback_amount"];
-                                $purchase["discount_amount"]    += $position["discount_amount"];
-                                $purchase["payment_amount"]     += $position["payment_amount"];
-                                $purchase["cashback_amount_1"]  += $position["cashback_amount_1"];
-                                $purchase["discount_amount_1"]  += $position["discount_amount_1"];
-                                $purchase["payment_amount_1"]   += $position["payment_amount_1"];
+                                    $purchase["amount"]             += $position["amount"];
+                                    $purchase["cashback_amount"]    += $position["cashback_amount"];
+                                    $purchase["discount_amount"]    += $position["discount_amount"];
+                                    $purchase["payment_amount"]     += $position["payment_amount"];
+                                    $purchase["cashback_amount_1"]  += $position["cashback_amount_1"];
+                                    $purchase["discount_amount_1"]  += $position["discount_amount_1"];
+                                    $purchase["payment_amount_1"]   += $position["payment_amount_1"];
 
-                                array_push($purchase["positions"], $position);
+                                    array_push($purchase["positions"], $position);
+                            }
                             }
                             array_push($purchases, $purchase);
                         }
@@ -712,7 +779,8 @@ class LMX {
         return $result;
     }
 
-    public function getMerchants($phone) {
+    public function getMerchants($phone)
+    {
         $methodResult = $this->PAPI_Merchants();
         if ($methodResult["status"] && $methodResult["data"]->result->state == "Success") {
             $result = $methodResult;
@@ -723,7 +791,8 @@ class LMX {
         return $result;
     }
 
-    public function setPartnerAttributeValue($phone, $value) {
+    public function setPartnerAttributeValue($phone, $value)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $data = [
@@ -749,7 +818,8 @@ class LMX {
         return $result;
     }
 
-    public function setDiscountAttributeValue($phone, $value) {
+    public function setDiscountAttributeValue($phone, $value)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $data = [
@@ -767,13 +837,16 @@ class LMX {
         return $result;
     }
 
-    public function setCardToAccount($personId, $cardNumber){
+    public function setCardToAccount($personId, $cardNumber)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
-            $operationResult = $this->SAPI_SetCardToAccount($personId, [
+            $operationResult = $this->SAPI_SetCardToAccount(
+                $personId, [
                 "cardNumber" => $cardNumber,
                 "cvcCode" => ""
-            ]);
+                ]
+            );
             if ($operationResult["status"]) {
                 if ($operationResult["data"]->result->state == "Success") {
                     $result["status"] = true;
@@ -790,11 +863,12 @@ class LMX {
         return $result;
     }
 
-    public function chargeOns($cardNumbers, $amount, $extId, $description = "bonus.мирпосуды27.рф", $deposit = true, $identifierType = "cardNumber") {
+    public function chargeOns($cardNumbers, $amount, $extId, $description = "bonus.мирпосуды27.рф", $deposit = true, $identifierType = "cardNumber")
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $type = ($deposit ? "Deposit" : "Withdraw");
-	    $str = "";
+            $str = "";
             foreach ($cardNumbers as $el) {
                 $str .= '{
                     "Identifier": "' . $el . '",
@@ -860,7 +934,8 @@ class LMX {
         return $result;
     }
 
-    public function chargeOn($cardNumber, $amount, $extId, $description = "bonus.mp27.ru", $deposit = true) {
+    public function chargeOn($cardNumber, $amount, $extId, $description = "bonus.mp27.ru", $deposit = true)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $type = ($deposit ? "Deposit" : "Withdraw");
@@ -926,7 +1001,8 @@ class LMX {
         return $result;
     }
 
-    public function chargeOnRegisterBonus($phone) {
+    public function chargeOnRegisterBonus($phone)
+    {
         $result = $this->initSAPIToken();
         if ($result["status"]) {
             $rawData = '{
@@ -992,7 +1068,8 @@ class LMX {
 
     // Public API methods
 
-    private function initPAPIToken($phone) {
+    private function initPAPIToken($phone)
+    {
         $result = ["status" => false, "data" => null];
 
         if (!$this->PAPI_accessToken) {
@@ -1001,7 +1078,9 @@ class LMX {
                 $result = $this->PAPI_Authorize($phone, $result["data"]->access_token);
                 if ($result["status"]) {
                     $result = $this->PAPI_GetToken(explode("code=", $result["headers"][5])[1]);
-                    if ($result["status"]) $this->PAPI_accessToken = $result["data"]->access_token;
+                    if ($result["status"]) {
+                        $this->PAPI_accessToken = $result["data"]->access_token;
+                    }
                 }
             } 
         } else {
@@ -1011,7 +1090,8 @@ class LMX {
         return $result;
     }
 
-    private function PAPI_GetAnonymousToken() {
+    private function PAPI_GetAnonymousToken()
+    {
         $result = ["status" => false, "data" => null];
 
         $url = LMX_HOST . "/authorizationservice/token?client_id=" . LMX_CLIENT_ID;
@@ -1031,7 +1111,8 @@ class LMX {
         return $result;
     }
 
-    private function PAPI_Authorize($phone, $anonymousToken, $scope = ["account", "profile", "coupon", "cards", "counters", "history", "merchants"]) {
+    private function PAPI_Authorize($phone, $anonymousToken, $scope = ["account", "profile", "coupon", "cards", "counters", "history", "merchants"])
+    {
         $result = ["status" => false, "data" => null];
         // GET https://localhost/authorizationService/oauth/authorize?client_id={app_id}&redirect_uri={redirect_uri}&response_type=code&scope=account HTTP/1.1
         // Authorization: Bearer {merchant_token}
@@ -1052,7 +1133,8 @@ class LMX {
         return $result;
     }
 
-    private function PAPI_GetToken($code) {
+    private function PAPI_GetToken($code)
+    {
         $result = ["status" => false, "data" => null];
 
         $url = LMX_HOST . "/authorizationservice/token";
@@ -1078,11 +1160,13 @@ class LMX {
         return $result;
     }
 
-    private function PAPI_CheckToken() {
+    private function PAPI_CheckToken()
+    {
         return ["status" => $this->PAPI_accessToken != null, "description" => (!$this->PAPI_accessToken ? "Отсутствует ключ" : "Ok")];
     }
 
-    private function PAPI_History($filters) {
+    private function PAPI_History($filters)
+    {
         // $filters = [
         //     "filter.fromDate" => "2021-09-01",
         //     "filter.historyItemType" => "Purchase",
@@ -1094,7 +1178,9 @@ class LMX {
             $result = ["status" => false, "data" => null];
 
             $params = [];
-            foreach ($filters as $key => $param) array_push($params, $key . "=" . $param);
+            foreach ($filters as $key => $param) {
+                array_push($params, $key . "=" . $param);
+            }
 
             $url = LMX_HOST . "/publicapi/v1.2/history?" . join("&", $params);
             $options = array(
@@ -1112,7 +1198,8 @@ class LMX {
         return $result;
     }
 
-    private function PAPI_Merchants() {
+    private function PAPI_Merchants()
+    {
         // $filters = [
         //     "filter.fromDate" => "2021-09-01",
         //     "filter.historyItemType" => "Purchase",
@@ -1134,12 +1221,15 @@ class LMX {
     }
 
     // System API methods
-    public function initOauthToken() {
+    public function initOauthToken()
+    {
         $result = ["status" => false, "data" => null];
 
         if (!$this->Oauth_accessToken) {
             $result = $this->Oauth_GetToken();
-            if ($result["status"]) $this->Oauth_accessToken = $result["data"]->access_token;    
+            if ($result["status"]) { 
+                $this->Oauth_accessToken = $result["data"]->access_token;
+            }    
         } else {
             $result["status"] = true;
         }
@@ -1147,7 +1237,8 @@ class LMX {
         return $result;
     }
 
-    private function Oauth_GetToken() {
+    private function Oauth_GetToken()
+    {
         $result = ["status" => false, "data" => null];
 
         $url = LMX_HOST . "/authorizationservice/token";
@@ -1167,17 +1258,22 @@ class LMX {
         return $result;
     }
 
-    private function Oauth_CheckToken() {
+    private function Oauth_CheckToken()
+    {
         return ["status" => $this->Oauth_accessToken != null, "description" => (!$this->Oauth_accessToken ? "Отсутствует ключ" : "Ok")];
     }
 
     // System API methods
-    public function initSAPIToken() {
+    public function initSAPIToken()
+    {
         $result = ["status" => false, "data" => null];
 
         if (!$this->SAPI_accessToken) {
             $result = $this->SAPI_GetToken();
-            if ($result["status"]) $this->SAPI_accessToken = $result["data"]->access_token;    
+            
+            if ($result["status"]) { 
+                $this->SAPI_accessToken = $result["data"]->access_token;
+            }    
         } else {
             $result["status"] = true;
         }
@@ -1185,7 +1281,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_GetToken() {
+    private function SAPI_GetToken()
+    {
         $result = ["status" => false, "data" => null];
 
         $url = LMX_HOST . "/authorizationservice/token";
@@ -1205,11 +1302,13 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_CheckToken() {
+    private function SAPI_CheckToken()
+    {
         return ["status" => $this->SAPI_accessToken != null, "description" => (!$this->SAPI_accessToken ? "Отсутствует ключ" : "Ok")];
     }
 
-    private function SAPI_Users($phone) {
+    private function SAPI_Users($phone)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $result = ["status" => false, "data" => null];
@@ -1230,7 +1329,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_Cards($cardNumber) {
+    private function SAPI_Cards($cardNumber)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $result = ["status" => false, "data" => null];
@@ -1251,7 +1351,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_BeginRegistration($data) {
+    private function SAPI_BeginRegistration($data)
+    {
         // $data = [
         //     "login" => "xxxxx",
         //     "password" => "",
@@ -1278,7 +1379,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_RegistrationActions($personId) {
+    private function SAPI_RegistrationActions($personId)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/RequiredActions";
@@ -1297,7 +1399,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_AcceptTenderOffer($personId) {
+    private function SAPI_AcceptTenderOffer($personId)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/AcceptTenderOffer";
@@ -1318,7 +1421,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_SetRandomPassword($personId, $needNotify = "false") {
+    private function SAPI_SetRandomPassword($personId, $needNotify = "false")
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/SetRandomPassword?needNotify=" . $needNotify;
@@ -1339,7 +1443,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_SetPhone($personId, $phone) {
+    private function SAPI_SetPhone($personId, $phone)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/SetPhone";
@@ -1350,10 +1455,12 @@ class LMX {
                         "authorization: Bearer " . $this->SAPI_accessToken
                     ],
                     'method'  => 'POST',
-                    'content' => json_encode([
+                    'content' => json_encode(
+                        [
                         "phone" => $phone,
                         "withoutCall" => true
-                    ])
+                        ]
+                    )
                 )
             );
             
@@ -1363,7 +1470,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_Questions($personId) {
+    private function SAPI_Questions($personId)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/Questions";
@@ -1382,7 +1490,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_UpdateAnswers($personId, $answers) {
+    private function SAPI_UpdateAnswers($personId, $answers)
+    {
         // $answers = [
         //     [
         //         "questionId" => 1,
@@ -1429,7 +1538,8 @@ class LMX {
         return $result;
     }
 
-    public function SAPI_TryFinishRegistration($personId) {
+    public function SAPI_TryFinishRegistration($personId)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/Registration/TryFinishRegistrationCustomer";
@@ -1450,7 +1560,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_Balance($personId) {
+    private function SAPI_Balance($personId)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/Balance";
@@ -1469,7 +1580,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_DetailedBalance($personId, $date = "") {
+    private function SAPI_DetailedBalance($personId, $date = "")
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/DetailedBalance" . ($date ? "?date=" . $date : "");
@@ -1488,13 +1600,22 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_History($personId, $filters = null, $debug = false) {
+    private function SAPI_History($personId, $filters = null, $debug = false)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/History";
-            if ($filters) $url .= "?";
-            if (isset($filters["fromDate"])) $url .= "&filter.fromDate=" . $filters["fromDate"];
-            if (isset($filters["count"])) $url .= "&filter.count=" . $filters["count"];
+            if ($filters) { 
+                $url .= "?";
+            }
+
+            if (isset($filters["fromDate"])) {
+                $url .= "&filter.fromDate=" . $filters["fromDate"];
+            }
+
+            if (isset($filters["count"])) {
+                $url .= "&filter.count=" . $filters["count"];
+            }
 
             $options = array(
                 'http' => array(
@@ -1511,7 +1632,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_UsersCards($personId, $cardShowMode = "active") {
+    private function SAPI_UsersCards($personId, $cardShowMode = "active")
+    {
         if ($personId && $personId !=="") {
             $result = $this->SAPI_CheckToken();
         } else {
@@ -1535,7 +1657,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_Purchases($filters) {
+    private function SAPI_Purchases($filters)
+    {
         // $filters = [
         //     "startChequeTime" => "2021-09-01", <!--Нижняя граница времени покупки-->
         //     "lastChequeTime" => "2020-04-20T07:09:31.963Z", <!--Верхняя граница времени покупки-->
@@ -1574,7 +1697,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_Purchase($purchaseId) {
+    private function SAPI_Purchase($purchaseId)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId;
@@ -1593,7 +1717,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_PurchaseOperations($purchaseId) {
+    private function SAPI_PurchaseOperations($purchaseId)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId . "/operations";
@@ -1612,7 +1737,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_ChequePositions($purchaseId) {
+    private function SAPI_ChequePositions($purchaseId)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId . "/ChequePositions?showCanceledOperations=false";
@@ -1631,7 +1757,8 @@ class LMX {
         return $result;
     }
     
-    private function SAPI_EmitVirtual($personId) {
+    private function SAPI_EmitVirtual($personId)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/users/" . $personId . "/EmitVirtual";
@@ -1652,7 +1779,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_Deregister($personId, $reason = "Так положено") {
+    private function SAPI_Deregister($personId, $reason = "Так положено")
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/users/" . $personId . "/Deregister";
@@ -1673,7 +1801,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_UpdateAttributeValue($phone, $data) {    
+    private function SAPI_UpdateAttributeValue($phone, $data)
+    {    
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/users/code/" . $phone . "/attributes";
@@ -1694,7 +1823,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_Deposit($data) {    
+    private function SAPI_Deposit($data)
+    {    
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/deposit";
@@ -1715,7 +1845,8 @@ class LMX {
         return $result;
     }
 
-    private function SAPI_SetCardToAccount($personId, $data) {
+    private function SAPI_SetCardToAccount($personId, $data)
+    {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
             $url = LMX_HOST . "/systemapi/v1.2/users/" . $personId . "/SetCard";
@@ -1738,7 +1869,8 @@ class LMX {
 
     //////////////////////////////////////////////////
 
-    private function getTokenAdminLMX() {
+    private function getTokenAdminLMX()
+    {
         $postdata = http_build_query(
             array(
                 'grant_type' => 'password',
@@ -1757,14 +1889,13 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = (array) json_decode(file_get_contents(LMX_HOST.'/authorizationService/token', false, $context));
-
 
         return $result['access_token'];
     }
 
-    private function beginRegistrationLMX($phone, $authToken) {
+    private function beginRegistrationLMX($phone, $authToken)
+    {
         $postdata = array(
             'login' => $phone,
             'password' => "",
@@ -1784,16 +1915,14 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = (array) json_decode(file_get_contents(LMX_HOST.'/publicapi/v1.2/Registration/BeginRegistration', false, $context));
-
         $resultData = (array) $result["data"];
 
         return $resultData;
     }
 
-    private function acceptTenderOfferLMX($authToken, $personalID) {
-
+    private function acceptTenderOfferLMX($authToken, $personalID)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'POST',
@@ -1807,14 +1936,13 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/v1.2/Users/' .$personalID. '/AcceptTenderOffer', false, $context));
-
 
         return $result;
     }
 
-    private function getPhoneNumberLMX($authToken) {
+    private function getPhoneNumberLMX($authToken)
+    {
 
         $opts = array('http' =>
             array(
@@ -1829,14 +1957,13 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = (array) json_decode(file_get_contents(LMX_HOST.'/publicapi/v1.2/User/PhoneNumber/', false, $context));
 
         return $result;
     }
 
-    private function regNewCardLMX($authToken, $cardNumber) {
-
+    private function regNewCardLMX($authToken, $cardNumber)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'GET',
@@ -1850,15 +1977,13 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/v1.2/Cards?cardNumber='.$cardNumber, false, $context));
-
 
         return $result;
     }
 
-    private function getPersonalIdLMX($authToken) {
-
+    private function getPersonalIdLMX($authToken)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'GET',
@@ -1872,16 +1997,14 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = (array) json_decode(file_get_contents(LMX_HOST.'/publicapi/v1.2/User', false, $context));
-
         $resultData = (array) $result['data'];
-
 
         return $resultData['id'];
     }
 
-    private function setPhoneLMX($authToken, $phone, $id) {
+    private function setPhoneLMX($authToken, $phone, $id)
+    {
         $postdata = array(
             'phone' => $phone,
             'withoutCall' => true
@@ -1900,15 +2023,13 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = (array) json_decode(file_get_contents(LMX_HOST.'/systemapi/v1.2/users/' . $id . '/SetPhone', false, $context));
-
 
         return $result;
     }
 
-    public function setPasswordLMX($personalID, $authToken) {
-
+    public function setPasswordLMX($personalID, $authToken)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'POST',
@@ -1922,15 +2043,13 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Users/' .$personalID. '/SetRandomPassword?needNotify=false', false, $context);
-
 
         return $result;
     }
 
-    public function getQuestionsLMX($personalID, $authToken) {
-
+    public function getQuestionsLMX($personalID, $authToken)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'GET',
@@ -1944,15 +2063,13 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Users/' .$personalID. '/Questions', false, $context);
-
 
         return $result;
     }
 
-    public function setProfileLMX($personalID, $authToken, $data) {
-
+    public function setProfileLMX($personalID, $authToken, $data)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'POST',
@@ -1969,15 +2086,13 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Users/' .$personalID. '/UpdateAnswers', false, $context);
-
 
         return $result;
     }
 
-    public function setVirtualCardLMX($personalID, $authToken) {
-
+    public function setVirtualCardLMX($personalID, $authToken)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'PUT',
@@ -1994,15 +2109,13 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Users/' .$personalID. '/EmitVirtual', false, $context);
-
 
         return $result;
     }
 
-    private function getActionsLMX($personalID, $authToken) {
-
+    private function getActionsLMX($personalID, $authToken)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'GET',
@@ -2014,17 +2127,15 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         header('Content-Type: application/json');
         header('Authorization: ' . $authToken);
-
         $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/users/' .$personalID. '/RegistrationActions', false, $context);
-
 
         return $result;
     }
 
-    private function finishRegistrationLMX($personalID, $authToken) {
+    private function finishRegistrationLMX($personalID, $authToken)
+    {
         $postdata = array(
             "personId" => (int) $personalID,
         );
@@ -2042,20 +2153,18 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/Registration/TryFinishRegistrationCustomer', false, $context);
 
         return $result;
     }
 
-    private function getAnonTokenLMX() {
+    private function getAnonTokenLMX()
+    {
         $postdata = http_build_query(
             array(
                 'grant_type' => 'anonymous',
             )
         );
-
-
         $opts = array('http' =>
             array(
                 'method'  => 'POST',
@@ -2063,15 +2172,14 @@ class LMX {
                 'content' => $postdata
             )
         );
-
         $context  = stream_context_create($opts);
-
         $result = (array) json_decode(file_get_contents(LMX_HOST.'/authorizationService/token?client_id='.LMX_CLIENT_ID, false, $context));
 
         return $result['access_token'];
     }
 
-    private function getAuthCodeLMX($accessToken, $phone) {
+    private function getAuthCodeLMX($accessToken, $phone)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'GET',
@@ -2081,20 +2189,16 @@ class LMX {
                 ],
             )
         );
-
         $context = stream_context_create($opts);
-
         file_get_contents(LMX_HOST.'/authorizationService/oauth/authorize?client_id='.LMX_CLIENT_ID.'&redirect_uri='.LMX_REDIRECT_URL.'&response_type=code&scope=account%20profile%20history', false, $context);
-
         $location = $http_response_header[5];
-
         $code = explode('code=', $location)[1];
 
         return $code;
-
     }
 
-    private function OauthLMX($phone) {
+    private function OauthLMX($phone)
+    {
         $accessToken = $this->getAnonTokenLMX();
         $authCode = $this->getAuthCodeLMX($accessToken, $phone);
 
@@ -2117,13 +2221,13 @@ class LMX {
         );
 
         $context  = stream_context_create($opts);
-
         $result = (array) json_decode(file_get_contents(LMX_HOST.'/authorizationService/token', false, $context));
 
         return $result['access_token'];
     }
 
-    private function getBalanceLMX($authToken) {
+    private function getBalanceLMX($authToken)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'GET',
@@ -2135,13 +2239,13 @@ class LMX {
         );
 
         $context = stream_context_create($opts);
-
         $result = file_get_contents(LMX_HOST.'/publicapi/v1.2/User/Balance', false, $context);
 
         return $result;
     }
 
-    private function getTransactionsLMX($authToken) {
+    private function getTransactionsLMX($authToken)
+    {
         $opts = array('http' =>
             array(
                 'method'  => 'GET',
@@ -2151,26 +2255,24 @@ class LMX {
                 ],
             )
         );
-
         $context = stream_context_create($opts);
-
         $result = file_get_contents(LMX_HOST.'/publicapi/v1.2/History', false, $context);
 
         return $result;
     }
 
-    private function chargeOnBonusAccountLMX($cardNumber, $amount, $chargeType, $chargeDescription, $lifeTimeDefinition = null) {
+    private function chargeOnBonusAccountLMX($cardNumber, $amount, $chargeType, $chargeDescription, $lifeTimeDefinition = null)
+    {
         $result = ["status" => false, "data" => null];
         $authToken = $this->getTokenAdminLMX();
         $date = date('Y-m-d H:i:s');
 
-        if ($lifeTimeDefinition !== null){
+        if ($lifeTimeDefinition !== null) {
             $lifeTimeDefinition = [
                 'certainActivationDate' => $date,
                 'certainExpirationDate' => date('Y-m-d H:i:s', strtotime($date. '+ '.$lifeTimeDefinition.' days')),
             ];
         }
-
 
         $postdata = array(
             'operations' => array(array(
@@ -2212,9 +2314,7 @@ class LMX {
             'description' => $chargeDescription,
             'type' => $chargeType,
             'internalDescription' => $chargeDescription,
-
         );
-
         $opts = array('http' =>
             array(
                 'method'  => 'PUT',
@@ -2226,19 +2326,18 @@ class LMX {
                 'content' => json_encode($postdata)
             )
         );
-
         $context  = stream_context_create($opts);
-
         $result = file_get_contents(LMX_HOST.'/systemapi/v1.2/deposit', false, $context);
-
 
         return $result;
 
 
     }
 
-    public function getAttributes($phone, $logicalName) {
+    public function getAttributes($phone, $logicalName)
+    {
         $result = $this->initPAPIToken($phone);
+        
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
 
@@ -2251,7 +2350,8 @@ class LMX {
         return $result;
     }
 
-    private function PAPI_getAttributes($logicalName) {
+    private function PAPI_getAttributes($logicalName)
+    {
         $result = $this->PAPI_CheckToken();
         if ($result["status"]) {
             $result = ["status" => false, "data" => null];
@@ -2273,7 +2373,8 @@ class LMX {
     }
 
 
-    public function setAttributes($phone, $logicalName, $value) {
+    public function setAttributes($phone, $logicalName, $value)
+    {
         $result = $this->initPAPIToken($phone);
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
@@ -2288,7 +2389,8 @@ class LMX {
     }
 
 
-    private function PAPI_setAttributes($logicalName, $value) {
+    private function PAPI_setAttributes($logicalName, $value)
+    {
         $result = $this->PAPI_CheckToken();
         if ($result["status"]) {
             $result = ["status" => false, "data" => null];
