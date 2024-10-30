@@ -658,7 +658,7 @@ class LMX
                             }
                             
                             $oper_day = new DateTime($purchase->purchaseTime);
-                            $sale_time = new DateTime($purchase->completeTime);
+                            $sale_time = new DateTime($purchase->purchaseTime);
                             $purchase = [
                                 "rsa_id" => $purchase->merchant->order,
                                 "operation_type" => 1,
@@ -678,8 +678,8 @@ class LMX
                                 "positions" => []
                             ];
 
-                            if (!empty($chequePositionsResult["data"]->data)) {
-                                foreach ($chequePositionsResult["data"]->data as $key => $chequePosition) {
+                            if (!empty($chequePositionsResult["data"]->data)) 
+                                foreach ($chequePositionsResult["data"]->data->positions as $chequePosition) {
                                     $position = [
                                     "product_id" => null,
                                     "title" => $chequePosition->gooodName,
@@ -1741,7 +1741,7 @@ class LMX
     {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId . "/ChequePositions?showCanceledOperations=false";
+            $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId . "/details?showCanceledOperations=false";
             $options = array(
                 'http' => array(
                     'header' => [
@@ -2337,7 +2337,7 @@ class LMX
     public function getAttributes($phone, $logicalName)
     {
         $result = $this->initPAPIToken($phone);
-        
+
         if ($result["status"]) {
             $result = ["status" => false, "description" => ""];
 

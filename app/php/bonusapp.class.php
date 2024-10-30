@@ -5521,7 +5521,8 @@ class BonusApp
             // Загрузка чеков из ЛМ
             $fromDate = "2021-01-01 00:00:00";
             $getLastPurchaseResult = $this->getLastPurchase($personId);
-            if ($getLastPurchaseResult["status"]) { $fromDate = $getLastPurchaseResult["data"]["sale_time"];
+            if ($getLastPurchaseResult["status"]) { 
+                $fromDate = $getLastPurchaseResult["data"]["sale_time"];
             }
             $getPurchasesFullDataResult = $LMX->getPurchasesFullData(
                 [
@@ -5532,25 +5533,34 @@ class BonusApp
                 "state" => "Confirmed"
                 ]
             );
+
             if ($getPurchasesFullDataResult["status"]) {
                 $currentPurchases = [];
                 $getPurchasesHashResult = $this->getPurchasesHash($personId);
-                if ($getPurchasesHashResult["status"]) { $currentPurchases = $getPurchasesHashResult["data"];
+
+                if ($getPurchasesHashResult["status"]) { 
+                    $currentPurchases = $getPurchasesHashResult["data"];
                 }
 
                 foreach ($getPurchasesFullDataResult["data"]["purchases"] as $purchase) {
-                    array_push(
-                        $result["data"]["purchases"], in_array(md5($purchase["rsa_id"] . $purchase["sale_time"] . $purchase["number"]), $currentPurchases) ?
-                        ["status" => true, "data" => md5($purchase["rsa_id"] . $purchase["sale_time"] . $purchase["number"])] : $this->addPurchase($purchase, $purchase["rsa_id"], $personId)
-                    );
+                    $purch = in_array(md5($purchase["rsa_id"] . $purchase["sale_time"] . $purchase["number"]), $currentPurchases) 
+                    ?
+                    ["status" => true, "data" => md5($purchase["rsa_id"] . $purchase["sale_time"] . $purchase["number"])] 
+                    : 
+                    $this->addPurchase($purchase, $purchase["rsa_id"], $personId);
+                    
+                    array_push($result["data"]["purchases"], $purch);
                 }
             }
 
             // Загрузка транзакций из ЛМ (начисления, списания, сгорания)
             $fromDate = "2021-01-01 00:00:00";
             $getLastTransactionResult = $this->getLastTransaction($personId);
-            if ($getLastTransactionResult["status"]) { $fromDate = $getLastTransactionResult["data"]["date"];
+            
+            if ($getLastTransactionResult["status"]) {
+                $fromDate = $getLastTransactionResult["data"]["date"];
             }
+
             $getHistoryResult = $LMX->getHistory(
                 $personId, [
                 "fromDate" => (new DateTime($fromDate))->format("Y-m-d"),
