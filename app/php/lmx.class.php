@@ -23,7 +23,20 @@ class LMX
                             "verify_peer"      => false,
                             "verify_peer_name" => false,
                         ),
-                    );  
+                    );
+        
+        // Добавляем User Agent в заголовки запроса
+        if (!isset($opts['http']['header'])) {
+            $opts['http']['header'] = [];
+        }
+        if (is_array($opts['http']['header'])) {
+            $opts['http']['header'][] = "User-Agent: Mir Posudy Bonus App/1.0";
+        } else if (is_string($opts['http']['header'])) {
+            $opts['http']['header'] .= "\r\nUser-Agent: Mir Posudy Bonus App/1.0";
+        } else {
+            $opts['http']['header'] = ["User-Agent: Mir Posudy Bonus App/1.0"];
+        }
+
         $options = array_merge($optSsl, $opts);
         $context = stream_context_create($options);
         try {
@@ -1185,7 +1198,7 @@ class LMX
                 array_push($params, $key . "=" . $param);
             }
 
-            $url = LMX_HOST . "/publicapi/v1.2/history?" . join("&", $params);
+            $url = LMX_DADI_HOST . "/publicapi/v1.2/history?" . join("&", $params);
             $options = array(
                 'http' => array(
                     'header'  => [
@@ -1587,7 +1600,7 @@ class LMX
     {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/DetailedBalance" . ($date ? "?date=" . $date : "");
+            $url = LMX_DADI_HOST . "/systemapi/v1.2/Users/" . $personId . "/DetailedBalance" . ($date ? "?date=" . $date : "");
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1607,7 +1620,7 @@ class LMX
     {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/v1.2/Users/" . $personId . "/History";
+            $url = LMX_DADI_HOST . "/systemapi/v1.2/Users/" . $personId . "/History";
             if ($filters) { 
                 $url .= "?";
             }
@@ -1682,7 +1695,7 @@ class LMX
 
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/v1.2/purchases";
+            $url = LMX_DADI_HOST . "/systemapi/v1.2/purchases";
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1704,7 +1717,7 @@ class LMX
     {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId;
+            $url = LMX_DADI_HOST . "/systemapi/v1.2/purchases/" . $purchaseId;
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1724,7 +1737,7 @@ class LMX
     {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId . "/operations";
+            $url = LMX_DADI_HOST . "/systemapi/v1.2/purchases/" . $purchaseId . "/operations";
             $options = array(
                 'http' => array(
                     'header' => [
@@ -1744,7 +1757,7 @@ class LMX
     {
         $result = $this->SAPI_CheckToken();
         if ($result["status"]) {
-            $url = LMX_HOST . "/systemapi/v1.2/purchases/" . $purchaseId . "/details?showCanceledOperations=false";
+            $url = LMX_DADI_HOST . "/systemapi/v1.2/purchases/" . $purchaseId . "/details?showCanceledOperations=false";
             $options = array(
                 'http' => array(
                     'header' => [
@@ -2259,7 +2272,7 @@ class LMX
             )
         );
         $context = stream_context_create($opts);
-        $result = file_get_contents(LMX_HOST.'/publicapi/v1.2/History', false, $context);
+        $result = file_get_contents(LMX_DADI_HOST.'/publicapi/v1.2/History', false, $context);
 
         return $result;
     }

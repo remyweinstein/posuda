@@ -2273,6 +2273,7 @@ class BonusApp
         } else {
             $LMX = new LMX();
             $initSAPITokenResult = $LMX->initSAPIToken();
+            
             if ($initSAPITokenResult["status"]) {
                 $cd = new DateTime();
                 $this->setSAPIToken(["SAPI_token" => $initSAPITokenResult["data"]->access_token, "SAPI_token_date" => $cd->format('Y-m-d H:i:s')]);
